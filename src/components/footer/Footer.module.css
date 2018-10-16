@@ -1,0 +1,15 @@
+.footerDivider {
+  width: 100%;
+}
+
+.flashContainer {
+  display: flex;
+  position: relative;
+}
+
+.flashImg {
+  margin: 10px;
+  height: 30px;
+  margin-bottom: 20px;
+  /* width: 50px; */
+}

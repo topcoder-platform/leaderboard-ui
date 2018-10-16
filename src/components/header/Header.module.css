@@ -1,0 +1,94 @@
+.header {
+  height: 89px;
+  min-height: 89px;
+  width: 100%;
+  position: relative;
+  background-image: url("/titleBackground.png");
+  background-size: cover;
+  overflow: hidden;
+  box-shadow: 1px 4px 15px 0 rgba(0,0,0,0.42);
+}
+
+.logoContainer {
+  width: 400px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+}
+
+.logoBg {
+  position: absolute;
+  left: -19px;
+  width: 350px;
+  height: 100%;
+  transform: skew(-18deg);
+  box-shadow: 0px 0px 15px 0 rgba(0,0,0,0.42);
+  background-image: linear-gradient(90deg, #011921 0%, #07547A 76%);
+}
+
+.logo {
+  position: absolute;
+  left: 72px;
+  top: 10px;
+  height: 72px;
+  z-index: 2;
+}
+
+.sponsorContainer {
+  width: 400px;
+  height: 100%;
+  position: absolute;
+  right: 0;
+}
+
+.sponsorBg {
+  width: 350px;
+  height: 100%;
+  position: absolute;
+  right: -18px;
+  transform: skew(-18deg);
+  background-image: linear-gradient(8deg, #011921 0%, #07547A 70%);
+}
+
+.sponsor {
+  position: absolute;
+  height: 44px;
+  top: 24px;
+  right: 38px;
+}
+
+.title {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: 89px;
+  font-family: 'Montserrat';
+  font-size: 32px;
+  color: #FFFFFF;
+  letter-spacing: 2px;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.50);
+  font-weight: 800;
+}
+
+
+@media only screen and (min-width:1600px){
+  .header {
+    height: 119px;
+    min-height: 119px;
+  }
+
+  .logo {
+    height: 96px;
+  }
+
+  .sponsor {
+    top: 36px;
+    height: 48px;
+  }
+
+  .title {
+    font-size: 48px;
+    line-height: 119px;
+  }
+}
