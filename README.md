@@ -32,19 +32,20 @@ npm install
 
 The app has been developed using [Next.js](https://nextjs.org/)
 
-To make changes to the app and test locally, execute the following command
+To make changes to the app and test locally, set the environment variables and execute the following command
 
 ```bash
-npm run dev
+npm run build
+npm start
 ```
 
-By default, the app launches on `http://localhost:3000`
+If you have set `PORT=3001` in your environment variable, then you can access the app at `http://localhost:3001`.
 
 The app has already been configured for deployment on heroku. No additional changes needed.
 
 ## Contentful Setup
 
-There are 3 pages currently. Each page has its own content model and content that needs to be set up as described below
+There are 3 pages currently. Each page has its own content model and content that needs to be set up as described below. In order to get the data for each page, you need to make an api call to the server at route `/content/:pageName` where `pageName` is the environment variable key of the relevant page that has the contentful entry id of the data as its value. [Example](pages/index.js#L90)
 
 ### Home page
 
