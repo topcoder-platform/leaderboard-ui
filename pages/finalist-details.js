@@ -5,10 +5,11 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import PageHead from '../components/PageHead'
 import Sponsors from '../components/Sponsors'
+import { hexToName } from '../common/helper'
 
 const getStatView = (key, value) => {
   return (
-    <div className='container'>
+    <div key={key} className='container'>
       <div className='value'>{value}</div>
       <div className='key'>{key}</div>
       <style jsx>
@@ -82,10 +83,10 @@ const badgeLayout = (badges) => {
   return (
     <div className='container'>
       <div>
-        {badges.slice(0, 3).map(badge => (<img src={badge} />))}
+        {badges.slice(0, 3).map(badge => (<img key={badge} src={badge} />))}
       </div>
       <div>
-        {badges.slice(3).map(badge => (<img src={badge} />))}
+        {badges.slice(3).map(badge => (<img key={badge} src={badge} />))}
       </div>
       <style jsx>
         {`
@@ -110,8 +111,8 @@ const finalistsList = (props, finalists) => {
   const { primaryColor } = props
   return (
     <div className='container'>
-      {(finalists.map(data => (
-        <div className='card' style={{ opacity: (data.isActive ? '1' : '0.3') }}>
+      {(finalists.map((data, i) => (
+        <div key={i} className='card' style={{ opacity: (data.isActive ? '1' : '0.3') }}>
           <img className='profilePic' src={data.profilePic} />
           <div className='borderOverlay' />
           <img className={'cardHexagonBackground'} src='/static/img/miniHexa.png' alt='hexa' />
@@ -128,15 +129,16 @@ const finalistsList = (props, finalists) => {
           .container {
             display: flex;
             position: relative;
-            flex-wrap: wrap;
+            flex-wrap: wrap
           }
 
           .card {
             width: 100px;
             height: 162px;
-            margin: 10px 10px;
+            margin: 3px;
             position: relative;
             z-index: 1;
+            zoom: 0.7;
           }
           
           .cardHexagonBackground {
@@ -171,7 +173,7 @@ const finalistsList = (props, finalists) => {
             text-align: center;
             background-image: linear-gradient(228.85deg, #002A41 0%, #004E77 100%);
             font-family: Montserrat;
-            font-size: 11px;
+            font-size: 13px;
             font-weight: 700;
             text-align: center;
           }
@@ -189,6 +191,26 @@ const finalistsList = (props, finalists) => {
             bottom: -14px;
             left: 41%;
           }
+
+          @media only screen and (min-width:1400px){
+            .card {
+              zoom: 0.8;
+            }
+          }
+          
+          @media only screen and (min-width:1600px){
+            .card {
+              zoom: 0.9;
+              margin: 5px;
+            }
+          }
+
+          @media only screen and (min-width:1920px){
+            .card {
+              zoom: 1;
+              margin: 10px;
+            }
+          }
         `}
       </style>
     </div>
@@ -196,7 +218,7 @@ const finalistsList = (props, finalists) => {
 }
 
 const FinalistsDetails = (props) => {
-  const { finalists, finalistDetail, primaryColor } = props
+  const { finalists, finalistDetails, primaryColor } = props
   return (
     <div className='container'>
       <PageHead />
@@ -207,27 +229,28 @@ const FinalistsDetails = (props) => {
           <div className='subtitle'>introducing</div>
           <div className='title'>Finalists</div>
         </div>
-        {finalistDetail && <div className='detailsContainer'>
+        {finalistDetails && <div className='detailsContainer'>
           <div className='profilePicContainer'>
-            <img className='profilePicBg' src='/static/img/selectedMemberBg.png' alt='bg' />
-            <img className='profilePic' src={finalistDetail.profilePic} />
+            <img className='profilePicMask' src='/static/img/detailsProfileMask.png' />
+            <img className='profilePicBg' src={`/static/img/avatarBg/right/${hexToName(primaryColor)}.png`} alt='bg' />
+            <img className='profilePic' src={finalistDetails.profilePic} />
           </div>
           <div className='nameContainer'>
             <div className='handle' style={{ color: primaryColor }}>
-              {finalistDetail.handle}
+              {finalistDetails.handle}
             </div>
             <div className='fullname'>
-              {finalistDetail.fullName}
+              {finalistDetails.fullName}
             </div>
             <div className='countryDetails'>
-              <img className='countryFlag' src={finalistDetail.countryFlag} />
-              {finalistDetail.country}
+              <img className='countryFlag' src={finalistDetails.countryFlag} />
+              {finalistDetails.country}
             </div>
           </div>
           <img className='divider' src='/static/img/verticalDivider.png' />
-          {statsLayout(finalistDetail.stats)}
+          {statsLayout(finalistDetails.stats)}
           <img className='divider' src='/static/img/verticalDivider.png' />
-          {badgeLayout(finalistDetail.badges)}
+          {badgeLayout(finalistDetails.badges)}
         </div>}
         {finalistsList(props, finalists)}
       </main>
@@ -266,7 +289,7 @@ const FinalistsDetails = (props) => {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            margin-top: 40px;
+            margin-top: 25px;
             text-transform: uppercase;
           }
 
@@ -305,28 +328,35 @@ const FinalistsDetails = (props) => {
             width: 230px;
             position: relative;
             z-index: 1;
-            margin-bottom: 60px;
+            margin-bottom: 20px;
           }
 
           .profilePicBg {
-            width: 100%;
+            width: 120%;
             position: absolute;
             left: 0px;
-            bottom: 0px;
+            bottom: 12px;
             z-index: -1;
+          }
+
+          .profilePicMask {
+            position: absolute;
+            bottom: -11px;
+            left: -24px;
+            width: 140%;
+            z-index: -2;
           }
 
           .profilePic {
             z-index: 1;
-            margin-left: 24px;
-            margin-bottom: 16px;        
+            margin-left: 52px;
           }
 
           .nameContainer {
             display: flex;
             flex-direction: column;
             justify-content: center;
-            margin-left: 30px;
+            margin-left: 90px;
           }
 
           .handle {
@@ -381,36 +411,10 @@ const FinalistsDetails = (props) => {
   )
 }
 
-const finalists = []
-for (let i = 0; i < 12; i++) {
-  finalists.push({
-    handle: (i % 2) ? 'deedee' : 'tuxing',
-    country: (i % 2) ? 'argentina' : 'italy',
-    profilePic: (i % 2) ? '/static/img/profilePic1.png' : '/static/img/profilePic2.png',
-    countryFlag: (i % 2) ? '/static/img/flag/argentina.png' : '/static/img/flag/italy.png',
-    isActive: (i === 4)
-  })
-}
-
-const finalistDetail = {
-  profilePic: '/static/img/profilePicBig1.png',
-  handle: 'maxceem',
-  fullName: 'Maksym Mykhailenko',
-  country: 'Russia',
-  countryFlag: '/static/img/flag/russia.png',
-  stats: {
-    rating: 1234,
-    competitions: 1222,
-    rank: 2,
-    wins: 123
-  },
-  badges: ['/static/img/badges/1.png', '/static/img/badges/2.png', '/static/img/badges/3.png', '/static/img/badges/4.png', '/static/img/badges/5.png']
-}
-
 FinalistsDetails.getInitialProps = async function () {
   const { publicRuntimeConfig } = getConfig()
 
-  const res = await fetch(`${publicRuntimeConfig.host}/content/CONTENTFUL_MESSAGE_ENTRY_ID`)
+  const res = await fetch(`${publicRuntimeConfig.host}/content/CONTENTFUL_FINALIST_DETAILS_ENTRY_ID`)
 
   const data = await res.json()
 
@@ -422,14 +426,13 @@ FinalistsDetails.getInitialProps = async function () {
     track: data.fields.track,
     round: data.fields.round,
     eventStartDateTime: data.fields.eventStartDateTime,
-    message: data.fields.message,
     tickerType: data.fields.tickerType.fields.file.url,
     tickerSeparator: data.fields.tickerSeparator.fields.file.url,
     tickerMessages: data.fields.tickerMessages,
     mainSponsor: data.fields.mainSponsor.fields.file.url,
     otherSponsors,
-    finalists,
-    finalistDetail
+    finalists: data.fields.finalists,
+    finalistDetails: data.fields.finalistDetails
   }
 }
 

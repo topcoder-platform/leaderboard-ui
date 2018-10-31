@@ -6,15 +6,15 @@ import Footer from '../components/Footer'
 import PageHead from '../components/PageHead'
 import Sponsors from '../components/Sponsors'
 
-const card = (props, showBottomBg, finalist) => {
+const card = (props, showBottomBg, finalist, i) => {
   if (finalist == null) {
-    return (<div style={{ width: '164px', margin: '0px 20px' }} />)
+    return (<div key={i} style={{ width: '164px', margin: '0px 20px' }} />)
   }
   const { primaryColor } = props
   const { handle, country, countryFlag, profilePic } = finalist
   const hexaClassname = (showBottomBg) ? 'bottomBg' : ''
   return (
-    <div className='card'>
+    <div key={i} className='card'>
       <img className={'cardHexagonBackground ' + hexaClassname} src='/static/img/miniHexa.png' alt='hexa' />
       <img className='cardProfilePic' src={profilePic} alt='profile' />
       <div className='cardContent'>
@@ -121,10 +121,9 @@ const Finalists = (props) => {
   const splitIndex = (finalists.length / 2) + (finalists.length % 2)
   const rowOne = finalists.slice(0, splitIndex)
   const rowTwo = finalists.slice(splitIndex)
-  if (rowTwo.length !== 2 && (rowTwo.length % 2 === 1)) {
+  if (finalists.length !== 2 && ((finalists.length % 2) === 1)) {
     rowTwo.push(null)
   }
-  console.log(rowOne, rowTwo)
   return (
     <div className='container'>
       <PageHead />
@@ -229,20 +228,10 @@ const Finalists = (props) => {
   )
 }
 
-const finalists = []
-for (let i = 0; i < 16; i++) {
-  finalists.push({
-    handle: (i % 2) ? 'deedee' : 'tuxing',
-    country: (i % 2) ? 'argentina' : 'italy',
-    profilePic: (i % 2) ? '/static/img/profilePic1.png' : '/static/img/profilePic2.png',
-    countryFlag: (i % 2) ? '/static/img/flag/argentina.png' : '/static/img/flag/italy.png'
-  })
-}
-
 Finalists.getInitialProps = async function () {
   const { publicRuntimeConfig } = getConfig()
 
-  const res = await fetch(`${publicRuntimeConfig.host}/content/CONTENTFUL_MESSAGE_ENTRY_ID`)
+  const res = await fetch(`${publicRuntimeConfig.host}/content/CONTENTFUL_FINALISTS_ENTRY_ID`)
 
   const data = await res.json()
 
@@ -254,13 +243,12 @@ Finalists.getInitialProps = async function () {
     track: data.fields.track,
     round: data.fields.round,
     eventStartDateTime: data.fields.eventStartDateTime,
-    message: data.fields.message,
     tickerType: data.fields.tickerType.fields.file.url,
     tickerSeparator: data.fields.tickerSeparator.fields.file.url,
     tickerMessages: data.fields.tickerMessages,
     mainSponsor: data.fields.mainSponsor.fields.file.url,
     otherSponsors,
-    finalists
+    finalists: data.fields.finalists
   }
 }
 

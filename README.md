@@ -60,7 +60,7 @@ track: // The name of the track
 round: // The round. Example "round 1"
 eventStartDateTime: // The date and time when the event will start
 mainSponsor: // The image for the main sponsor
-otherSponsors // Images for other sponsors
+otherSponsors: // Images for other sponsors
 ```
 
 ### Message page
@@ -80,7 +80,7 @@ tickerMessages: // List of Short Text. Messages to show to the user at the botto
 tickerType: // Media. Used to display the type of messages that will be shown in the ticker
 tickerSeparator: // Media. Separator that is shown in between messages in the ticker
 mainSponsor: // The image for the main sponsor
-otherSponsors // Images for other sponsors
+otherSponsors: // Images for other sponsors
 ```
 
 ### Countdown Timer page
@@ -99,5 +99,91 @@ tickerMessages: // List of Short Text. Messages to show to the user at the botto
 tickerType: // Media. Used to display the type of messages that will be shown in the ticker
 tickerSeparator: // Media. Separator that is shown in between messages in the ticker
 mainSponsor: // The image for the main sponsor
-otherSponsors // Images for other sponsors
+otherSponsors: // Images for other sponsors
+```
+
+### Finalists Page
+
+This page lists all the finalists for a track
+
+The content model for this page is as described below:
+
+```bash
+logo: // The logo that is shown in the header as well as at the center of the page
+primaryColor: // The color theme to use for the header background and the track name. Value provided here should be same as the value used in a css style (example: "#333333")
+track: // The name of the track
+round: // The round. Example "round 1"
+eventStartDateTime: // The date and time when the event will start
+tickerMessages: // List of Short Text. Messages to show to the user at the bottom ticker
+tickerType: // Media. Used to display the type of messages that will be shown in the ticker
+tickerSeparator: // Media. Separator that is shown in between messages in the ticker
+mainSponsor: // The image for the main sponsor
+otherSponsors: // Images for other sponsors,
+finalists: // JSON array of objects, where each object has the following structure:
+  handle: // member handle
+  country: // member country
+  profilePic: // url for the member\'s profile pic
+  countryFlag: // url for the member\'s country\'s flag
+```
+
+### Finalist Details Page
+
+This page lists all the finalists for a track as well as the details of 1 finalist
+
+The content model for this page is as described below:
+
+```bash
+logo: // The logo that is shown in the header as well as at the center of the page
+primaryColor: // The color theme to use for the header background and the track name. Value provided here should be same as the value used in a css style (example: "#333333")
+track: // The name of the track
+round: // The round. Example "round 1"
+eventStartDateTime: // The date and time when the event will start
+tickerMessages: // List of Short Text. Messages to show to the user at the bottom ticker
+tickerType: // Media. Used to display the type of messages that will be shown in the ticker
+tickerSeparator: // Media. Separator that is shown in between messages in the ticker
+mainSponsor: // The image for the main sponsor
+otherSponsors: // Images for other sponsors,
+finalists: // JSON array of objects, where each object has the following structure:
+  handle: // member handle
+  country: // member country
+  profilePic: // url for the member\'s profile pic
+  countryFlag: // url for the member\'s country\'s flag
+  isActive: // boolean. Indicates which members details are being shown. Can be set on only one member at any time
+finalistDetails: // JSON Object with the following structure:
+  profilePic: // url of the members profile pic, in a specific pose
+  fullName: // full name of the member
+  countryFlag: // url of the member\'s country\'s flag
+  stats: // object containing the member\'s stats such as
+    rating:
+    competitions:
+    rank:
+    wins:
+  },
+  badges: // array of url strings that contain the images for the badges earned by the member
+```
+
+### Winners Page
+
+This page lists the winners for a track
+
+The content model for this page is as described below:
+
+```bash
+logo: // The logo that is shown in the header as well as at the center of the page
+primaryColor: // The color theme to use for the header background and the track name. Value provided here should be same as the value used in a css style (example: "#333333")
+track: // The name of the track
+round: // The round. Example "round 1"
+eventStartDateTime: // The date and time when the event will start
+tickerMessages: // List of Short Text. Messages to show to the user at the bottom ticker
+tickerType: // Media. Used to display the type of messages that will be shown in the ticker
+tickerSeparator: // Media. Separator that is shown in between messages in the ticker
+mainSponsor: // The image for the main sponsor
+otherSponsors: // Images for other sponsors,
+finalists: // JSON array of objects, where each object has the following structure:
+  handle: // member handle
+  country: // member country
+  profilePic: // url for the member\'s profile pic
+  countryFlag: // url for the member\'s country\'s flag
+winnersImages: // Images for the winners, arranged in the order in which they won
+prizes: // List of Short Text. Prizes for the winners, arranged in order
 ```

@@ -10,4 +10,13 @@ const leadingZero = (number) => {
   return number
 }
 
-export { leadingZero }
+const hexToName = (hexColor) => {
+  switch (hexColor) {
+    case '#FD7D00': return 'orange'
+    case '#2598D5': return 'blue'
+    case '#5CC900': return 'green'
+  }
+  return 'blue'
+}
+
+export { leadingZero, hexToName }

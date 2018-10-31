@@ -5,6 +5,7 @@ import fetch from 'isomorphic-unfetch'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import PageHead from '../components/PageHead'
+import { hexToName } from '../common/helper'
 
 const rowSize = {
   7: [2, 3, 2],
@@ -176,10 +177,10 @@ const finalistsLayout = (profiles, props) => {
       <style jsx>
         {`
           .container {
-            margin-top: 40px;
+            margin-top: 20px;
             display: flex;
             flex-direction: column;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
           }
           .rowsContainer {
             display: flex;
@@ -199,7 +200,7 @@ const finalistsLayout = (profiles, props) => {
 }
 
 const prizesLayout = (props, showWinners) => {
-  const { finalists, prizes, primaryColor, winnersImage } = props
+  const { finalists, prizes, primaryColor, winnersImages } = props
   return (
     <div className={'container ' + (showWinners && 'containerWithZoom')}>
       <div className='small'>
@@ -208,8 +209,9 @@ const prizesLayout = (props, showWinners) => {
           ${prizes[1]}
         </div>
         {showWinners && <div>
-          <img className='smallBg' src='/static/img/winnerBg1.png' />
-          <img className='smallPic' src={winnersImage[1]} />
+          <img className='smallBg' src={`/static/img/avatarBg/right/${hexToName(primaryColor)}.png`} />
+          <img className='smallPic' src={winnersImages[1]} />
+          <img className='smallMask' src='/static/img/detailsProfileMask.png' />
           <div className='handle' style={{ color: primaryColor }}>
             {finalists[1].handle}
           </div>
@@ -219,14 +221,20 @@ const prizesLayout = (props, showWinners) => {
           </div>
         </div>}
       </div>
-      <div className='large' style={{ marginBottom: ((prizes.length === 2) ? '60px' : (showWinners ? '60px' : '120px')) }}>
+      <div className='large' style={{
+        marginBottom: ((prizes.length === 2) ? '60px' : (showWinners ? '60px' : '120px')),
+        marginLeft: (showWinners) ? '110px' : '60px',
+        marginRight: (showWinners) ? '110px' : '60px'
+      }}>
         <img src='/static/img/goldTrophy.png' />
         <div className='money'>
           ${prizes[0]}
         </div>
         {showWinners && <div>
-          <img className='largeBg' src='/static/img/winnerBg2.png' />
-          <img className='largePic' src={winnersImage[0]} />
+          <img className='largeBg' src={`/static/img/avatarBg/left/${hexToName(primaryColor)}.png`} />
+          <img className='spark' src='/static/img/spark.png' />
+          <img className='largePic' src={winnersImages[0]} />
+          <img className='largeMask flipLarge' src='/static/img/detailsProfileMask.png' />
           <div className='handle' style={{ color: primaryColor }}>
             {finalists[0].handle}
           </div>
@@ -242,8 +250,9 @@ const prizesLayout = (props, showWinners) => {
           ${prizes[2]}
         </div>
         {showWinners && <div>
-          <img className='smallBg' src='/static/img/winnerBg1.png' />
-          <img className='smallPic' src={winnersImage[2]} />
+          <img className='smallBg' src={`/static/img/avatarBg/left/${hexToName(primaryColor)}.png`} />
+          <img className='smallPic' src={winnersImages[2]} />
+          <img className='smallMask flip' src='/static/img/detailsProfileMask.png' />
           <div className='handle' style={{ color: primaryColor }}>
             {finalists[2].handle}
           </div>
@@ -258,7 +267,6 @@ const prizesLayout = (props, showWinners) => {
           .container {
             display: flex;
             flex-grow: 1;
-            background: linear-gradient(270deg, rgba(0, 78, 119, 0) 0%, #00416580 51.72%, rgba(0, 40, 61, 0) 100%);
             margin-bottom: 40px;
             align-items: baseline;
             margin-top: 200px;
@@ -267,6 +275,7 @@ const prizesLayout = (props, showWinners) => {
           .containerWithZoom {
             zoom: 0.8;
             margin-top: 270px;
+            background: linear-gradient(270deg, rgba(0, 78, 119, 0) 0%, #00416580 51.72%, rgba(0, 40, 61, 0) 100%);
           }
 
           img {
@@ -292,6 +301,13 @@ const prizesLayout = (props, showWinners) => {
             width: auto;
           }
 
+          .spark {
+            position: absolute;
+            z-index: -2;
+            left: -11px;
+            top: -103%;
+          }
+
           .largePic {
             position: absolute;
             z-index: -1;
@@ -302,11 +318,11 @@ const prizesLayout = (props, showWinners) => {
           }
 
           .smallBg {
-            width: 160%;
             position: absolute;
-            left: -33%;
             z-index: -2;
-            top: -58%;
+            width: 126%;
+            top: -127px;
+            left: -31px;
           }
 
           .large {
@@ -319,11 +335,36 @@ const prizesLayout = (props, showWinners) => {
           }
 
           .largeBg {
-            width: 130%;
             position: absolute;
-            left: -15%;
             z-index: -2;
-            top: -92%;
+            width: 120%;
+            top: -70%;
+            left: -14%;
+          }
+
+          .smallMask {
+            position: absolute;
+            z-index: -3;
+            left: -53px;
+            width: 150%;
+            top: -127px;
+          }
+
+          .largeMask {
+            position: absolute;
+            z-index: -3;
+            top: -72%;
+            left: -27%;
+            width: 145%;
+          }
+
+          .flip {
+            left: -48px;
+            transform: scaleX(-1);
+          }
+
+          .flipLarge {
+            transform: scaleX(-1);
           }
 
           .money {
@@ -370,10 +411,9 @@ const prizesLayout = (props, showWinners) => {
             margin-right: 10px;
           }
 
-          @media only screen and (min-width:1600px){
+          @media only screen and (min-width:1610px){
             .containerWithZoom {
               zoom: 1;
-              min-height: 650px;
             }
           }
         `}
@@ -429,7 +469,6 @@ const WinnersLayout = (props) => {
             display: flex;
             flex-shrink: 0;
             justify-content: space-evenly;
-            margin-top: 20px;
           }
 
           .message {
@@ -530,24 +569,16 @@ class Winners extends React.Component {
   }
 }
 
-const finalists = []
-for (let i = 0; i < 16; i++) {
-  finalists.push({
-    handle: (i % 2) ? 'deedee' : 'tuxing',
-    country: (i % 2) ? 'argentina' : 'italy',
-    profilePic: (i % 2) ? '/static/img/profilePic1.png' : '/static/img/profilePic2.png',
-    countryFlag: (i % 2) ? '/static/img/flag/argentina.png' : '/static/img/flag/italy.png'
-  })
-}
-
 Winners.getInitialProps = async function () {
   const { publicRuntimeConfig } = getConfig()
 
-  const res = await fetch(`${publicRuntimeConfig.host}/content/CONTENTFUL_MESSAGE_ENTRY_ID`)
+  const res = await fetch(`${publicRuntimeConfig.host}/content/CONTENTFUL_WINNERS_ENTRY_ID`)
 
   const data = await res.json()
 
   const otherSponsors = data.fields.otherSponsors.map(s => s.fields.file.url)
+
+  const winnersImages = data.fields.winnersImages.map(w => w.fields.file.url)
 
   return {
     logo: data.fields.logo.fields.file.url,
@@ -555,15 +586,14 @@ Winners.getInitialProps = async function () {
     track: data.fields.track,
     round: data.fields.round,
     eventStartDateTime: data.fields.eventStartDateTime,
-    message: data.fields.message,
     tickerType: data.fields.tickerType.fields.file.url,
     tickerSeparator: data.fields.tickerSeparator.fields.file.url,
     tickerMessages: data.fields.tickerMessages,
     mainSponsor: data.fields.mainSponsor.fields.file.url,
     otherSponsors,
-    finalists,
-    winnersImage: ['/static/img/dummyWinner1.png', '/static/img/dummyWinner2.png', '/static/img/dummyWinner3.png'],
-    prizes: ['5000', '2000', '1000']
+    finalists: data.fields.finalists,
+    winnersImages,
+    prizes: data.fields.prizes
   }
 }
 
