@@ -1,15 +1,19 @@
 import PropTypes from 'prop-types'
 
-const sponsors = (props) => (
-  <div className='container'>
-    {props.showDivider && <img className='divider' src='/static/img/divider.png' alt='divider' />}
-    <div className='sponsoredText'>
-      SPONSORED BY
-    </div>
-    <img className='sponsor' src={props.mainSponsor} alt='sponsor' />
+const sponsors = (props) => {
+  const { showFlatDesign, showDivider, mainSponsor, otherSponsors } = props
+  const containerClass = (showFlatDesign) ? 'flatContainer' : ''
+  return (<div className={`container ${containerClass}`}>
+    {showDivider && <img className='divider' src='/static/img/divider.png' alt='divider' />}
+    {!showFlatDesign &&
+      <div className='sponsoredText'>
+        SPONSORED BY
+      </div>
+    }
+    <img className='sponsor' src={mainSponsor} alt='sponsor' />
     <div className='otherSponsorsContainer'>
       {
-        props.otherSponsors.map((sponsor, i) => (<img key={`${sponsor}${i}`} className='otherSponsor' src={sponsor} alt='sponsor' />))
+        otherSponsors.map((sponsor, i) => (<img key={`${sponsor}${i}`} className='otherSponsor' src={sponsor} alt='sponsor' />))
       }
     </div>
     <style jsx>
@@ -19,7 +23,14 @@ const sponsors = (props) => (
           flex-direction: column;
           align-items: center;
           margin-bottom: 50px;
-          min-height: 200px;
+        }
+
+        .flatContainer {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-content: center;
+          margin-bottom: 20px;
         }
 
         .sponsoredText {
@@ -39,6 +50,11 @@ const sponsors = (props) => (
           width: 250px;
         }
 
+        .flatContainer .sponsor {
+          margin-top: 0px;
+          margin-right: 30px;
+        }
+
         .otherSponsorsContainer {
           margin-top: 40px;
           display: flex;
@@ -46,9 +62,17 @@ const sponsors = (props) => (
           flex-wrap: wrap;
         }
 
+        .flatContainer .otherSponsorsContainer {
+          margin-top: 0px;
+        }
+
         .otherSponsor {
           margin: 0px 30px;
-          width: 125px;
+          height: 28px;
+        }
+
+        .flatContainer .otherSponsorsContainer .otherSponsor {
+          margin: 0px 20px;
         }
 
         .divider {
@@ -59,6 +83,10 @@ const sponsors = (props) => (
         @media only screen and (min-width:1600px){
           .container {
             min-height: 230px;
+          }
+
+          .flatContainer {
+            min-height: 0px;
           }
 
           .sponsor {
@@ -76,9 +104,11 @@ const sponsors = (props) => (
       `}
     </style>
   </div>
-)
+  )
+}
 
 sponsors.propTypes = {
+  showFlatDesign: PropTypes.bool,
   showDivider: PropTypes.bool,
   mainSponsor: PropTypes.string,
   otherSponsors: PropTypes.arrayOf(PropTypes.string)
@@ -86,6 +116,7 @@ sponsors.propTypes = {
 
 sponsors.defaultProps = {
   showDivider: false,
+  showFlatDesign: false,
   mainSponsor: '/static/img/sponsor.png'
 }
 
