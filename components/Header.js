@@ -15,46 +15,56 @@ class Header extends React.Component {
 
   tick () {
     const { timerText } = this.state
-    let { eventStartDateTime } = this.props
+    let { eventStartDateTime, eventEndDateTime } = this.props
 
-    if (!eventStartDateTime) {
+    if (!eventStartDateTime && !eventEndDateTime) {
       if (!timerText) {
         this.setState({ timerText: null })
       }
-
       return
     }
 
-    eventStartDateTime = Math.floor(new Date(eventStartDateTime).getTime() / 1000)
+    let endTime = eventEndDateTime || eventStartDateTime
+    endTime = Math.floor(new Date(endTime).getTime() / 1000)
 
     const now = Math.floor(Date.now() / 1000)
-    const diff = eventStartDateTime - now
+    const diff = endTime - now
 
     if (diff < 0) {
       this.setState({ timerText: null })
     } else {
       const hour = leadingZero(Math.floor(diff / 3600))
       const minutes = leadingZero(Math.floor((diff - hour * 3600) / 60))
+      const seconds = leadingZero(diff % 60)
 
-      this.setState({ timerText: `${hour}:${minutes}` })
+      if (eventStartDateTime) {
+        this.setState({ timerText: `${hour}:${minutes}` })
+      } else {
+        this.setState({ timerText: `${hour}:${minutes}:${seconds}` })
+      }
     }
   }
 
   timer () {
     const { timerText } = this.state
-
+    const { smallHeader } = this.props
+    const smallClass = smallHeader ? ' small' : ''
     return (
-      <div className='timerContainer'>
+      <div className={'timerContainer' + smallClass}>
         <div className='timerBg' />
         {timerText &&
           (
             <div className='timer'>
+
+              {smallHeader && <div className='hint'>
+                Ends in
+              </div>}
               <div className='clock'>
                 {timerText}
               </div>
-              <div className='hint'>
+              {!smallHeader && <div className='hint'>
                 Time to start
-              </div>
+              </div>}
             </div>
           )
         }
@@ -65,10 +75,15 @@ class Header extends React.Component {
               height: 100%;
               position: absolute;
               right: 0;
+              z-index: 2;
+            }
+
+            .timerContainer.small {
+              width: 300px;
             }
 
             .timerBg {
-              width: 350px;
+              width: calc(100% - 50px);
               height: 100%;
               position: absolute;
               right: -18px;
@@ -101,6 +116,10 @@ class Header extends React.Component {
               .clock {
                 font-size: 46px;
               }
+              
+              .timer {
+                right: 20px;
+              }
             }
           `}
         </style>
@@ -109,16 +128,17 @@ class Header extends React.Component {
   }
 
   logoContainer () {
-    const { logo, primaryColor } = this.props
+    const { logo, primaryColor, smallHeader } = this.props
+    const smallClass = smallHeader ? ' small' : ''
     return (
-      <div className='logoContainer'>
-        <div className='logoBg'>
+      <div className={'logoContainer' + smallClass}>
+        <div className={'logoBg' + smallClass}>
           <div
             className='colorSpread'
             style={{ color: primaryColor, background: primaryColor }}
           />
         </div>
-        <img className='logo' src={logo} alt='background' />
+        <img className={'logo' + smallClass} src={logo} alt='background' />
         <style jsx>
           {`
             .logoContainer {
@@ -128,10 +148,14 @@ class Header extends React.Component {
               left: 0;
             }
 
+            .logoContainer.small {
+              width: 300px;
+            }
+
             .logoBg {
               position: absolute;
               left: -19px;
-              width: 350px;
+              width: calc(100% - 50px);
               height: 100%;
               transform: skew(-18deg);
               box-shadow: 0px 0px 15px 0 rgba(0,0,0,0.42);
@@ -141,9 +165,13 @@ class Header extends React.Component {
             .logo {
               position: absolute;
               left: 72px;
-              top: 20px;
+              top: 10px;
               height: 72px;
               z-index: 2;
+            }
+
+            .logo.small {
+              left: 28px;
             }
 
             .colorSpread {
@@ -157,6 +185,11 @@ class Header extends React.Component {
             @media only screen and (min-width:1600px){
               .logo {
                 height: 84px;
+                top: 20px;
+              }
+
+              .logo.small {
+                left: 10px;
               }
             }
           `}
@@ -166,12 +199,14 @@ class Header extends React.Component {
   }
 
   titleContainer () {
+    const { smallHeader } = this.props
     const { track, round } = this.props
+    const smallClass = smallHeader ? ' small' : ''
     return (
-      <div className='title'>
+      <div className={'title' + smallClass}>
         <span>{track}</span>
         &nbsp;
-        <span className='round'>{round}</span>
+        <span className={'round' + smallClass}>{round}</span>
         <style jsx>
           {`
             .title {
@@ -189,14 +224,29 @@ class Header extends React.Component {
               text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
             }
 
+            .title.small {
+              z-index: 1;
+              text-align: left;
+              padding-left: 250px;
+            }
+
             .round {
               font-weight: 300;
+            }
+
+            .round.small {
+              font-size: 22px;
+              font-weight: 400;
             }
 
             @media only screen and (min-width:1600px){
               .title {
                 font-size: 46px;
                 line-height: 119px;
+              }
+
+              .round.small {
+                font-size: 32px;
               }
             }
           `}
@@ -206,9 +256,11 @@ class Header extends React.Component {
   }
 
   render () {
+    const { smallHeader } = this.props
+    const smallClass = smallHeader ? ' small' : ''
     return (
       <header className='header'>
-        <img className='background' src='/static/img/titleBackground.png' alt='background' />
+        <img className={'background ' + smallClass} src='/static/img/titleBackground.png' alt='background' />
         {this.titleContainer()}
         {this.logoContainer()}
         {this.timer()}
@@ -227,8 +279,11 @@ class Header extends React.Component {
             .background {
               width: 100%;
               position: absolute;
-              left: -70px;
               height: 89px;
+            }
+
+            .background.small {
+              left: 170px;
             }
 
             @media only screen and (min-width:1600px) {
@@ -256,7 +311,9 @@ Header.propTypes = {
   track: PropTypes.string,
   round: PropTypes.string,
   eventStartDateTime: PropTypes.string,
-  primaryColor: PropTypes.string
+  eventEndDateTime: PropTypes.string,
+  primaryColor: PropTypes.string,
+  smallHeader: PropTypes.bool
 }
 
 Header.defaultProps = {
@@ -264,7 +321,9 @@ Header.defaultProps = {
   track: 'development',
   round: 'round 1',
   eventStartDateTime: null,
-  primaryColor: '#5CC900'
+  eventEndDateTime: null,
+  primaryColor: '#5CC900',
+  smallHeader: false
 }
 
 export default Header

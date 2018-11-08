@@ -10,8 +10,8 @@ const footer = ({ tickerMessages, tickerSeparator, tickerType }) => (
     </div>
     <style jsx>
       {`
-        .footerDivider {
-          width: 100%;
+        footer {
+          overflow: hidden;
         }
 
         .flashContainer {

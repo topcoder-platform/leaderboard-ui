@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 
 const sponsors = (props) => {
-  const { showFlatDesign, showDivider, mainSponsor, otherSponsors } = props
-  const containerClass = (showFlatDesign) ? 'flatContainer' : ''
+  const { showFlatDesign, hideMainSponsor, showDivider, mainSponsor, otherSponsors, smallerSponsor } = props
+  let containerClass = (showFlatDesign) ? 'flatContainer' : (smallerSponsor) ? 'small' : ''
   return (<div className={`container ${containerClass}`}>
     {showDivider && <img className='divider' src='/static/img/divider.png' alt='divider' />}
     {!showFlatDesign &&
@@ -10,7 +10,7 @@ const sponsors = (props) => {
         SPONSORED BY
       </div>
     }
-    <img className='sponsor' src={mainSponsor} alt='sponsor' />
+    {!hideMainSponsor && <img className='sponsor' src={mainSponsor} alt='sponsor' />}
     <div className='otherSponsorsContainer'>
       {
         otherSponsors.map((sponsor, i) => (<img key={`${sponsor}${i}`} className='otherSponsor' src={sponsor} alt='sponsor' />))
@@ -23,6 +23,11 @@ const sponsors = (props) => {
           flex-direction: column;
           align-items: center;
           margin-bottom: 50px;
+          flex-shrink: 0;
+        }
+
+        .container.small {
+          margin-bottom: 0px;
         }
 
         .flatContainer {
@@ -45,9 +50,18 @@ const sponsors = (props) => {
           margin-top: 20px;
         }
 
+        .small .sponsoredText {
+          display: none;
+        }
+
         .sponsor {
           margin-top: 20px;
           width: 250px;
+        }
+
+        .small .sponsor {
+          margin-top: 0px;
+          width: 200px;
         }
 
         .flatContainer .sponsor {
@@ -62,6 +76,10 @@ const sponsors = (props) => {
           flex-wrap: wrap;
         }
 
+        .small .otherSponsorsContainer {
+          margin-top: 20px;
+        }
+
         .flatContainer .otherSponsorsContainer {
           margin-top: 0px;
         }
@@ -69,6 +87,10 @@ const sponsors = (props) => {
         .otherSponsor {
           margin: 0px 30px;
           height: 28px;
+        }
+
+        .small .otherSponsor {
+          margin: 0px 20px;
         }
 
         .flatContainer .otherSponsorsContainer .otherSponsor {
@@ -87,6 +109,10 @@ const sponsors = (props) => {
 
           .flatContainer {
             min-height: 0px;
+          }
+
+          .container.small {
+            min-height: unset;
           }
 
           .sponsor {
@@ -111,13 +137,17 @@ sponsors.propTypes = {
   showFlatDesign: PropTypes.bool,
   showDivider: PropTypes.bool,
   mainSponsor: PropTypes.string,
-  otherSponsors: PropTypes.arrayOf(PropTypes.string)
+  otherSponsors: PropTypes.arrayOf(PropTypes.string),
+  smallerSponsor: PropTypes.bool,
+  hideMainSponsor: PropTypes.bool
 }
 
 sponsors.defaultProps = {
   showDivider: false,
   showFlatDesign: false,
-  mainSponsor: '/static/img/sponsor.png'
+  mainSponsor: '/static/img/sponsor.png',
+  smallerSponsor: false,
+  hideMainSponsor: false
 }
 
 export default sponsors
