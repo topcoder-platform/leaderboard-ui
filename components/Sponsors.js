@@ -73,7 +73,6 @@ const sponsors = (props) => {
           margin-top: 40px;
           display: flex;
           align-items: center;
-          flex-wrap: wrap;
         }
 
         .small .otherSponsorsContainer {
@@ -86,7 +85,7 @@ const sponsors = (props) => {
 
         .otherSponsor {
           margin: 0px 30px;
-          height: 28px;
+          height: 24px;
         }
 
         .small .otherSponsor {
@@ -124,7 +123,7 @@ const sponsors = (props) => {
           }
 
           .otherSponsor {
-            width: 150px;
+            height: 32px;
           }
         }
       `}

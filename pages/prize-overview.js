@@ -16,7 +16,7 @@ const prizesLayout = (prizes) => {
           ${prizes[1]}
         </div>
       </div>
-      <div className='large' style={{ marginBottom: ((prizes.length === 2) ? '60px' : '120px') }}>
+      <div className='large' style={{ marginTop: ((prizes.length === 2) ? '60px' : '0px') }}>
         <img src='/static/img/goldTrophy.png' />
         <div className='money'>
           ${prizes[0]}
@@ -34,7 +34,6 @@ const prizesLayout = (prizes) => {
             display: flex;
             flex-grow: 1;
             margin-bottom: 40px;
-            align-items: baseline;
             margin-top: 100px;
           }
 
@@ -48,12 +47,14 @@ const prizesLayout = (prizes) => {
             position: relative;
             color: #EEF4F5;
             font-size: 32px;
-            margin-bottom: 50px;
             z-index: 1;
+            height: 200px;
+            margin-top: 100px;
           }
 
           .large {
             width: 220px;
+            height: 240px;
             color: #FFBA3A;
             font-size: 48px;
             position: relative;
@@ -97,6 +98,12 @@ const PrizeOverview = (props) => {
       <FinalistTable
         {...props}
       />
+      <style jsx global>{`
+        #__next {
+          display: flex;
+          min-height: 100%;
+        }
+      `}</style>
       <style jsx>
         {`
           .container {
@@ -107,6 +114,7 @@ const PrizeOverview = (props) => {
             -o-background-size: cover;
             background-size: cover;
             overflow-y: auto;
+            width: 100%;
           }
 
           .viewHolder {

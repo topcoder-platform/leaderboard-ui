@@ -78,19 +78,23 @@ const table = (props) => {
             height: 100%;
             box-shadow: -1px 0px 10px 0px #0000005c;
             z-index: 3;
+            display: flex;
+            flex-direction: column;
           }
 
           .row {
             display: flex;
-            height: 70px;
+            min-height: 62px;
+            height: 62px;
             overflow: hidden;
             color: #ffffff;
+            flex-grow: 1;
             background-image: linear-gradient(-180deg,#00385561 0%,#000b1161 94%);
           }
 
           .rank-overlay {
             background-image: linear-gradient(180deg,#003855 0%,#000B11 85%);
-            box-shadow: 2px 2px 9px 0 #000000, inset 0px 1px 0px 0 rgba(255, 255, 255, 0.34);
+            box-shadow: 2px 2px 9px 0 #00000077, inset 0px 1px 0px 0 rgba(255, 255, 255, 0.34);
             width: 100%;
             height: 100%;
             transform: skew(-15deg);
@@ -110,11 +114,15 @@ const table = (props) => {
             font-size: 24px;
             font-weight: 700;
             text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
           }
 
           .header {
             background-color: #002133;
             height: 48px;
+            min-height: 48px;
             color: #ffffff77;
             font-family: Helvetica;
             font-size: 13px;
@@ -129,7 +137,6 @@ const table = (props) => {
           .rank {
             width: 70px;
             position: relative;
-            height: 100%;
             z-index: 1;
           }
 
@@ -175,11 +182,10 @@ const table = (props) => {
 
           .handle {
             margin-left: 80px;
-            font-size: 20px;
+            font-size: 16px;
             font-weight: 800;
             width: 198px;
             text-align: left;
-            word-break: break-all;
           }
 
           .points {
@@ -255,6 +261,10 @@ const table = (props) => {
           @media only screen and (min-width:1920px){
             .competitor {
               width: 320px;
+            }
+
+            .handle {
+              font-size: 18px;
             }
           }
         `}

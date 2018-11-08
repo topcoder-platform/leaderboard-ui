@@ -195,6 +195,12 @@ const GetReady = (props) => {
       <FinalistTable
         {...props}
       />
+      <style jsx global>{`
+        #__next {
+          display: flex;
+          min-height: 100%;
+        }
+      `}</style>
       <style jsx>
         {`
           .container {
@@ -204,6 +210,7 @@ const GetReady = (props) => {
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;
+            width: 100%;
             overflow-y: auto;
           }
 

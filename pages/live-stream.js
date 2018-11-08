@@ -30,6 +30,12 @@ const ProblemStatement = (props) => {
         {...props}
         smallerDesign
       />
+      <style jsx global>{`
+        #__next {
+          display: flex;
+          min-height: 100%;
+        }
+      `}</style>
       <style jsx>
         {`
           .container {
@@ -40,6 +46,7 @@ const ProblemStatement = (props) => {
             -o-background-size: cover;
             background-size: cover;
             overflow-y: auto;
+            width: 100%;
           }
 
           .viewHolder {

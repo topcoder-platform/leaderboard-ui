@@ -11,6 +11,7 @@ const footer = ({ tickerMessages, tickerSeparator, tickerType }) => (
     <style jsx>
       {`
         footer {
+          min-height: 70px;
           overflow: hidden;
         }
 

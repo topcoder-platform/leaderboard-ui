@@ -171,7 +171,7 @@ class Header extends React.Component {
             }
 
             .logo.small {
-              left: 28px;
+              left: 20px;
             }
 
             .colorSpread {
@@ -227,7 +227,8 @@ class Header extends React.Component {
             .title.small {
               z-index: 1;
               text-align: left;
-              padding-left: 250px;
+              padding-left: 270px;
+              font-size: 28px;
             }
 
             .round {
@@ -235,7 +236,7 @@ class Header extends React.Component {
             }
 
             .round.small {
-              font-size: 22px;
+              font-size: 18px;
               font-weight: 400;
             }
 
@@ -243,6 +244,10 @@ class Header extends React.Component {
               .title {
                 font-size: 46px;
                 line-height: 119px;
+              }
+
+              .title.small {
+                font-size: 46px;
               }
 
               .round.small {
