@@ -282,29 +282,14 @@ const GetReady = (props) => {
   )
 }
 
-GetReady.getInitialProps = async function () {
+GetReady.getInitialProps = async function ({ query }) {
   const { publicRuntimeConfig } = getConfig()
 
-  const res = await fetch(`${publicRuntimeConfig.host}/content/CONTENTFUL_FINALISTS_ENTRY_ID`)
+  const res = await fetch(`${publicRuntimeConfig.host}/contentful/${query.contentfulEntryId}`)
 
   const data = await res.json()
 
   const otherSponsors = data.fields.otherSponsors.map(s => s.fields.file.url)
-
-  const finalists = data.fields.finalists
-
-  for (let i = 0; i < finalists.length; i++) {
-    finalists[i] = {
-      ...finalists[i],
-      testsPassed: 20,
-      challenges: 2,
-      points: 12
-    }
-    if (i > 7) {
-      delete finalists[i].points
-      finalists[i].status = 'awaiting submission'
-    }
-  }
 
   return {
     logo: data.fields.logo.fields.file.url,
@@ -316,8 +301,8 @@ GetReady.getInitialProps = async function () {
     tickerMessages: data.fields.tickerMessages,
     mainSponsor: data.fields.mainSponsor.fields.file.url,
     otherSponsors,
-    finalists,
-    eventEndDateTime: '2018-11-04T18:49:20.000Z'
+    finalists: data.fields.finalists,
+    eventEndDateTime: data.fields.eventEndsIn
   }
 }
 

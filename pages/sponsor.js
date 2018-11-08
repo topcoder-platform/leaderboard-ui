@@ -138,33 +138,14 @@ const SponsorPage = (props) => {
   )
 }
 
-const sponsorDescription = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce quam ligula, bibendum at imperdiet sed, tincidunt et nulla. Etiam et lacus at neque feugiat aliquam nec quis sem. Maecenas ac libero a arcu tempus euismod. 
-
-Integer tincidunt diam felis, eu posuere nunc fermentum eget. Nunc metus erat, euismod sit amet sagittis ut, imperdiet ac dui. Aliquam augue nulla, sollicitudin id odio aliquet, condimentum bibendum ex. Integer et lacus tempus.`
-
-SponsorPage.getInitialProps = async function () {
+SponsorPage.getInitialProps = async function ({ query }) {
   const { publicRuntimeConfig } = getConfig()
 
-  const res = await fetch(`${publicRuntimeConfig.host}/content/CONTENTFUL_FINALISTS_ENTRY_ID`)
+  const res = await fetch(`${publicRuntimeConfig.host}/contentful/${query.contentfulEntryId}`)
 
   const data = await res.json()
 
   const otherSponsors = data.fields.otherSponsors.map(s => s.fields.file.url)
-
-  const finalists = data.fields.finalists
-
-  for (let i = 0; i < finalists.length; i++) {
-    finalists[i] = {
-      ...finalists[i],
-      testsPassed: 20,
-      challenges: 2,
-      points: 12
-    }
-    if (i > 7) {
-      delete finalists[i].points
-      finalists[i].status = 'awaiting submission'
-    }
-  }
 
   return {
     logo: data.fields.logo.fields.file.url,
@@ -176,9 +157,9 @@ SponsorPage.getInitialProps = async function () {
     tickerMessages: data.fields.tickerMessages,
     mainSponsor: data.fields.mainSponsor.fields.file.url,
     otherSponsors,
-    finalists,
-    eventEndDateTime: '2018-11-04T18:49:20.000Z',
-    sponsorDescription
+    finalists: data.fields.finalists,
+    eventEndDateTime: data.fields.eventEndsIn,
+    sponsorDescription: data.fields.sponsorDescription
   }
 }
 

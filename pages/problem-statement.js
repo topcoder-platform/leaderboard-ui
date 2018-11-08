@@ -132,34 +132,14 @@ const ProblemStatement = (props) => {
   )
 }
 
-const problemDescription = `
-The rules of NIM are as follows: There are several piles of stones. The players take alternating turns. In each turn, the current player selects one non-empty pile of stones and removes some stones from the pile. (The player must remove at least one stone. They can remove as many stones as they want, possibly all of them, but just from a single pile.) The game ends when all stones have been removed. The player who removed the last stone wins the game. Equivalently, the first player who is unable to make a valid move loses the game.
-
-More formally, a position in the game is an ordered sequence of pile sizes and a move consists of decrementing one of those values. Note that {1,2,3} and {3,2,1} are considered different positions, and thus the move from {3,2,3} to {1,2,3} and the move from {3,2,3} to {3,2,1} are two different moves.`
-
-ProblemStatement.getInitialProps = async function () {
+ProblemStatement.getInitialProps = async function ({ query }) {
   const { publicRuntimeConfig } = getConfig()
 
-  const res = await fetch(`${publicRuntimeConfig.host}/content/CONTENTFUL_FINALISTS_ENTRY_ID`)
+  const res = await fetch(`${publicRuntimeConfig.host}/contentful/${query.contentfulEntryId}`)
 
   const data = await res.json()
 
   const otherSponsors = data.fields.otherSponsors.map(s => s.fields.file.url)
-
-  const finalists = data.fields.finalists
-
-  for (let i = 0; i < finalists.length; i++) {
-    finalists[i] = {
-      ...finalists[i],
-      testsPassed: 20,
-      challenges: 2,
-      points: 12
-    }
-    if (i > 7) {
-      delete finalists[i].points
-      finalists[i].status = 'awaiting submission'
-    }
-  }
 
   return {
     logo: data.fields.logo.fields.file.url,
@@ -171,10 +151,10 @@ ProblemStatement.getInitialProps = async function () {
     tickerMessages: data.fields.tickerMessages,
     mainSponsor: data.fields.mainSponsor.fields.file.url,
     otherSponsors,
-    finalists,
-    eventEndDateTime: '2018-11-04T18:49:20.000Z',
-    problemTitle: 'ALICE AND BOB PLAYING A GAME OF TILES',
-    problemDescription
+    finalists: data.fields.finalists,
+    eventEndDateTime: data.fields.eventEndsIn,
+    problemTitle: data.fields.problemStatementTitle,
+    problemDescription: data.fields.problemStatementDescription
   }
 }
 

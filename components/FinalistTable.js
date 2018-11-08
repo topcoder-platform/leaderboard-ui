@@ -31,10 +31,10 @@ const table = (props) => {
             </div>
 
             <div className='points'>
-              <img src='/static/img/trend/down.png' />
+              {/* <img src='/static/img/trend/down.png' /> */}
               <div>
                 <span className='value'>
-                  {profile.points}1
+                  {profile.points}
                 </span>
                 <span className='hint'>
                   POINTS
@@ -93,8 +93,8 @@ const table = (props) => {
           }
 
           .rank-overlay {
-            background-image: linear-gradient(180deg,#003855 0%,#000B11 85%);
-            box-shadow: 2px 2px 9px 0 #00000077, inset 0px 1px 0px 0 rgba(255, 255, 255, 0.34);
+            background: #003855;
+            box-shadow: 1px 0px 9px 0 #000000, inset 0px 1px 0px 0 rgba(255,255,255,0.34), inset 5px -39px 54px -15px rgba(0, 0, 0, 0.92);
             width: 100%;
             height: 100%;
             transform: skew(-15deg);
