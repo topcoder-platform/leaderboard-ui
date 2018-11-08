@@ -17,6 +17,37 @@ app.prepare()
   .then(() => {
     const server = express()
 
+    // Endpoint that loads the list of tracks
+    server.get('/track/:trackId', async (req, res) => {
+      const contentfulEntryId = req.params.trackId
+
+      const actualPage = '/tracks'
+
+      const queryParams = { contentfulEntryId }
+
+      app.render(req, res, actualPage, queryParams)
+    })
+
+    // Endpoint that lists the pages in each track
+    server.get('/page/:pageName/:entryId', async (req, res) => {
+      const contentfulEntryId = req.params.entryId
+
+      const actualPage = `/${req.params.pageName}`
+
+      const queryParams = { contentfulEntryId }
+
+      app.render(req, res, actualPage, queryParams)
+    })
+
+    // Endpoint that gets the content from contentful for a given entry id
+    server.get('/contentful/:entryId', async (req, res) => {
+      const data = await client.getEntry(req.params.entryId)
+
+      res.send(data)
+    })
+
+    // Endpoint that gets the content from contentful for an entry id configured in environment variable
+    // (meant to be used for the ROOT page, to get the root page contents)
     server.get('/content/:pageName', async (req, res) => {
       const pageName = req.params.pageName
 
