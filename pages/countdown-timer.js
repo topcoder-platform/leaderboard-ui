@@ -17,25 +17,31 @@ class Countdown extends React.Component {
     }
   }
 
-  static async getInitialProps () {
+  static async getInitialProps ({ query }) {
     const { publicRuntimeConfig } = getConfig()
 
-    const res = await fetch(`${publicRuntimeConfig.host}/content/CONTENTFUL_COUNTDOWN_ENTRY_ID`)
+    const res = await fetch(`${publicRuntimeConfig.host}/contentful/${query.contentfulEntryId}`)
 
     const data = await res.json()
 
-    const otherSponsors = data.fields.otherSponsors.map(s => s.fields.file.url)
+    const header = data.fields.header.fields
+
+    const sponsor = data.fields.sponsor.fields
+
+    const footer = data.fields.footer.fields
+
+    const otherSponsors = sponsor.secondarySponsors.map(s => s.fields.file.url)
 
     return {
-      logo: data.fields.logo.fields.file.url,
-      primaryColor: data.fields.primaryColor,
-      track: data.fields.track,
-      round: data.fields.round,
-      eventStartDateTime: data.fields.eventStartDateTime,
-      tickerType: data.fields.tickerType.fields.file.url,
-      tickerSeparator: data.fields.tickerSeparator.fields.file.url,
-      tickerMessages: data.fields.tickerMessages,
-      mainSponsor: data.fields.mainSponsor.fields.file.url,
+      logo: header.logo.fields.file.url,
+      primaryColor: header.primaryColor,
+      track: header.track,
+      round: header.round,
+      eventStartDateTime: header.eventDateTime,
+      tickerType: footer.tickerType.fields.file.url,
+      tickerSeparator: footer.tickerSeparator.fields.file.url,
+      tickerMessages: footer.tickerMessages,
+      mainSponsor: sponsor.primarySponsor.fields.file.url,
       otherSponsors
     }
   }

@@ -7,7 +7,7 @@ function getPagesMarkup (pages) {
     return (
       <li key={p.sys.id}>
         <Link href={`/page${p.fields.url}/${p.sys.id}`}>
-          <a>{p.fields.pageType}</a>
+          <a>{p.fields.title}</a>
         </Link>
       </li>
     )
@@ -32,6 +32,8 @@ Tracks.getInitialProps = async function ({ query }) {
   const res = await fetch(`${publicRuntimeConfig.host}/contentful/${query.contentfulEntryId}`)
 
   const data = await res.json()
+
+  console.log(JSON.stringify(data.fields.pages[data.fields.pages.length - 1]))
 
   return {
     trackName: data.fields.trackName,

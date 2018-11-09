@@ -139,20 +139,28 @@ ProblemStatement.getInitialProps = async function ({ query }) {
 
   const data = await res.json()
 
-  const otherSponsors = data.fields.otherSponsors.map(s => s.fields.file.url)
+  const header = data.fields.header.fields
+
+  const sponsor = data.fields.sponsor.fields
+
+  const footer = data.fields.footer.fields
+
+  const finalists = data.fields.finalists.fields
+
+  const otherSponsors = sponsor.secondarySponsors.map(s => s.fields.file.url)
 
   return {
-    logo: data.fields.logo.fields.file.url,
-    primaryColor: data.fields.primaryColor,
-    track: data.fields.track,
-    round: data.fields.round,
-    tickerType: data.fields.tickerType.fields.file.url,
-    tickerSeparator: data.fields.tickerSeparator.fields.file.url,
-    tickerMessages: data.fields.tickerMessages,
-    mainSponsor: data.fields.mainSponsor.fields.file.url,
+    logo: header.logo.fields.file.url,
+    primaryColor: header.primaryColor,
+    track: header.track,
+    round: header.round,
+    eventEndDateTime: header.eventDateTime,
+    tickerType: footer.tickerType.fields.file.url,
+    tickerSeparator: footer.tickerSeparator.fields.file.url,
+    tickerMessages: footer.tickerMessages,
+    mainSponsor: sponsor.primarySponsor.fields.file.url,
     otherSponsors,
-    finalists: data.fields.finalists,
-    eventEndDateTime: data.fields.eventEndsIn,
+    finalists: finalists.finalists,
     problemTitle: data.fields.problemStatementTitle,
     problemDescription: data.fields.problemStatementDescription
   }
