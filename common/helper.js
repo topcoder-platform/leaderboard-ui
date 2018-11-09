@@ -1,3 +1,6 @@
+import getConfig from 'next/config'
+import fetch from 'isomorphic-unfetch'
+
 const leadingZero = (number) => {
   if (number < 10) {
     return `0${number}`
@@ -19,4 +22,44 @@ const hexToName = (hexColor) => {
   return 'blue'
 }
 
-export { leadingZero, hexToName }
+async function prepareLeaderboard (challengeId, finalists) {
+  const { publicRuntimeConfig } = getConfig()
+
+  const res = await fetch(`${publicRuntimeConfig.host}/api/leaderboard/${challengeId}`)
+
+  let leaderboard = await res.json()
+
+  // Associate the member details with their score
+  // Don't lose the order in which the member appears in leaderboard variable - they are ranked in order already
+  leaderboard = leaderboard.map(l => {
+    let member = finalists.find(f => {
+      return f.handle === l.handle
+    })
+
+    if (member) {
+      member.points = l.aggregateScore
+
+      member.challenges = 1
+
+      member.testsPassed = 1
+    } else {
+      member = {}
+
+      member.status = 'awaiting submission here'
+      member.handle = l.handle
+    }
+
+    return member
+  })
+
+  // Fill up the remaining member details, which will not be present in leaderboard, if they have not submitted
+  for (let i = leaderboard.length; i < finalists.length; i++) {
+    leaderboard.push({
+      status: 'awaiting submission'
+    })
+  }
+
+  return leaderboard
+}
+
+export { leadingZero, hexToName, prepareLeaderboard }

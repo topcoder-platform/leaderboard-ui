@@ -45,7 +45,7 @@ const table = (props) => {
             {!smallerDesign && <div className='tests-passed'>
               <div>
                 <span className='value'>
-                  {profile.testsPassed}1
+                  {profile.testsPassed}
                 </span>
                 <span className='hint'>
                   TESTS
@@ -56,7 +56,7 @@ const table = (props) => {
             {!smallerDesign && <div className='challenges'>
               <div>
                 <span className='value'>
-                  {profile.challenges}1
+                  {profile.challenges}
                 </span>
                 <span className='hint'>
                   CHALLENGES

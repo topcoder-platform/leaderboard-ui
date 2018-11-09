@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import PageHead from '../components/PageHead'
 import Sponsors from '../components/Sponsors'
 import FinalistTable from '../components/FinalistTable'
+import { prepareLeaderboard } from '../common/helper'
 
 const RoundEnded = (props) => {
   return (
@@ -133,6 +134,8 @@ RoundEnded.getInitialProps = async function ({ query }) {
 
   const otherSponsors = sponsor.secondarySponsors.map(s => s.fields.file.url)
 
+  const leaderboard = await prepareLeaderboard(header.challengeId, finalists.finalists)
+
   return {
     logo: header.logo.fields.file.url,
     primaryColor: header.primaryColor,
@@ -144,7 +147,7 @@ RoundEnded.getInitialProps = async function ({ query }) {
     tickerMessages: footer.tickerMessages,
     mainSponsor: sponsor.primarySponsor.fields.file.url,
     otherSponsors,
-    finalists: finalists.finalists
+    finalists: leaderboard
   }
 }
 

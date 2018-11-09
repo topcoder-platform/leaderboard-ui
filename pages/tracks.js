@@ -33,8 +33,6 @@ Tracks.getInitialProps = async function ({ query }) {
 
   const data = await res.json()
 
-  console.log(JSON.stringify(data.fields.pages[data.fields.pages.length - 1]))
-
   return {
     trackName: data.fields.trackName,
     pages: data.fields.pages

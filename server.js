@@ -1,6 +1,7 @@
 const express = require('express')
 const next = require('next')
 const contentful = require('contentful')
+const request = require('superagent')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -54,6 +55,16 @@ app.prepare()
       const data = await client.getEntry(process.env[pageName])
 
       res.send(data)
+    })
+
+    server.get('/api/leaderboard/:challengeId', async (req, res) => {
+      const challengeId = req.params.challengeId
+
+      const data = await request
+        .get(process.env.LEADERBOARD_API_ENDPOINT)
+        .query({ challengeId, limit: 16 })
+
+      res.send(data.body)
     })
 
     server.get('*', (req, res) => {
