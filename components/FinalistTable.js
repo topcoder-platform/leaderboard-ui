@@ -10,7 +10,6 @@ const table = (props) => {
         <div className='competitor'>competitor</div>
         <div className='points'>points</div>
         {!smallerDesign && <div className='tests-passed'>tests passed</div>}
-        {!smallerDesign && <div className='challenges'>challenges</div>}
       </div>
       { finalists.map((profile, i) => (
         <div key={i} className='row'>
@@ -53,16 +52,6 @@ const table = (props) => {
               </div>
             </div>}
 
-            {!smallerDesign && <div className='challenges'>
-              <div>
-                <span className='value'>
-                  {profile.challenges}
-                </span>
-                <span className='hint'>
-                  CHALLENGES
-                </span>
-              </div>
-            </div>}
           </div> }
           { profile.hasOwnProperty('status') && <div className='status'>
             {profile.status}
@@ -229,16 +218,6 @@ const table = (props) => {
           .row .tests-passed {
             display: flex;
             justify-content: center;
-            align-items: center;
-          }
-
-          .challenges {
-            width: 120px;
-          }
-
-          .row .challenges {
-            display: flex;
-            padding-left: 20px;
             align-items: center;
           }
 
