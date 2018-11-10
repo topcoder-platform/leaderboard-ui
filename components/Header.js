@@ -37,11 +37,7 @@ class Header extends React.Component {
       const minutes = leadingZero(Math.floor((diff - hour * 3600) / 60))
       const seconds = leadingZero(diff % 60)
 
-      if (eventStartDateTime) {
-        this.setState({ timerText: `${hour}:${minutes}` })
-      } else {
-        this.setState({ timerText: `${hour}:${minutes}:${seconds}` })
-      }
+      this.setState({ timerText: `${hour}:${minutes}:${seconds}` })
     }
   }
 
