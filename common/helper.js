@@ -61,6 +61,8 @@ async function prepareLeaderboard (challengeId, finalists) {
     })
   }
 
+  console.log(leaderboard)
+
   return leaderboard
 }
 
