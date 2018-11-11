@@ -25,7 +25,14 @@ const hexToName = (hexColor) => {
 async function prepareLeaderboard (challengeId, finalists) {
   const { publicRuntimeConfig } = getConfig()
 
-  const res = await fetch(`${publicRuntimeConfig.host}/api/leaderboard/${challengeId}`)
+  let res
+
+  try {
+    res = await fetch(`${publicRuntimeConfig.host}/api/leaderboard/${challengeId}`)
+  } catch (err) {
+    console.log('Error when making an api call to get leaderboard details. Error object follows')
+    console.log(err)
+  }
 
   let leaderboard = await res.json()
 
