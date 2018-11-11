@@ -26,15 +26,15 @@ async function prepareLeaderboard (challengeId, finalists) {
   const { publicRuntimeConfig } = getConfig()
 
   let res
+  let leaderboard
 
   try {
     res = await fetch(`${publicRuntimeConfig.host}/api/leaderboard/${challengeId}`)
+    leaderboard = await res.json()
   } catch (err) {
     console.log('Error when making an api call to get leaderboard details. Error object follows')
     console.log(err)
   }
-
-  let leaderboard = await res.json()
 
   // Associate the member details with their score
   // Don't lose the order in which the member appears in leaderboard variable - they are ranked in order already
