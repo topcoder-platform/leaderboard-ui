@@ -1,5 +1,6 @@
 import getConfig from 'next/config'
 import fetch from 'isomorphic-unfetch'
+import showdown from 'showdown'
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -11,50 +12,68 @@ const Home = (props) => (
     <PageHead />
     <Header {...props} />
     <main className='main'>
-      <div className='message'>
-        { props.message }
-      </div>
+      <img className='hexa' src='/static/img/largeHexa.png' />
+      <img className='full-hexa' src='/static/img/hexagon.png' alt='hex' />
+      <div
+        className='message'
+        dangerouslySetInnerHTML={{ __html: props.message }}
+      />
     </main>
     <Sponsors {...props} />
     <Footer {...props} />
+    <style jsx global>{`
+      #__next {
+        display: flex;
+        min-height: 100%;
+      }
+    `}</style>
     <style jsx>
       {`
         .container {
           width: 100%;
-          height: 100vh;
           display: flex;
           flex-direction: column;
           overflow: auto;
-          background: url("/static/img/backgroundWithArtwork.png") no-repeat center center fixed;
+          background: url("/static/img/plainBackground.png") no-repeat center center fixed;
           -webkit-background-size: cover;
           -moz-background-size: cover;
           -o-background-size: cover;
           background-size: cover;
+          flex-shrink: 0;
         }
 
         .main {
           min-height: 200px;
           flex-grow: 1;
-          align-items: center;
           display: flex;
           flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+          background-image: linear-gradient(270deg, rgba(0, 78, 119, 0) 0%, #004165 51.72%, rgba(0, 40, 61, 0) 100%);
+        }
+
+        .hexa {
+          position: absolute;
+          top: -150px;
+          width: 700px;
+        }
+
+        .full-hexa {
+          position: absolute;
+          height: 100%;
+          max-height: 200px;
         }
 
         .message {
+          margin: 50px 20px;
           color: #FFFFFF;
           font-family: Montserrat;
-          font-size: 72px;
-          font-weight: 800;
-          margin-top: 125px;
-          line-height: 113px;
-          text-align: center;
           text-shadow: 0px 7px 15px rgba(0, 0, 0, 0.4000000059604645);
-          text-transform: uppercase;
         }
 
         @media only screen and (min-width:1600px){
           .message{
-            font-size: 94px;
             margin-top: 135px;
           }
         }
@@ -78,13 +97,17 @@ Home.getInitialProps = async function ({ query }) {
 
   const otherSponsors = sponsor.secondarySponsors.map(s => s.fields.file.url)
 
+  const converter = new showdown.Converter({ tables: true })
+
+  const html = converter.makeHtml(data.fields.html)
+
   return {
     logo: header.logo.fields.file.url,
     primaryColor: header.primaryColor,
     track: header.track,
     round: header.round,
     eventStartDateTime: header.eventDateTime,
-    message: data.fields.message,
+    message: html,
     tickerType: footer.tickerType.fields.file.url,
     tickerSeparator: footer.tickerSeparator.fields.file.url,
     tickerMessages: footer.tickerMessages,
