@@ -69,6 +69,10 @@ class ProblemStatement extends React.Component {
         // Poll after configured second
         this.polling = setTimeout(this.setupLeaderboard, publicRuntimeConfig.pollTimeInterval)
       })
+      .catch((err) => {
+        console.log('Failed to fetch leaderboard. Error details follow')
+        console.log(err)
+      })
   }
 
   componentWillUnmount () {
