@@ -581,7 +581,7 @@ Winners.getInitialProps = async function ({ query }) {
   const sponsor = data.fields.sponsor.fields
 
   const footer = data.fields.footer.fields
-  
+
   const finalists = data.fields.finalists.fields
 
   const otherSponsors = sponsor.secondarySponsors.map(s => s.fields.file.url)
