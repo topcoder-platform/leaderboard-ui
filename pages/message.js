@@ -1,5 +1,6 @@
 import getConfig from 'next/config'
 import fetch from 'isomorphic-unfetch'
+import showdown from 'showdown'
 
 import Header from '../components/Header'
 import Footer from '../components/Footer'
@@ -68,17 +69,11 @@ const Home = (props) => (
           margin: 50px 20px;
           color: #FFFFFF;
           font-family: Montserrat;
-          font-size: 72px;
-          font-weight: 800;
-          line-height: 113px;
-          text-align: center;
           text-shadow: 0px 7px 15px rgba(0, 0, 0, 0.4000000059604645);
-          text-transform: uppercase;
         }
 
         @media only screen and (min-width:1600px){
           .message{
-            font-size: 94px;
             margin-top: 135px;
           }
         }
@@ -102,13 +97,17 @@ Home.getInitialProps = async function ({ query }) {
 
   const otherSponsors = sponsor.secondarySponsors.map(s => s.fields.file.url)
 
+  const converter = new showdown.Converter({ tables: true })
+
+  const html = converter.makeHtml(data.fields.html)
+
   return {
     logo: header.logo.fields.file.url,
     primaryColor: header.primaryColor,
     track: header.track,
     round: header.round,
     eventStartDateTime: header.eventDateTime,
-    message: data.fields.message,
+    message: html,
     tickerType: footer.tickerType.fields.file.url,
     tickerSeparator: footer.tickerSeparator.fields.file.url,
     tickerMessages: footer.tickerMessages,
