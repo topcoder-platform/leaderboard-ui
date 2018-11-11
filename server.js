@@ -2,6 +2,7 @@ const express = require('express')
 const next = require('next')
 const contentful = require('contentful')
 const request = require('superagent')
+const cors = require('cors')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -17,6 +18,8 @@ const port = process.env.PORT
 app.prepare()
   .then(() => {
     const server = express()
+
+    server.use(cors())
 
     // Endpoint that loads the list of tracks
     server.get('/track/:trackId', async (req, res) => {
