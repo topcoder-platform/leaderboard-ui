@@ -43,7 +43,7 @@ async function prepareLeaderboard (challengeId, finalists) {
 
       member.challenges = 1
 
-      member.testsPassed = 1
+      member.testsPassed = l.testsPassed || 1
     } else {
       member = {}
 
