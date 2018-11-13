@@ -96,7 +96,7 @@ class SponsorPage extends React.Component {
         <FinalistTable
           {...this.props}
           finalists={this.state.leaderboard}
-          smallerDesign
+          // smallerDesign
         />
         <style jsx global>{`
           #__next {
