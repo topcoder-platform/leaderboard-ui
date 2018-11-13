@@ -44,7 +44,7 @@ const table = (props) => {
             {!smallerDesign && <div className='tests-passed'>
               <div>
                 <span className='value'>
-                  {profile.testsPassed}
+                  {profile.testsPassed} / {profile.totalTestCases}
                 </span>
                 <span className='hint'>
                   TESTS
