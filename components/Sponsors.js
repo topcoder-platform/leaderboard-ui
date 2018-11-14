@@ -10,7 +10,7 @@ const sponsors = (props) => {
         SPONSORED BY
       </div>
     }
-    {!hideMainSponsor && <img className='sponsor' src={mainSponsor} />}
+    { !hideMainSponsor && <img className='sponsor' src={mainSponsor} />}
     <div className='otherSponsorsContainer'>
       {
         otherSponsors.map((sponsor, i) => (<img key={`${sponsor}${i}`} className='otherSponsor' src={sponsor} alt='sponsor' />))

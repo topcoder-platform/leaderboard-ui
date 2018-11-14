@@ -144,7 +144,7 @@ const Finalists = (props) => {
           </div>
         </div>
       </main>
-      <Sponsors {...props} showFlatDesign />
+      <Sponsors {...props} hideMainSponsor showFlatDesign />
       <Footer {...props} />
       <style jsx>
         {`

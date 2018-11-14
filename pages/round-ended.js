@@ -90,7 +90,7 @@ class RoundEnded extends React.Component {
               <div className='title'>ENDED</div>
             </div>
           </main>
-          <Sponsors {...this.props} smallerSponsor showFlatDesign />
+          <Sponsors {...this.props} hideMainSponsor smallerSponsor showFlatDesign />
           <Footer {...this.props} />
         </div>
         { this.props.showScoreboard && <FinalistTable

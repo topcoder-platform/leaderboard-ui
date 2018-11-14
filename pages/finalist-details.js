@@ -254,7 +254,7 @@ const FinalistsDetails = (props) => {
         </div>}
         {finalistsList(props, finalists)}
       </main>
-      <Sponsors {...props} showFlatDesign />
+      <Sponsors {...props} hideMainSponsor showFlatDesign />
       <Footer {...props} />
       <style jsx>
         {`

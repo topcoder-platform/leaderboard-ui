@@ -20,7 +20,7 @@ const Home = (props) => (
         dangerouslySetInnerHTML={{ __html: props.message }}
       />
     </main>
-    <Sponsors {...props} />
+    <Sponsors {...props} hideMainSponsor />
     <Footer {...props} />
     <style jsx global>{`
       #__next {
