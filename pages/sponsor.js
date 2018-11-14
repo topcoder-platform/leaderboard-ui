@@ -7,7 +7,7 @@ import Footer from '../components/Footer'
 import PageHead from '../components/PageHead'
 import Sponsors from '../components/Sponsors'
 import FinalistTable from '../components/FinalistTable'
-import { prepareLeaderboard } from '../common/helper'
+import { prepareLeaderboard, checkForMainSponsor } from '../common/helper'
 
 class SponsorPage extends React.Component {
   constructor (props) {
@@ -38,6 +38,8 @@ class SponsorPage extends React.Component {
 
     const otherSponsors = sponsor.secondarySponsors.map(s => s.fields.file.url)
 
+    const mainSponsor = await checkForMainSponsor(sponsor.primarySponsor)
+    
     return {
       logo: header.logo.fields.file.url,
       primaryColor: header.primaryColor,
@@ -49,7 +51,7 @@ class SponsorPage extends React.Component {
       tickerType: footer.tickerType.fields.file.url,
       tickerSeparator: footer.tickerSeparator.fields.file.url,
       tickerMessages: footer.tickerMessages,
-      mainSponsor: sponsor.primarySponsor.fields.file.url,
+      mainSponsor,
       otherSponsors,
       members: finalists.finalists,
       sponsorDescription: data.fields.sponsorDescription
@@ -85,7 +87,7 @@ class SponsorPage extends React.Component {
             <img className='hexa' src='/static/img/largeHexa.png' />
             <div className='message'>
               <img src='/static/img/hexagon.png' alt='hex' />
-              <div className='subtitle'>players</div>
+              {/* <div className='subtitle'>players</div> */}
               <div className='title'>SPONSORED BY</div>
             </div>
             <img className='sponsorImg' src={this.props.mainSponsor} />

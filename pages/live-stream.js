@@ -7,7 +7,7 @@ import Footer from '../components/Footer'
 import PageHead from '../components/PageHead'
 import Sponsors from '../components/Sponsors'
 import FinalistTable from '../components/FinalistTable'
-import { prepareLeaderboard } from '../common/helper'
+import { prepareLeaderboard, checkForMainSponsor } from '../common/helper'
 
 class LiveStream extends React.Component {
   constructor (props) {
@@ -37,6 +37,8 @@ class LiveStream extends React.Component {
     const finalists = data.fields.finalists.fields
 
     const otherSponsors = sponsor.secondarySponsors.map(s => s.fields.file.url)
+    
+    const mainSponsor = await checkForMainSponsor(sponsor.primarySponsor)
 
     return {
       logo: header.logo.fields.file.url,
@@ -49,7 +51,7 @@ class LiveStream extends React.Component {
       tickerType: footer.tickerType.fields.file.url,
       tickerSeparator: footer.tickerSeparator.fields.file.url,
       tickerMessages: footer.tickerMessages,
-      mainSponsor: sponsor.primarySponsor.fields.file.url,
+      mainSponsor,
       otherSponsors,
       members: finalists.finalists,
       livestreamUrl: data.fields.liveStreamUrl
@@ -91,7 +93,7 @@ class LiveStream extends React.Component {
               allowFullScreen
             />
           </main>
-          <Sponsors {...this.props} smallerSponsor />
+          <Sponsors {...this.props} smallerSponsor showFlatDesign/>
           <Footer {...this.props} />
         </div>
         { this.props.showScoreboard && <FinalistTable

@@ -5,7 +5,7 @@ import fetch from 'isomorphic-unfetch'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import PageHead from '../components/PageHead'
-import { hexToName } from '../common/helper'
+import { hexToName, checkForMainSponsor } from '../common/helper'
 
 const rowSize = {
   7: [2, 3, 2],
@@ -588,6 +588,8 @@ Winners.getInitialProps = async function ({ query }) {
 
   const winnersImages = data.fields.winnerImages.fields.winners.map(w => w.fields.file.url)
 
+  const mainSponsor = await checkForMainSponsor(sponsor.primarySponsor)
+
   return {
     logo: header.logo.fields.file.url,
     primaryColor: header.primaryColor,
@@ -597,7 +599,7 @@ Winners.getInitialProps = async function ({ query }) {
     tickerType: footer.tickerType.fields.file.url,
     tickerSeparator: footer.tickerSeparator.fields.file.url,
     tickerMessages: footer.tickerMessages,
-    mainSponsor: sponsor.primarySponsor.fields.file.url,
+    mainSponsor,
     otherSponsors,
     finalists: finalists.finalists,
     winnersImages,

@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import PageHead from '../components/PageHead'
 import Sponsors from '../components/Sponsors'
 import FinalistTable from '../components/FinalistTable'
+import { checkForMainSponsor } from '../common/helper'
 
 const rowSize = {
   7: [2, 3, 2],
@@ -189,7 +190,7 @@ const GetReady = (props) => {
           </div>
           {finalistsLayout(props)}
         </main>
-        <Sponsors {...props} smallerSponsor />
+        <Sponsors {...props} smallerSponsor showFlatDesign/>
         <Footer {...props} />
       </div>
       <FinalistTable
@@ -299,6 +300,8 @@ GetReady.getInitialProps = async function ({ query }) {
 
   const otherSponsors = sponsor.secondarySponsors.map(s => s.fields.file.url)
 
+  const mainSponsor = await checkForMainSponsor(sponsor.primarySponsor)
+
   return {
     logo: header.logo.fields.file.url,
     primaryColor: header.primaryColor,
@@ -308,7 +311,7 @@ GetReady.getInitialProps = async function ({ query }) {
     tickerType: footer.tickerType.fields.file.url,
     tickerSeparator: footer.tickerSeparator.fields.file.url,
     tickerMessages: footer.tickerMessages,
-    mainSponsor: sponsor.primarySponsor.fields.file.url,
+    mainSponsor,
     otherSponsors,
     finalists: finalists.finalists
   }

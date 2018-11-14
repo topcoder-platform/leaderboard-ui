@@ -30,6 +30,8 @@ const Index = (props) => (
 Index.getInitialProps = async function () {
   const { publicRuntimeConfig } = getConfig()
   const res = await fetch(`${publicRuntimeConfig.host}/content/CONTENTFUL_TRACKS_ENTRY_ID`)
+  console.log(res);
+  // const res = await fetch(`https://tco-leaderboard-ui-prod.herokuapp.com/content/6OXLZXVUB2Qk2I8yuoOiwy`)
 
   const data = await res.json()
 
