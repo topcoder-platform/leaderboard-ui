@@ -163,8 +163,8 @@ const table = (props) => {
           }
 
           .country-flag {
-            height: 13px;
-            width: 8.65px;
+            height: 8.65px;
+            width: 13px;
             position: absolute;
             z-index: 3;
             left: 48px;
