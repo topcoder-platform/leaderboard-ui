@@ -115,6 +115,7 @@ class PrizeOverview extends React.Component {
       round: header.round,
       eventEndDateTime: header.eventDateTime,
       challengeId: header.challengeId,
+      showScoreboard: header.showScoreboard,
       tickerType: footer.tickerType.fields.file.url,
       tickerSeparator: footer.tickerSeparator.fields.file.url,
       tickerMessages: footer.tickerMessages,
@@ -162,10 +163,10 @@ class PrizeOverview extends React.Component {
           <Sponsors {...this.props} smallerSponsor />
           <Footer {...this.props} />
         </div>
-        <FinalistTable
+        { this.props.showScoreboard && <FinalistTable
           {...this.props}
           finalists={this.state.leaderboard}
-        />
+        />}
         <style jsx global>{`
           #__next {
             display: flex;

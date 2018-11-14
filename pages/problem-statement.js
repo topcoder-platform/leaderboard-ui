@@ -44,6 +44,7 @@ class ProblemStatement extends React.Component {
       track: header.track,
       round: header.round,
       eventEndDateTime: header.eventDateTime,
+      showScoreboard: header.showScoreboard,
       challengeId: header.challengeId,
       tickerType: footer.tickerType.fields.file.url,
       tickerSeparator: footer.tickerSeparator.fields.file.url,
@@ -89,7 +90,6 @@ class ProblemStatement extends React.Component {
             <img className='hexa' src='/static/img/largeHexa.png' />
             <div className='message'>
               <img src='/static/img/hexagon.png' alt='hex' />
-              <div className='subtitle'>players</div>
               <div className='title'>{this.props.problemTitle}</div>
             </div>
             <div className='description'>{this.props.problemDescription}</div>
@@ -97,11 +97,12 @@ class ProblemStatement extends React.Component {
           <Sponsors {...this.props} smallerSponsor />
           <Footer {...this.props} />
         </div>
-        <FinalistTable
+        {this.props.showScoreboard && <FinalistTable
           {...this.props}
           finalists={this.state.leaderboard}
           // smallerDesign
         />
+	}
         <style jsx global>{`
           #__next {
             display: flex;
@@ -157,17 +158,6 @@ class ProblemStatement extends React.Component {
             .message img {
               height: 125%;
               position: absolute;
-            }
-
-            .message .subtitle {
-              text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
-              color: #FFFFFF;
-              font-family: Helvetica;
-              font-size: 24px;
-              font-weight: 400;
-              line-height: 29px;
-              opacity: 0.6;
-              text-align: center;
             }
 
             .message .title {

@@ -44,6 +44,7 @@ class LiveStream extends React.Component {
       track: header.track,
       round: header.round,
       eventEndDateTime: header.eventDateTime,
+      showScoreboard: header.showScoreboard,
       challengeId: header.challengeId,
       tickerType: footer.tickerType.fields.file.url,
       tickerSeparator: footer.tickerSeparator.fields.file.url,
@@ -93,11 +94,11 @@ class LiveStream extends React.Component {
           <Sponsors {...this.props} smallerSponsor />
           <Footer {...this.props} />
         </div>
-        <FinalistTable
+        { this.props.showScoreboard && <FinalistTable
           {...this.props}
           finalists={this.state.leaderboard}
           // smallerDesign
-        />
+        />}
         <style jsx global>{`
           #__next {
             display: flex;
