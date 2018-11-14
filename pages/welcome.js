@@ -4,6 +4,7 @@ import getConfig from 'next/config'
 import Header from '../components/Header'
 import PageHead from '../components/PageHead'
 import Sponsors from '../components/Sponsors'
+import { checkForMainSponsor } from '../common/helper'
 
 const Home = (props) => (
   <div className='container'>
@@ -97,13 +98,15 @@ Home.getInitialProps = async function ({ query }) {
 
   const otherSponsors = sponsor.secondarySponsors.map(s => s.fields.file.url)
 
+  const mainSponsor = await checkForMainSponsor(sponsor.primarySponsor)
+
   return {
     logo: header.logo.fields.file.url,
     primaryColor: header.primaryColor,
     track: header.track,
     round: header.round,
     eventStartDateTime: header.eventDateTime,
-    mainSponsor: sponsor.primarySponsor.fields.file.url,
+    mainSponsor,
     otherSponsors
   }
 }

@@ -7,7 +7,7 @@ import Footer from '../components/Footer'
 import PageHead from '../components/PageHead'
 import Sponsors from '../components/Sponsors'
 import FinalistTable from '../components/FinalistTable'
-import { hexToName, prepareLeaderboard } from '../common/helper'
+import { hexToName, prepareLeaderboard, checkForMainSponsor } from '../common/helper'
 
 const DETAILS = ['rating', 'rank', 'percentile', 'competitions', 'volatility']
 
@@ -223,6 +223,8 @@ class OneOnOne extends React.Component {
 
     const otherSponsors = sponsor.secondarySponsors.map(s => s.fields.file.url)
 
+    const mainSponsor = await checkForMainSponsor(sponsor.primarySponsor)
+
     return {
       logo: header.logo.fields.file.url,
       primaryColor: header.primaryColor,
@@ -234,7 +236,7 @@ class OneOnOne extends React.Component {
       tickerType: footer.tickerType.fields.file.url,
       tickerSeparator: footer.tickerSeparator.fields.file.url,
       tickerMessages: footer.tickerMessages,
-      mainSponsor: sponsor.primarySponsor.fields.file.url,
+      mainSponsor,
       otherSponsors,
       members: finalists.finalists,
       challengee: data.fields.challengee,
@@ -276,7 +278,7 @@ class OneOnOne extends React.Component {
             </div>
             {detailLayout(this.props)}
           </main>
-          <Sponsors {...this.props} smallerSponsor />
+          <Sponsors {...this.props} smallerSponsor/>
           <Footer {...this.props} />
         </div>
         { this.props.showScoreboard && <FinalistTable

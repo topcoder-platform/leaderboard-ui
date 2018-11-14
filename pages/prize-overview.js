@@ -7,7 +7,7 @@ import Footer from '../components/Footer'
 import PageHead from '../components/PageHead'
 import Sponsors from '../components/Sponsors'
 import FinalistTable from '../components/FinalistTable'
-import { prepareLeaderboard } from '../common/helper'
+import { prepareLeaderboard, checkForMainSponsor } from '../common/helper'
 
 const prizesLayout = (prizes) => {
   return (
@@ -108,6 +108,8 @@ class PrizeOverview extends React.Component {
 
     const otherSponsors = sponsor.secondarySponsors.map(s => s.fields.file.url)
 
+    const mainSponsor = await checkForMainSponsor(sponsor.primarySponsor)
+
     return {
       logo: header.logo.fields.file.url,
       primaryColor: header.primaryColor,
@@ -119,7 +121,7 @@ class PrizeOverview extends React.Component {
       tickerType: footer.tickerType.fields.file.url,
       tickerSeparator: footer.tickerSeparator.fields.file.url,
       tickerMessages: footer.tickerMessages,
-      mainSponsor: sponsor.primarySponsor.fields.file.url,
+      mainSponsor,
       otherSponsors,
       members: finalists.finalists,
       prizes: data.fields.prizes
@@ -160,7 +162,7 @@ class PrizeOverview extends React.Component {
             </div>
             {prizesLayout(this.props.prizes)}
           </main>
-          <Sponsors {...this.props} smallerSponsor />
+          <Sponsors {...this.props} smallerSponsor showFlatDesign />
           <Footer {...this.props} />
         </div>
         { this.props.showScoreboard && <FinalistTable

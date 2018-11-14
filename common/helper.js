@@ -65,4 +65,12 @@ async function prepareLeaderboard (challengeId, finalists) {
   return leaderboard
 }
 
-export { leadingZero, hexToName, prepareLeaderboard }
+async function checkForMainSponsor(sponsor) {
+  if(sponsor) {
+    return sponsor.fields.file.url
+  } else {
+    return undefined
+  }
+}
+
+export { leadingZero, hexToName, prepareLeaderboard, checkForMainSponsor }

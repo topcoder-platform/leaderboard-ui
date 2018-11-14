@@ -5,7 +5,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import PageHead from '../components/PageHead'
 import Sponsors from '../components/Sponsors'
-import { hexToName } from '../common/helper'
+import { hexToName, checkForMainSponsor } from '../common/helper'
 
 const getStatView = (key, value) => {
   return (
@@ -428,6 +428,8 @@ FinalistsDetails.getInitialProps = async function ({ query }) {
 
   const otherSponsors = sponsor.secondarySponsors.map(s => s.fields.file.url)
 
+  const mainSponsor = await checkForMainSponsor(sponsor.primarySponsor)
+
   return {
     logo: header.logo.fields.file.url,
     primaryColor: header.primaryColor,
@@ -437,7 +439,7 @@ FinalistsDetails.getInitialProps = async function ({ query }) {
     tickerType: footer.tickerType.fields.file.url,
     tickerSeparator: footer.tickerSeparator.fields.file.url,
     tickerMessages: footer.tickerMessages,
-    mainSponsor: sponsor.primarySponsor.fields.file.url,
+    mainSponsor,
     otherSponsors,
     finalists: finalists.finalists,
     finalistDetails: data.fields.finalistDetails
