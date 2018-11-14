@@ -89,7 +89,7 @@ class Countdown extends React.Component {
             <div className='countdown'>{countdownText}</div>
           </div>
         </main>
-        <Sponsors {...this.props} />
+        <Sponsors {...this.props} hideMainSponsor/>
         <Footer {...this.props} />
         <style jsx>
           {`
