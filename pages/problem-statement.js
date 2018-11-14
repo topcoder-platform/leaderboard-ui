@@ -89,7 +89,6 @@ class ProblemStatement extends React.Component {
             <img className='hexa' src='/static/img/largeHexa.png' />
             <div className='message'>
               <img src='/static/img/hexagon.png' alt='hex' />
-              <div className='subtitle'>players</div>
               <div className='title'>{this.props.problemTitle}</div>
             </div>
             <div className='description'>{this.props.problemDescription}</div>
@@ -100,6 +99,7 @@ class ProblemStatement extends React.Component {
         <FinalistTable
           {...this.props}
           finalists={this.state.leaderboard}
+          largeColumns
           // smallerDesign
         />
         <style jsx global>{`
@@ -157,6 +157,7 @@ class ProblemStatement extends React.Component {
             .message img {
               height: 125%;
               position: absolute;
+              top: -18px;
             }
 
             .message .subtitle {

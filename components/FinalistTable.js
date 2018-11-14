@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types'
 
 const table = (props) => {
-  const { finalists, primaryColor, smallerDesign } = props
-  const smallClass = smallerDesign ? ' small' : ''
+  const { finalists, primaryColor, smallerDesign, largeColumns } = props
+  const smallClass = smallerDesign ? ' small ' : ''
+  const sizeClass = largeColumns ? ' largerCells ' : ''
+  console.log(largeColumns, sizeClass)
   return (
-    <div className={'container' + smallClass}>
+    <div className={'container' + smallClass + sizeClass}>
       <div className='header'>
         <div className='rank'>RANK</div>
         <div className='competitor'>competitor</div>
@@ -188,6 +190,14 @@ const table = (props) => {
             align-items: center;
           }
 
+          .largerCells .points {
+            width: 160px;
+          }
+
+          .largerCells .competitor {
+            width: 300px;
+          }
+
           .row span {
             display: block;
           }
@@ -255,11 +265,13 @@ const table = (props) => {
 table.propTypes = {
   finalists: PropTypes.arrayOf(PropTypes.object).isRequired,
   primaryColor: PropTypes.string.isRequired,
-  smallerDesign: PropTypes.bool
+  smallerDesign: PropTypes.bool,
+  largeColumns: PropTypes.bool
 }
 
 table.defaultProps = {
-  smallerDesign: false
+  smallerDesign: false,
+  largeColumns: false,
 }
 
 export default table
