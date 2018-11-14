@@ -84,7 +84,6 @@ class SponsorPage extends React.Component {
             <img className='hexa' src='/static/img/largeHexa.png' />
             <div className='message'>
               <img src='/static/img/hexagon.png' alt='hex' />
-              <div className='subtitle'>players</div>
               <div className='title'>SPONSORED BY</div>
             </div>
             <img className='sponsorImg' src={this.props.mainSponsor} />
