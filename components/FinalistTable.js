@@ -168,7 +168,7 @@ const table = (props) => {
             position: absolute;
             z-index: 3;
             left: 53px;
-            top: 42px;
+            top: 34px;
           }
 
           .handle {
