@@ -100,6 +100,7 @@ class ProblemStatement extends React.Component {
         {this.props.showScoreboard && <FinalistTable
           {...this.props}
           finalists={this.state.leaderboard}
+          largeColumns
           // smallerDesign
         />
 	}
@@ -158,6 +159,7 @@ class ProblemStatement extends React.Component {
             .message img {
               height: 125%;
               position: absolute;
+              top: -18px;
             }
 
             .message .title {
