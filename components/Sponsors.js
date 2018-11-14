@@ -10,7 +10,7 @@ const sponsors = (props) => {
         SPONSORED BY
       </div>
     }
-    {!hideMainSponsor && <img className='sponsor' src={mainSponsor} alt='sponsor' />}
+    {!hideMainSponsor && <img className='sponsor' src={mainSponsor} />}
     <div className='otherSponsorsContainer'>
       {
         otherSponsors.map((sponsor, i) => (<img key={`${sponsor}${i}`} className='otherSponsor' src={sponsor} alt='sponsor' />))
@@ -144,7 +144,7 @@ sponsors.propTypes = {
 sponsors.defaultProps = {
   showDivider: false,
   showFlatDesign: false,
-  mainSponsor: '/static/img/sponsor.png',
+  mainSponsor: undefined,
   smallerSponsor: false,
   hideMainSponsor: false
 }
