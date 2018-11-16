@@ -9,6 +9,7 @@ import { hexToName, checkForMainSponsor } from '../common/helper'
 
 const rowSize = {
   7: [2, 3, 2],
+  8: [3, 2, 3],
   9: [2, 3, 4],
   10: [3, 4, 3],
   11: [4, 3, 4],
