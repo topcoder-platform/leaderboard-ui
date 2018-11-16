@@ -8,6 +8,7 @@ import PageHead from '../components/PageHead'
 import { hexToName, checkForMainSponsor } from '../common/helper'
 
 const rowSize = {
+  5: [2, 1, 2],
   7: [2, 3, 2],
   8: [3, 2, 3],
   9: [2, 3, 4],
