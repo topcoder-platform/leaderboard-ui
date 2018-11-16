@@ -433,7 +433,6 @@ const WinnersLayout = (props) => {
         <div className='prizeContainer'>
           <div className='message'>
             <img src='/static/img/hexagon.png' alt='hex' />
-            <div className='subtitle'>introducing</div>
             <div className='title'>Finalists</div>
           </div>
           {prizesLayout(props, showWinners)}
