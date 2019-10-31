@@ -106,8 +106,8 @@ class NewsMarquee extends Component {
               align-items: center;
               white-space: nowrap;
               color: #FFFFFF;
-              font-family: 'Montserrat';
-              font-size: 24px;
+              font-family: 'Helvetica Neue';
+              font-size: 20px;
               font-weight: 400;
               line-height: 29px;
             }

@@ -84,7 +84,7 @@ class Header extends React.Component {
               position: absolute;
               right: -18px;
               transform: skew(-18deg);
-              background-image: linear-gradient(8deg, #011921 0%, #07547A 70%);
+              background-image: linear-gradient(8deg,#001C41 0%,#003E8F 70%);
             }
 
             .timer {
@@ -97,20 +97,22 @@ class Header extends React.Component {
             }
 
             .clock {
-              font-size: 32px;
+              font-family: 'Roboto', sans-serif;
+              font-size: 2.875em;
               font-weight: 400;
               text-align: right;
             }
 
             .hint {
-              font-size: 22px;
-              font-weight: 700;
+              font-family: 'Roboto', sans-serif;
+              font-size: 1.25em;
+              font-weight: 400;
               line-height: 26px;
               text-align: right;
             }
             @media only screen and (min-width:1600px){
               .clock {
-                font-size: 46px;
+                font-size: 2.875em;
               }
               
               .timer {
@@ -155,7 +157,7 @@ class Header extends React.Component {
               height: 100%;
               transform: skew(-18deg);
               box-shadow: 0px 0px 15px 0 rgba(0,0,0,0.42);
-              background-image: linear-gradient(90deg, #011921 0%, #07547A 76%);
+              background-image: linear-gradient(90deg,#00132B 0%,#003E8F 76%);
             }
 
             .logo {
@@ -211,20 +213,22 @@ class Header extends React.Component {
               height: 100%;
               text-align: center;
               line-height: 89px;
-              font-family: 'Montserrat';
-              font-size: 32px;
+              font-family: 'Barlow Condensed', sans-serif;
+              font-size: 4.0625em;
               color: #FFFFFF;
               text-shadow: 0 1px 4px rgba(0,0,0,0.50);
-              font-weight: 800;
+              font-weight: 700;
               text-transform: uppercase;
               text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
             }
 
             .title.small {
+              font-family: 'Barlow Condensed', sans-serif;
+              font-weight: 300;
               z-index: 1;
               text-align: left;
               padding-left: 270px;
-              font-size: 28px;
+              font-size: 1.75em;
             }
 
             .round {
@@ -232,22 +236,22 @@ class Header extends React.Component {
             }
 
             .round.small {
-              font-size: 18px;
+              font-size: 1.125em;
               font-weight: 400;
             }
 
             @media only screen and (min-width:1600px){
               .title {
-                font-size: 46px;
+                font-size: 2.875em;
                 line-height: 119px;
               }
 
               .title.small {
-                font-size: 46px;
+                font-size: 2.875em;
               }
 
               .round.small {
-                font-size: 32px;
+                font-size: 2em;
               }
             }
           `}
@@ -275,6 +279,17 @@ class Header extends React.Component {
               background-size: cover;
               overflow: hidden;
               box-shadow: 1px 4px 15px 0 rgba(0,0,0,0.42);
+            }
+
+            .header::before {
+              content: "";
+              height: 2px;
+              background: linear-gradient(#01285c 0%, #01459e 44.66%, #00285d 100%);
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              position: absolute;
+              z-index: 3;
             }
 
             .background {
