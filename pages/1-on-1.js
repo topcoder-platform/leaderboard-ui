@@ -278,7 +278,7 @@ class OneOnOne extends React.Component {
             </div>
             {detailLayout(this.props)}
           </main>
-          <Sponsors {...this.props} smallerSponsor/>
+          <Sponsors {...this.props} smallerSponsor />
           <Footer {...this.props} />
         </div>
         { this.props.showScoreboard && <FinalistTable
@@ -286,7 +286,7 @@ class OneOnOne extends React.Component {
           finalists={this.state.leaderboard}
           // smallerDesign
         />
-	}
+        }
         <style jsx global>{`
           #__next {
             display: flex;
