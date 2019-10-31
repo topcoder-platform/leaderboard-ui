@@ -53,24 +53,23 @@ const Home = (props) => (
         }
 
         .logo {
-          width: 335px;
+          width: 400px;
           position: relative;
         }
 
         .logoText {
-          font-family: Montserrat;
-          font-size: 32px;
-          font-weight: 800;
+          font-family: 'Barlow Condensed',sans-serif;
+          font-size: 2em;
+          font-weight: 700;
           line-height: 48px;
           color: #ffffff;
           text-transform: uppercase;
           position: relative;
           width: 600px;
-          margin-top: 5px;
         }
 
         .round {
-          font-weight: 300;
+          font-weight: 500;
         }
 
       `}

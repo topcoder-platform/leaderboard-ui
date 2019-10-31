@@ -98,21 +98,21 @@ class Header extends React.Component {
 
             .clock {
               font-family: 'Roboto', sans-serif;
-              font-size: 46px;
+              font-size: 2.875em;
               font-weight: 400;
               text-align: right;
             }
 
             .hint {
               font-family: 'Roboto', sans-serif;
-              font-size: 20px;
+              font-size: 1.25em;
               font-weight: 400;
               line-height: 26px;
               text-align: right;
             }
             @media only screen and (min-width:1600px){
               .clock {
-                font-size: 46px;
+                font-size: 2.875em;
               }
               
               .timer {
@@ -214,7 +214,7 @@ class Header extends React.Component {
               text-align: center;
               line-height: 89px;
               font-family: 'Barlow Condensed', sans-serif;
-              font-size: 65px;
+              font-size: 4.0625em;
               color: #FFFFFF;
               text-shadow: 0 1px 4px rgba(0,0,0,0.50);
               font-weight: 700;
@@ -228,7 +228,7 @@ class Header extends React.Component {
               z-index: 1;
               text-align: left;
               padding-left: 270px;
-              font-size: 28px;
+              font-size: 1.75em;
             }
 
             .round {
@@ -236,22 +236,22 @@ class Header extends React.Component {
             }
 
             .round.small {
-              font-size: 18px;
+              font-size: 1.125em;
               font-weight: 400;
             }
 
             @media only screen and (min-width:1600px){
               .title {
-                font-size: 46px;
+                font-size: 2.875em;
                 line-height: 119px;
               }
 
               .title.small {
-                font-size: 46px;
+                font-size: 2.875em;
               }
 
               .round.small {
-                font-size: 32px;
+                font-size: 2em;
               }
             }
           `}
