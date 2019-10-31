@@ -65,8 +65,8 @@ async function prepareLeaderboard (challengeId, finalists) {
   return leaderboard
 }
 
-async function checkForMainSponsor(sponsor) {
-  if(sponsor) {
+async function checkForMainSponsor (sponsor) {
+  if (sponsor) {
     return sponsor.fields.file.url
   } else {
     return undefined

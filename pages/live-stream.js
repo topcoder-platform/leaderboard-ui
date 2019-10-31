@@ -37,7 +37,7 @@ class LiveStream extends React.Component {
     const finalists = data.fields.finalists.fields
 
     const otherSponsors = sponsor.secondarySponsors.map(s => s.fields.file.url)
-    
+
     const mainSponsor = await checkForMainSponsor(sponsor.primarySponsor)
 
     return {
@@ -93,7 +93,7 @@ class LiveStream extends React.Component {
               allowFullScreen
             />
           </main>
-          <Sponsors {...this.props} hideMainSponsor smallerSponsor showFlatDesign/>
+          <Sponsors {...this.props} hideMainSponsor smallerSponsor showFlatDesign />
           <Footer {...this.props} />
         </div>
         { this.props.showScoreboard && <FinalistTable

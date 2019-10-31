@@ -271,7 +271,7 @@ table.propTypes = {
 
 table.defaultProps = {
   smallerDesign: false,
-  largeColumns: false,
+  largeColumns: false
 }
 
 export default table

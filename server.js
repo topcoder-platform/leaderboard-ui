@@ -3,6 +3,7 @@ const next = require('next')
 const contentful = require('contentful')
 const request = require('superagent')
 const cors = require('cors')
+const healthCheck = require('topcoder-healthcheck-dropin')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -20,6 +21,8 @@ app.prepare()
     const server = express()
 
     server.use(cors())
+
+    server.use(healthCheck.middleware([() => true]))
 
     // Endpoint that loads the list of tracks
     server.get('/track/:trackId', async (req, res) => {

@@ -190,7 +190,7 @@ const GetReady = (props) => {
           </div>
           {finalistsLayout(props)}
         </main>
-        <Sponsors {...props} hideMainSponsor smallerSponsor showFlatDesign/>
+        <Sponsors {...props} hideMainSponsor smallerSponsor showFlatDesign />
         <Footer {...props} />
       </div>
       <FinalistTable
