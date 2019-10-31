@@ -97,14 +97,14 @@ class Header extends React.Component {
             }
 
             .clock {
-              font-family: 'Roboto Regular',
+              font-family: 'Roboto', sans-serif;
               font-size: 46px;
               font-weight: 400;
               text-align: right;
             }
 
             .hint {
-              font-family: 'Roboto Regular',
+              font-family: 'Roboto', sans-serif;
               font-size: 20px;
               font-weight: 400;
               line-height: 26px;
@@ -213,17 +213,18 @@ class Header extends React.Component {
               height: 100%;
               text-align: center;
               line-height: 89px;
-              font-family: 'Barlow Condensed Bold';
+              font-family: 'Barlow Condensed', sans-serif;
               font-size: 65px;
               color: #FFFFFF;
               text-shadow: 0 1px 4px rgba(0,0,0,0.50);
-              font-weight: 800;
+              font-weight: 700;
               text-transform: uppercase;
               text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
             }
 
             .title.small {
-              font-family: 'Barlow Condensed Light';
+              font-family: 'Barlow Condensed', sans-serif;
+              font-weight: 300;
               z-index: 1;
               text-align: left;
               padding-left: 270px;
