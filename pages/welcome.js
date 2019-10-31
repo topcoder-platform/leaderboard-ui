@@ -11,7 +11,7 @@ const Home = (props) => (
     <PageHead />
     <Header {...props} />
     <main className='main'>
-      <div className='logo'>
+      <div className='logo-wrapper'>
         <img className='logo' src={props.logo} alt='logo' />
         <div className='logoText'>
           <span style={{ color: props.primaryColor }}>{props.track}</span>
@@ -44,9 +44,16 @@ const Home = (props) => (
           min-height: 300px;
           overflow-x: hidden;
         }
+        
+        .logo-wrapper {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
 
         .logo {
-          width: 600px;
+          width: 335px;
           position: relative;
         }
 
@@ -55,31 +62,17 @@ const Home = (props) => (
           font-size: 32px;
           font-weight: 800;
           line-height: 48px;
-          text-align: left;
           color: #ffffff;
           text-transform: uppercase;
-          position: absolute;
-          right: -252px;
-          bottom: 37px;
+          position: relative;
           width: 600px;
+          margin-top: 5px;
         }
 
         .round {
           font-weight: 300;
         }
 
-        @media only screen and (min-width:1600px){
-          .logo {
-            width: auto;
-          }
-
-          .logoText {
-            right: -333px;
-            bottom: 55px;
-            font-size: 40px;
-            width: 800px;
-          }
-        }
       `}
     </style>
   </div>

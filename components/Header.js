@@ -281,6 +281,17 @@ class Header extends React.Component {
               box-shadow: 1px 4px 15px 0 rgba(0,0,0,0.42);
             }
 
+            .header::before {
+              content: "";
+              height: 2px;
+              background: linear-gradient(#01285c 0%, #01459e 44.66%, #00285d 100%);
+              bottom: 0;
+              left: 0;
+              width: 100%;
+              position: absolute;
+              z-index: 3;
+            }
+
             .background {
               width: 100%;
               position: absolute;
