@@ -1,0 +1,7 @@
+version: '3'
+services:
+  leaderboard-ui:
+    image: leaderboard-ui:latest
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile

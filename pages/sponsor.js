@@ -39,7 +39,7 @@ class SponsorPage extends React.Component {
     const otherSponsors = sponsor.secondarySponsors.map(s => s.fields.file.url)
 
     const mainSponsor = await checkForMainSponsor(sponsor.primarySponsor)
-    
+
     return {
       logo: header.logo.fields.file.url,
       primaryColor: header.primaryColor,

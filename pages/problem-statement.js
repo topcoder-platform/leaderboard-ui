@@ -105,7 +105,7 @@ class ProblemStatement extends React.Component {
           largeColumns
           // smallerDesign
         />
-	}
+        }
         <style jsx global>{`
           #__next {
             display: flex;
