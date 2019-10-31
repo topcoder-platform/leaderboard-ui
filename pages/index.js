@@ -31,7 +31,6 @@ Index.getInitialProps = async function () {
   const { publicRuntimeConfig } = getConfig()
   try {
     const res = await fetch(`${publicRuntimeConfig.host}/content/CONTENTFUL_TRACKS_ENTRY_ID`)
-    console.log(res)
     const data = await res.json()
 
     return {
