@@ -84,7 +84,7 @@ class Header extends React.Component {
               position: absolute;
               right: -18px;
               transform: skew(-18deg);
-              background-image: linear-gradient(8deg, #011921 0%, #07547A 70%);
+              background-image: linear-gradient(8deg,#001C41 0%,#003E8F 70%);
             }
 
             .timer {
@@ -97,14 +97,16 @@ class Header extends React.Component {
             }
 
             .clock {
-              font-size: 32px;
+              font-family: 'Roboto Regular',
+              font-size: 46px;
               font-weight: 400;
               text-align: right;
             }
 
             .hint {
-              font-size: 22px;
-              font-weight: 700;
+              font-family: 'Roboto Regular',
+              font-size: 20px;
+              font-weight: 400;
               line-height: 26px;
               text-align: right;
             }
@@ -155,7 +157,7 @@ class Header extends React.Component {
               height: 100%;
               transform: skew(-18deg);
               box-shadow: 0px 0px 15px 0 rgba(0,0,0,0.42);
-              background-image: linear-gradient(90deg, #011921 0%, #07547A 76%);
+              background-image: linear-gradient(90deg,#00132B 0%,#003E8F 76%);
             }
 
             .logo {
@@ -211,8 +213,8 @@ class Header extends React.Component {
               height: 100%;
               text-align: center;
               line-height: 89px;
-              font-family: 'Montserrat';
-              font-size: 32px;
+              font-family: 'Barlow Condensed Bold';
+              font-size: 65px;
               color: #FFFFFF;
               text-shadow: 0 1px 4px rgba(0,0,0,0.50);
               font-weight: 800;
@@ -221,6 +223,7 @@ class Header extends React.Component {
             }
 
             .title.small {
+              font-family: 'Barlow Condensed Light';
               z-index: 1;
               text-align: left;
               padding-left: 270px;

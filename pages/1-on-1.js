@@ -297,7 +297,7 @@ class OneOnOne extends React.Component {
           {`
             .container {
               display: flex;
-              background: url('/static/img/plainBackground.png') no-repeat center center fixed;
+              background: url("/static/img/background.png") no-repeat center center fixed;
               -webkit-background-size: cover;
               -moz-background-size: cover;
               -o-background-size: cover;
