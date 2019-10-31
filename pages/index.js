@@ -29,11 +29,19 @@ const Index = (props) => (
 
 Index.getInitialProps = async function () {
   const { publicRuntimeConfig } = getConfig()
-  const res = await fetch(`${publicRuntimeConfig.host}/content/CONTENTFUL_TRACKS_ENTRY_ID`)
-  const data = await res.json()
+  try {
+    const res = await fetch(`${publicRuntimeConfig.host}/content/CONTENTFUL_TRACKS_ENTRY_ID`)
+    console.log(res)
+    const data = await res.json()
 
-  return {
-    tracks: data.fields.tracks
+    return {
+      tracks: data.fields.tracks
+    }
+  } catch (err) {
+    console.log(err)
+    return {
+      tracks: []
+    }
   }
 }
 
