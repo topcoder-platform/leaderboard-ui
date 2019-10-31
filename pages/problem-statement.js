@@ -92,6 +92,7 @@ class ProblemStatement extends React.Component {
             <img className='hexa' src='/static/img/largeHexa.png' />
             <div className='message'>
               <img src='/static/img/hexagon.png' alt='hex' />
+              <div className='sub-title'>Problem details</div>
               <div className='title'>{this.props.problemTitle}</div>
             </div>
             <div className='description'>{this.props.problemDescription}</div>
@@ -105,7 +106,7 @@ class ProblemStatement extends React.Component {
           largeColumns
           // smallerDesign
         />
-        }
+	}
         <style jsx global>{`
           #__next {
             display: flex;
@@ -116,7 +117,7 @@ class ProblemStatement extends React.Component {
           {`
             .container {
               display: flex;
-              background: url("/static/img/background.png") no-repeat center center fixed;
+              background: url('/static/img/background.png') no-repeat center center fixed;
               -webkit-background-size: cover;
               -moz-background-size: cover;
               -o-background-size: cover;
@@ -138,7 +139,7 @@ class ProblemStatement extends React.Component {
               display: flex;
               flex-direction: column;
               flex-shrink: 1;
-              background-image: linear-gradient(270deg, rgba(0, 78, 119, 0) 0%, #004165 51.72%, rgba(0, 40, 61, 0) 100%);
+              background-image: linear-gradient(270deg, #002B77 0%, #001265 100%, #000D3D 0%);
               margin-bottom: 10px;
             }
 
@@ -161,24 +162,31 @@ class ProblemStatement extends React.Component {
             .message img {
               height: 125%;
               position: absolute;
-              top: -18px;
+              top: -9px;
             }
 
             .message .title {
               text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
               color: #FFFFFF;
-              font-family: Helvetica;
-              font-size: 38px;
-              font-weight: 700;
+              font-family: Montserrat;
+              font-size: 2.375em;
+              font-weight: 400;
               line-height: 46px;
               text-align: center;
-              margin-top: -10px;
+            }
+
+            .message .sub-title {
+              color: rgba(255, 255, 255, 0.6);
+              font-family: Montserrat;
+              font-size: 1.5em;
+              font-weight: 400;
+              text-align: center;
             }
 
             .description {
               color: #FFFFFF;
               font-family: Roboto;
-              font-size: 26px;
+              font-size: 1.625em;
               font-weight: 500;
               letter-spacing: -0.18px;
               line-height: 42px;
@@ -186,12 +194,6 @@ class ProblemStatement extends React.Component {
               text-align: left;
               white-space: pre-line;
               padding: 20px 40px;
-            }
-
-            @media only screen and (min-width:1600px){
-              .message{
-                font-size: 94px;
-              }
             }
           `}
         </style>
