@@ -128,7 +128,7 @@ const detailLayout = (props) => {
           .value {
             text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
             color: #FFFFFF;
-            font-family: font-family: 'Barlow Condensed',sans-serif;
+            font-family: 'Barlow Condensed',sans-serif;
             font-size: 2.625em;
             font-weight: 500;
             letter-spacing: 2.38px;
@@ -281,7 +281,7 @@ class OneOnOne extends React.Component {
       <div className='container'>
         <div className='viewHolder'>
           <PageHead />
-          <Header {...this.props} smallHeader />
+          <Header {...this.props} />
           <main className='main'>
             <img className='hexa' src='/static/img/largeHexa.png' />
             <div className='message'>
@@ -332,7 +332,7 @@ class OneOnOne extends React.Component {
               display: flex;
               flex-direction: column;
               flex-shrink: 1;
-              background-image: linear-gradient(270deg, rgba(0, 78, 119, 0) 0%, #001265 51.72%, rgba(0, 40, 61, 0) 100%);
+              background-image: linear-gradient(270deg,rgba(0, 78, 119, 0.5) 0%,rgba(0, 18, 101, 0.5) 51.72%,rgba(0, 40, 61, 0.5) 100%);
               margin-bottom: 10px;
             }
 
