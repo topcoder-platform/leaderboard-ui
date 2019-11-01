@@ -16,8 +16,8 @@ const detailLayout = (props) => {
   return (
     <div className='container'>
       <div className='profilePicContainer'>
-        <img className='profilePicMask' src='/static/img/detailsProfileMask.png' />
-        <img className='profilePicBg' src={`/static/img/avatarBg/right/${hexToName(primaryColor)}.png`} alt='bg' />
+        <img className='profilePicMask' src={`/static/img/avatarBg/profile-mask-${hexToName(primaryColor)}.svg`} alt='bg' />
+        <span className='oval-shape' />
         <img className='profilePic' src={challenger.profilePic} />
         <div className='handle' style={{ color: primaryColor }}>
           {challenger.handle}
@@ -45,8 +45,8 @@ const detailLayout = (props) => {
         ))}
       </div>
       <div className='profilePicContainer challenger'>
-        <img className='profilePicMask' src='/static/img/detailsProfileMask.png' />
-        <img className='profilePicBg' src={`/static/img/avatarBg/left/${hexToName(primaryColor)}.png`} alt='bg' />
+        <img className='profilePicMask' src={`/static/img/avatarBg/profile-mask-${hexToName(primaryColor)}.svg`} alt='bg' />
+        <span className='oval-shape' />
         <img className='profilePic' src={challengee.profilePic} />
         <div className='handle' style={{ color: primaryColor }}>
           {challengee.handle}
@@ -60,7 +60,7 @@ const detailLayout = (props) => {
         {`
           .container {
             display: flex;
-            margin-top: 60px;
+            margin-top: 30px;
             zoom: 0.7;
           }
 
@@ -86,6 +86,20 @@ const detailLayout = (props) => {
             left: -24px;
             width: 140%;
             z-index: -2;
+          }
+
+          .oval-shape {
+            display: block;
+            position: absolute;
+            width: 160px; 
+            height: 12px; 
+            background: rgba(5, 5, 5, .58); 
+            -moz-border-radius: 12px / 6px; 
+            -webkit-border-radius: 12px / 6px; 
+            border-radius: 12px / 6px;
+            filter: blur(8px);
+            bottom: -40px;
+            left: 60px;
           }
 
           .profilePic {
@@ -114,17 +128,17 @@ const detailLayout = (props) => {
           .value {
             text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
             color: #FFFFFF;
-            font-family: Montserrat;
-            font-size: 42px;
-            font-weight: 900;
-            letter-spacing: 2.63px;
+            font-family: font-family: 'Barlow Condensed',sans-serif;
+            font-size: 2.625em;
+            font-weight: 500;
+            letter-spacing: 2.38px;
             line-height: 40px;
           }
 
           .handle {
             position: absolute;
             font-family: Montserrat;
-            font-size: 48px;
+            font-size: 2.1875em;
             font-weight: 900;
             line-height: 31px;
             left: 30px;
@@ -136,7 +150,6 @@ const detailLayout = (props) => {
           .country {
             color: #FFFFFF;
             font-family: Helvetica;
-            font-size: 14px;
             font-weight: 400;
             text-align: center;
             position: absolute;
@@ -148,7 +161,7 @@ const detailLayout = (props) => {
             align-items: center;
             bottom: -140px;
             left: 20px;
-            font-size: 24px;
+            font-size: 1.3125em;
           }
 
           .countryFlag {
@@ -159,8 +172,8 @@ const detailLayout = (props) => {
 
           .key {
             color: #FFFFFF;
-            font-family: Montserrat;
-            font-size: 20px;
+            font-family: Roboto;
+            font-size: 1.25em;
             font-weight: 400;
             letter-spacing: 1.25px;
             line-height: 40px;
@@ -319,7 +332,7 @@ class OneOnOne extends React.Component {
               display: flex;
               flex-direction: column;
               flex-shrink: 1;
-              background-image: linear-gradient(270deg, rgba(0, 78, 119, 0) 0%, #004165 51.72%, rgba(0, 40, 61, 0) 100%);
+              background-image: linear-gradient(270deg, rgba(0, 78, 119, 0) 0%, #001265 51.72%, rgba(0, 40, 61, 0) 100%);
               margin-bottom: 10px;
             }
 
@@ -347,8 +360,8 @@ class OneOnOne extends React.Component {
             .message .subtitle {
               text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
               color: #FFFFFF;
-              font-family: Helvetica;
-              font-size: 24px;
+              font-family: Montserrat;
+              font-size: 1.5em;
               font-weight: 400;
               line-height: 29px;
               opacity: 0.6;
@@ -358,18 +371,12 @@ class OneOnOne extends React.Component {
             .message .title {
               text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
               color: #FFFFFF;
-              font-family: Helvetica;
-              font-size: 38px;
+              font-family: Montserrat;
+              font-size: 2.375em;
               font-weight: 700;
               line-height: 46px;
               text-align: center;
-              margin-top: -10px;
-            }
-
-            @media only screen and (min-width:1600px){
-              .message{
-                font-size: 94px;
-              }
+              margin-top: -5px;
             }
           `}
         </style>
