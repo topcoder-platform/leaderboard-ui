@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="283px" height="281px" viewBox="0 0 283 281" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
+    <title>blob 10</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#092C71" offset="0%"></stop>
+            <stop stop-color="#0D77C6" offset="100%"></stop>
+        </linearGradient>
+        <path d="M125.898438,198.252305 C170.859375,195.757547 201,122.88179 201,103 C201,56.5827022 179.140503,46.7577906 153.71875,29.2285156 C131.800781,14.1152344 92.9436639,-6.31590203 64.5,2 C37.6070319,9.86253448 4.56640625,42.1074219 1,104.509695 C-0.614594068,132.760639 21.4001612,143.821374 48.8066406,165.337891 C67.0917969,179.693359 80.9375,200.747063 125.898438,198.252305 Z" id="path-2"></path>
+        <filter x="-34.5%" y="-30.2%" width="169.0%" height="169.6%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="9" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="21.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.35 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="TCO19-Scorecard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.571730841">
+        <g id="02-UI-Design-Final-1" transform="translate(-1053.000000, -247.000000)">
+            <g id="Group-7" transform="translate(1094.000000, 279.000000)">
+                <g id="Elements-/-pic-finalist-/-12-ready">
+                    <g id="blob-10">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                        <use fill="url(#linearGradient-1)" fill-rule="evenodd" xlink:href="#path-2"></use>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
