@@ -87,7 +87,7 @@ class ProblemStatement extends React.Component {
       <div className='container'>
         <div className='viewHolder'>
           <PageHead />
-          <Header {...this.props} smallHeader />
+          <Header {...this.props} />
           <main className='main'>
             <img className='hexa' src='/static/img/largeHexa.png' />
             <div className='message'>
@@ -106,7 +106,7 @@ class ProblemStatement extends React.Component {
           largeColumns
           // smallerDesign
         />
-	}
+        }
         <style jsx global>{`
           #__next {
             display: flex;
@@ -139,7 +139,7 @@ class ProblemStatement extends React.Component {
               display: flex;
               flex-direction: column;
               flex-shrink: 1;
-              background-image: linear-gradient(270deg, #002B77 0%, #001265 100%, #000D3D 0%);
+              background-image: linear-gradient(270deg,rgba(0, 43, 119, 0.5) 0%,rgba(0, 18, 101, 0.5) 100%,rgba(0, 13, 61, 0.5) 0%);
               margin-bottom: 10px;
             }
 
