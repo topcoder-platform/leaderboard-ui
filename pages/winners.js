@@ -253,8 +253,18 @@ const finalistsLayout = (profiles, props) => {
 const prizesLayout = (props, showWinners) => {
   const { finalists, prizes, primaryColor, winnersImages } = props
   return (
-    <div className={'container ' + (showWinners && 'containerWithZoom')}>
-      <div className='small'>
+    <div
+      className={'container ' + (showWinners && 'containerWithZoom')}
+      style={{
+        alignItems: (showWinners) ? 'flex-end' : 'flex-start'
+      }}
+    >
+      <div
+        className='small'
+        style={{
+          marginTop: (showWinners) ? '' : '40px'
+        }}
+      >
         <img src='/static/img/silverTrophy.png' />
         <div className='money'>
           ${prizes[1]}
@@ -274,7 +284,7 @@ const prizesLayout = (props, showWinners) => {
         </div>}
       </div>
       <div className='large' style={{
-        marginBottom: ((prizes.length === 2) ? '60px' : (showWinners ? '60px' : '120px')),
+        marginTop: (showWinners) ? '' : '-30px',
         marginLeft: (showWinners) ? '110px' : '60px',
         marginRight: (showWinners) ? '110px' : '60px'
       }}>
@@ -297,7 +307,9 @@ const prizesLayout = (props, showWinners) => {
           </div>
         </div>}
       </div>
-      { (prizes.length === 3) && <div className='small'>
+      { (prizes.length === 3) && <div className='small' style={{
+        marginTop: (showWinners) ? '' : '40px'
+      }}>
         <img src='/static/img/bronzeTrophy.png' />
         <div className='money'>
           ${prizes[2]}
@@ -320,9 +332,7 @@ const prizesLayout = (props, showWinners) => {
         {`
           .container {
             display: flex;
-            flex-grow: 1;
             margin-bottom: 40px;
-            align-items: baseline;
             margin-top: 200px;
           }
 
@@ -341,7 +351,6 @@ const prizesLayout = (props, showWinners) => {
             position: relative;
             color: #EEF4F5;
             font-size: 24px;
-            margin-bottom: 50px;
             z-index: 1;
           }
 
