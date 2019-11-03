@@ -17,7 +17,7 @@ const table = (props) => {
         <div key={i} className='row'>
           <div className='rank'>
             <div className='rank-overlay' />
-            <div className='rank-text' style={{opacity: profile.hasOwnProperty('profilePic') ? '1' : '0.3'}}>
+            <div className='rank-text' style={{ opacity: profile.hasOwnProperty('profilePic') ? '1' : '0.3' }}>
               {i + 1}
             </div>
           </div>

@@ -210,7 +210,7 @@ const detailLayout = (props) => {
 class OneOnOne extends React.Component {
   constructor (props) {
     super(props)
-    
+
     this.polling = null
     this.setupLeaderboard = this.setupLeaderboard.bind(this)
   }
