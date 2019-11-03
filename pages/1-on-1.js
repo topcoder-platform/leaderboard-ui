@@ -210,11 +210,7 @@ const detailLayout = (props) => {
 class OneOnOne extends React.Component {
   constructor (props) {
     super(props)
-
-    this.state = {
-      leaderboard: []
-    }
-
+    
     this.polling = null
     this.setupLeaderboard = this.setupLeaderboard.bind(this)
   }
@@ -223,6 +219,8 @@ class OneOnOne extends React.Component {
     const { publicRuntimeConfig } = getConfig()
 
     const res = await fetch(`${publicRuntimeConfig.host}/contentful/${query.contentfulEntryId}`)
+
+    const leaderboardData = await import('../static/json/leaderboard.json')
 
     const data = await res.json()
 
@@ -253,7 +251,8 @@ class OneOnOne extends React.Component {
       otherSponsors,
       members: finalists.finalists,
       challengee: data.fields.challengee,
-      challenger: data.fields.challenger
+      challenger: data.fields.challenger,
+      finalists: leaderboardData.leaderboard
     }
   }
 
@@ -296,8 +295,7 @@ class OneOnOne extends React.Component {
         </div>
         { this.props.showScoreboard && <FinalistTable
           {...this.props}
-          finalists={this.state.leaderboard}
-          // smallerDesign
+          smallerDesign
         />
         }
         <style jsx global>{`

@@ -13,10 +13,6 @@ class ProblemStatement extends React.Component {
   constructor (props) {
     super(props)
 
-    this.state = {
-      leaderboard: []
-    }
-
     this.polling = null
     this.setupLeaderboard = this.setupLeaderboard.bind(this)
   }
@@ -25,6 +21,8 @@ class ProblemStatement extends React.Component {
     const { publicRuntimeConfig } = getConfig()
 
     const res = await fetch(`${publicRuntimeConfig.host}/contentful/${query.contentfulEntryId}`)
+
+    const leaderboardData = await import('../static/json/leaderboard.json')
 
     const data = await res.json()
 
@@ -55,7 +53,8 @@ class ProblemStatement extends React.Component {
       otherSponsors,
       members: finalists.finalists,
       problemTitle: data.fields.problemStatementTitle,
-      problemDescription: data.fields.problemStatementDescription
+      problemDescription: data.fields.problemStatementDescription,
+      finalists: leaderboardData.leaderboard
     }
   }
 
@@ -102,9 +101,7 @@ class ProblemStatement extends React.Component {
         </div>
         {this.props.showScoreboard && <FinalistTable
           {...this.props}
-          finalists={this.state.leaderboard}
-          largeColumns
-          // smallerDesign
+          smallerDesign
         />
         }
         <style jsx global>{`
