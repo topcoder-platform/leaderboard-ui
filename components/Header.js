@@ -114,7 +114,7 @@ class Header extends React.Component {
               .clock {
                 font-size: 2.875em;
               }
-              
+
               .timer {
                 right: 20px;
               }
@@ -202,6 +202,7 @@ class Header extends React.Component {
     const smallClass = smallHeader ? ' small' : ''
     return (
       <div className={'title' + smallClass}>
+        <img className='gradient' src='/static/img/headerGradient.svg' alt='gradient' />
         <span>{track}</span>
         &nbsp;
         <span className={'round' + smallClass}>{round}</span>
@@ -220,6 +221,14 @@ class Header extends React.Component {
               font-weight: 700;
               text-transform: uppercase;
               text-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5);
+            }
+
+            .gradient {
+              position: absolute;
+              width: 80%;
+              top: 0;
+              left: 50%;
+              margin-left: -40%;
             }
 
             .title.small {
@@ -279,6 +288,7 @@ class Header extends React.Component {
               background-size: cover;
               overflow: hidden;
               box-shadow: 1px 4px 15px 0 rgba(0,0,0,0.42);
+              background: #003E8F;
             }
 
             .header::before {

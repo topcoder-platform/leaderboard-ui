@@ -81,6 +81,7 @@ class NewsMarquee extends Component {
               position: relative;
               overflow: hidden;
               display: flex;
+              height: 100%;
             }
 
             .marqueeShadow {
@@ -99,7 +100,7 @@ class NewsMarquee extends Component {
               left: 0;
               top: 0;
               background-image: linear-gradient(-90deg, rgba(14,24,32,0.00) 0%, #010A17 80%);
-            }          
+            }
 
             .marqueeText {
               display: inline-flex;
@@ -122,7 +123,7 @@ class NewsMarquee extends Component {
               margin-right: 10px;
               height: 28px;
               width: 27px;
-            }          
+            }
           `}
         </style>
       </div>

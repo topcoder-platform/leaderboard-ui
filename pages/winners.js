@@ -5,7 +5,7 @@ import fetch from 'isomorphic-unfetch'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import PageHead from '../components/PageHead'
-import { hexToName, checkForMainSponsor } from '../common/helper'
+import { checkForMainSponsor } from '../common/helper'
 
 const rowSize = {
   5: [2, 1, 2],
@@ -24,110 +24,156 @@ const cardLayout = (profile, primaryColor, position, length) => {
   const { handle, countryFlag, profilePic } = profile
   return (
     <div key={position} className='container' style={{ opacity: (position <= length) ? 0.4 : 1 }}>
-      <img src={profilePic} />
-      <img className={'cardHexagonBackground'} src='/static/img/miniHexa.png' alt='hexa' />
-      <div className='overlay' />
+      <img className={`blob blob-${position % 12 + 1}`} src={`/static/img/blob/blob${position % 12 + 1}.svg`} />
+      <div style={{ backgroundImage: `url('${profilePic}')` }} className='avatar' />
       <div className='handle' style={{ color: primaryColor }}>
         <span>
           {handle}
         </span>
       </div>
-      <img className='countryFlag' src={countryFlag} />
-      <div className='count'>
-        <img className='countbadge' src='/static/img/countBadge.png' />
-        {position}
+      <div className='countryFlagContainer'>
+        <img className='countryFlag' src={countryFlag} />
+        <span>{profile.country}</span>
       </div>
       <style jsx>
         {`
           .container {
-            width: 101px;
-            height: 162px;
+            width: 138px;
+            height: 183px;
             position: relative;
             margin: 0 10px;
-            box-shadow: inset 0 7px 9px 0 rgba(0, 0, 0, 0.5);
             z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Roboto;
           }
 
-          img {
-            width: 100%;
-            height: 120px;
-          }
-
-          .overlay {
+          .blob {
             position: absolute;
-            height: calc(100% - 80px);
-            width: calc(100% - 14px);
-            left: 0px;
-            top: 0px;
-            border-style: solid;
-            border-width: 7px 7px 0px 7px;
-            border-color: #025f907d;
-            border: 7px 0px 0px 0px solid #123123;
-            z-index: 1;
-            opacity: 0.4;
+            z-index: -1;
+          }
+
+          .blob-1 {
+            top: -23px;
+            left: -29px;
+          }
+
+          .blob-2 {
+            top: -25px;
+            left: -22px;
+          }
+
+          .blob-3 {
+            top: -23px;
+            left: -29px;
+          }
+
+          .blob-4 {
+            top: -20px;
+            left: -29px;
+          }
+
+          .blob-5 {
+            top: -28px;
+            left: -26px;
+          }
+
+          .blob-6 {
+            top: -28px;
+            left: -23px;
+          }
+
+          .blob-7 {
+            top: -23px;
+            left: -29px;
+          }
+
+          .blob-8 {
+            top: -33px;
+            left: -23px;
+          }
+
+          .blob-9 {
+            top: -26px;
+            left: -29px;
+          }
+
+          .blob-10 {
+            top: -26px;
+            left: -20px;
+          }
+
+          .blob-11 {
+            top: -23px;
+            left: -29px;
+          }
+
+          .blob-12 {
+            top: -23px;
+            left: -29px;
+          }
+
+          .blob-13 {
+            top: -27px;
+            left: -24px;
+          }
+
+          .blob-14 {
+            top: -23px;
+            left: -29px;
+          }
+
+          .avatar {
+            width: 116px;
+            height: 116px;
+            border-radius: 50%;
+            background-size: 136.5px 163.1px;
+            background-position: 50% -10px;
+            background-repeat: no-repeat;
+            margin-top: 10px;
           }
 
           .handle {
-            margin-top: -4px;
-            width: 100%;
-            height: 42px;
             text-align: center;
-            background-image: linear-gradient(228.85deg, #002A41 0%, #004E77 100%);
-            font-family: Montserrat;
-            font-size: 11px;
+            font-size: 16px;
             font-weight: 700;
             text-align: center;
+            line-height: 19px;
+            margin-top: auto;
+            margin-bottom 6px;
           }
 
           span {
-            padding-top: 5px;
             display: block;
             text-align: center;
           }
 
+          .countryFlagContainer {
+            margin-bottom: 0;
+            display: flex;
+            font-size: 12px;
+            color: white;
+            text-transform: uppercase;
+          }
+
           .countryFlag {
-            width: 21px;
+            width: 12px;
             height: auto;
-            position: absolute;
-            bottom: -10px;
-            left: 41%;
+            margin-right: 3px;
           }
 
-          .cardHexagonBackground {
-            width: 70%;
-            height: auto;
-            position: absolute;
-            left: 15%;
-            bottom: -18%;
-            z-index: -1;
-          }
-
-          .count {
-            width: 37px;
-            height: 40px;
-            color: #D1DDE4;
-            font-family: Montserrat;
-            font-size: 18px;
-            font-weight: 900;
-            line-height: 40px;
-            text-align: center;
-            position: absolute;
-            left: -20px;
-            top: 40%;
-            z-index: 1;
-          }
-
-          .countbadge {
-            width: 100%;
-            height: auto;
-            position: absolute;
-            left: 0;
-            z-index: -1;
-          }
-          
           @media only screen and (min-width:1600px){
             .container {
-              margin: 0px 20px;
+              margin: 0px 16px;
+            }
+
+            .container:last-child {
+              margin-right: 0;
+            }
+
+            .container:first-child {
+              margin-left: 0;
             }
           }
         `}
@@ -148,7 +194,7 @@ const otherSponsorsLayout = (sponsors) => {
             align-items: center;
           }
           .otherSponsor {
-            margin: 0px 10px;
+            margin: 0px 30px;
             height: 28px;
           }
         `}
@@ -183,6 +229,9 @@ const finalistsLayout = (profiles, props) => {
             display: flex;
             flex-direction: column;
             margin-bottom: 20px;
+            flex: 1;
+            align-items: flex-end;
+            padding: 0 66px;
           }
           .rowsContainer {
             display: flex;
@@ -204,16 +253,27 @@ const finalistsLayout = (profiles, props) => {
 const prizesLayout = (props, showWinners) => {
   const { finalists, prizes, primaryColor, winnersImages } = props
   return (
-    <div className={'container ' + (showWinners && 'containerWithZoom')}>
-      <div className='small'>
+    <div
+      className={'container ' + (showWinners && 'containerWithZoom')}
+      style={{
+        alignItems: (showWinners) ? 'flex-end' : 'flex-start'
+      }}
+    >
+      <div
+        className='small'
+        style={{
+          marginTop: (showWinners) ? '' : '40px'
+        }}
+      >
         <img src='/static/img/silverTrophy.png' />
         <div className='money'>
           ${prizes[1]}
         </div>
         {showWinners && <div>
-          <img className='smallBg' src={`/static/img/avatarBg/right/${hexToName(primaryColor)}.png`} />
-          <img className='smallPic' src={winnersImages[1]} />
-          <img className='smallMask' src='/static/img/detailsProfileMask.png' />
+          <img className='smallBg smallBg2Place' src={`/static/img/blob/blob-2-place.png`} />
+          <div className='smallPicContainer smallPicContainer2Place'>
+            <img className='smallPic' src={winnersImages[1]} />
+          </div>
           <div className='handle' style={{ color: primaryColor }}>
             {finalists[1].handle}
           </div>
@@ -224,19 +284,20 @@ const prizesLayout = (props, showWinners) => {
         </div>}
       </div>
       <div className='large' style={{
-        marginBottom: ((prizes.length === 2) ? '60px' : (showWinners ? '60px' : '120px')),
+        marginTop: (showWinners) ? '' : '-30px',
         marginLeft: (showWinners) ? '110px' : '60px',
         marginRight: (showWinners) ? '110px' : '60px'
       }}>
         <img src='/static/img/goldTrophy.png' />
-        <div className='money'>
+        <div className='money money1Place'>
           ${prizes[0]}
         </div>
         {showWinners && <div>
-          <img className='largeBg' src={`/static/img/avatarBg/left/${hexToName(primaryColor)}.png`} />
+          <img className='largeBg' src={`/static/img/blob/blob-1-place.png`} />
           <img className='spark' src='/static/img/spark.png' />
-          <img className='largePic' src={winnersImages[0]} />
-          <img className='largeMask flipLarge' src='/static/img/detailsProfileMask.png' />
+          <div className='largePicContainer'>
+            <img className='largePic' src={winnersImages[0]} />
+          </div>
           <div className='handle' style={{ color: primaryColor }}>
             {finalists[0].handle}
           </div>
@@ -246,15 +307,18 @@ const prizesLayout = (props, showWinners) => {
           </div>
         </div>}
       </div>
-      { (prizes.length === 3) && <div className='small'>
+      { (prizes.length === 3) && <div className='small' style={{
+        marginTop: (showWinners) ? '' : '40px'
+      }}>
         <img src='/static/img/bronzeTrophy.png' />
         <div className='money'>
           ${prizes[2]}
         </div>
         {showWinners && <div>
-          <img className='smallBg' src={`/static/img/avatarBg/left/${hexToName(primaryColor)}.png`} />
-          <img className='smallPic' src={winnersImages[2]} />
-          <img className='smallMask flip' src='/static/img/detailsProfileMask.png' />
+          <img className='smallBg smallBg3Place' src={`/static/img/blob/blob-3-place.png`} />
+          <div className='smallPicContainer smallPicContainer3Place'>
+            <img className='smallPic' src={winnersImages[2]} />
+          </div>
           <div className='handle' style={{ color: primaryColor }}>
             {finalists[2].handle}
           </div>
@@ -268,16 +332,13 @@ const prizesLayout = (props, showWinners) => {
         {`
           .container {
             display: flex;
-            flex-grow: 1;
             margin-bottom: 40px;
-            align-items: baseline;
             margin-top: 200px;
           }
 
           .containerWithZoom {
             zoom: 0.8;
             margin-top: 270px;
-            background: linear-gradient(270deg, rgba(0, 78, 119, 0) 0%, #00416580 51.72%, rgba(0, 40, 61, 0) 100%);
           }
 
           img {
@@ -290,17 +351,32 @@ const prizesLayout = (props, showWinners) => {
             position: relative;
             color: #EEF4F5;
             font-size: 24px;
-            margin-bottom: 50px;
             z-index: 1;
           }
 
-          .smallPic {
-            position: absolute;
+          .smallPicContainer {
             z-index: -1;
-            top: -103%;
             left: 0px;
+            top: -178px;
+            position: absolute;
+            overflow: hidden;
+          }
+
+          .smallPicContainer3Place {
+            border-bottom-right-radius: 40px;
+            border-bottom-left-radius: 80px;
+          }
+
+          .smallPicContainer2Place {
+            left: 13px;
+            border-bottom-left-radius: 28px;
+            border-bottom-right-radius: 80px;
+          }
+
+          .smallPic {
             height: 250px;
             width: auto;
+            margin-bottom: -10px;
           }
 
           .spark {
@@ -310,27 +386,42 @@ const prizesLayout = (props, showWinners) => {
             top: -103%;
           }
 
-          .largePic {
+          .largePicContainer {
             position: absolute;
             z-index: -1;
-            top: -97%;
+            top: -219px;
             left: 10px;
+            position: absolute;
+            overflow: hidden;
+            border-bottom-right-radius: 91px;
+            border-bottom-left-radius: 82px;
+          }
+
+          .largePic {
             height: 300px;
             width: auto;
+            margin-bottom: -10px;
           }
 
           .smallBg {
             position: absolute;
             z-index: -2;
-            width: 126%;
-            top: -127px;
-            left: -31px;
+            width: 133%;
+          }
+
+          .smallBg2Place {
+            top: -88px;
+            left: -27px;
+          }
+
+          .smallBg3Place {
+            top: -93px;
+            left: -29px;
           }
 
           .large {
             width: 220px;
             color: #FFBA3A;
-            font-size: 38px;
             position: relative;
             z-index: 1;
             margin: 0px 60px;
@@ -340,24 +431,8 @@ const prizesLayout = (props, showWinners) => {
             position: absolute;
             z-index: -2;
             width: 120%;
-            top: -70%;
+            top: -157px;
             left: -14%;
-          }
-
-          .smallMask {
-            position: absolute;
-            z-index: -3;
-            left: -53px;
-            width: 150%;
-            top: -127px;
-          }
-
-          .largeMask {
-            position: absolute;
-            z-index: -3;
-            top: -72%;
-            left: -27%;
-            width: 145%;
           }
 
           .flip {
@@ -365,25 +440,36 @@ const prizesLayout = (props, showWinners) => {
             transform: scaleX(-1);
           }
 
-          .flipLarge {
-            transform: scaleX(-1);
-          }
-
           .money {
-            font-family: Montserrat;
-            font-weight: 700;
+            font-family: Roboto;
+            font-weight: 400;
             text-align: center;
             position: absolute;
             bottom: 10%;
             display: block;
             width: 100%;
+            font-size: 38px;
+            margin-bottom: -6%;
+          }
+
+          .money1Place {
+            font-size: 54px;
+          }
+
+          .containerWithZoom .money {
+            margin-bottom: 0;
+            font-size: 24px;
+          }
+
+          .containerWithZoom .money1Place {
+            font-size: 42px;
           }
 
           .handle {
             position: absolute;
-            font-family: Montserrat;
-            font-size: 26px;
-            font-weight: 900;
+            font-family: 'Barlow Condensed',sans-serif;
+            font-size: 24px;
+            font-weight: 500;
             line-height: 31px;
             left: 0px;
             text-align: center;
@@ -394,8 +480,8 @@ const prizesLayout = (props, showWinners) => {
 
           .country {
             color: #FFFFFF;
-            font-family: Helvetica;
-            font-size: 14px;
+            font-family: Roboto;
+            font-size: 15px;
             font-weight: 400;
             text-align: center;
             position: absolute;
@@ -435,13 +521,15 @@ const WinnersLayout = (props) => {
         <div className='prizeContainer'>
           <div className='message'>
             <img src='/static/img/hexagon.png' alt='hex' />
-            <div className='title'>Finalists</div>
+            <div className='subtitle'>ANNOuncing</div>
+            <div className='title'>WINNERS</div>
           </div>
           {prizesLayout(props, showWinners)}
         </div>
         {finalistsLayout(profiles, props)}
       </main>
       <div className='sponsorContainer'>
+        <img className='sponsorContainerSeparator' src='/static/img/footerSeparator.png' alt='separator' />
         <div className='sponsorhalf'>
           {otherSponsorsLayout(otherSponsors)}
         </div>
@@ -458,7 +546,7 @@ const WinnersLayout = (props) => {
             display: flex;
             flex-direction: column;
             overflow: auto;
-            background: url("/static/img/background.png") no-repeat center center fixed;
+            background: url("/static/img/background.png") no-repeat center 0 fixed;
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
@@ -482,6 +570,8 @@ const WinnersLayout = (props) => {
             align-items: center;
             margin-top: 40px;
             text-transform: uppercase;
+            font-family: 'Barlow', sans-serif;
+            font-weight: 400;
           }
 
           .message img {
@@ -491,20 +581,17 @@ const WinnersLayout = (props) => {
           .message .subtitle {
             text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
             color: #FFFFFF;
-            font-family: Helvetica;
             font-size: 24px;
-            font-weight: 400;
             line-height: 29px;
             opacity: 0.6;
             text-align: center;
+            margin-bottom: 5px;
           }
 
           .message .title {
             text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
             color: #FFFFFF;
-            font-family: Helvetica;
             font-size: 38px;
-            font-weight: 700;
             line-height: 46px;
             text-align: center;
             margin-top: -10px;
@@ -514,11 +601,23 @@ const WinnersLayout = (props) => {
             display: flex;
             flex-direction: column;
             align-items: center;
+            flex: 1;
+            margin-left: 70px;
           }
 
           .sponsorContainer {
             display: flex;
-            margin: 20px 0px;
+            padding: 30px 0px;
+            background: rgba(0, 0, 0, 0.15);
+            position: relative;
+          }
+
+          .sponsorContainerSeparator {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            left: 50%;
+            margin-left: -25%;
           }
 
           .sponsorhalf {
