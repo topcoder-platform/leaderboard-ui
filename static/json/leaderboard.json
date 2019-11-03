@@ -1,0 +1,53 @@
+{
+    "leaderboard": [
+      {
+        "profilePic": "/static/img/pic/finalist/DEV/N1k1tung.png",
+        "countryFlag": "/static/img/flag/belarus.png",
+        "handle": "N1k1tung",
+        "points": "",
+        "status": "awaiting"
+      },
+      {
+        "profilePic": "/static/img/pic/finalist/DEV/paolog.png",
+        "countryFlag": "/static/img/flag/italy.png",
+        "handle": "paolog",
+        "points": "",
+        "status": "submission"
+      },
+      {
+        "profilePic": "/static/img/pic/finalist/DEV/v.t.png",
+        "countryFlag": "/static/img/flag/latvia.png",
+        "handle": "v.t",
+        "points": "899.79",
+        "scoreLevel": "up"
+      },
+      {
+        "profilePic": "/static/img/pic/finalist/DEV/billsedison.png",
+        "countryFlag": "/static/img/flag/china.png",
+        "handle": "billsedison",
+        "points": "899.79",
+        "scoreLevel": "down"
+      },
+      {
+        "status": "awaiting submission"
+      },
+      {
+        "status": "awaiting submission"
+      },
+      {
+        "status": "awaiting submission"
+      },
+      {
+        "status": "awaiting submission"
+      },
+      {
+        "status": "awaiting submission"
+      },
+      {
+        "status": "awaiting submission"
+      },
+      {
+        "status": "awaiting submission"
+      }
+    ]
+  }

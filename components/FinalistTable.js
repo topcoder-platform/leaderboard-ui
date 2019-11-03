@@ -17,12 +17,12 @@ const table = (props) => {
         <div key={i} className='row'>
           <div className='rank'>
             <div className='rank-overlay' />
-            <div className='rank-text'>
+            <div className='rank-text' style={{ opacity: profile.hasOwnProperty('profilePic') ? '1' : '0.3' }}>
               {i + 1}
             </div>
           </div>
 
-          { profile.hasOwnProperty('points') && <div style={{ display: 'flex' }}>
+          { profile.hasOwnProperty('points') && <div style={{ display: 'flex', flexGrow: '1', justifyContent: 'space-between' }}>
             <div className='competitor'>
               <div className='avatar'>
                 <img src={profile.profilePic} />
@@ -32,15 +32,15 @@ const table = (props) => {
             </div>
 
             <div className='points'>
-              {/* <img src='/static/img/trend/down.png' /> */}
-              <div>
+              { profile.hasOwnProperty('scoreLevel') && <img src={`/static/img/trend/${profile.scoreLevel}.png`} /> }
+              { profile.points.length > 0 && <div>
                 <span className='value'>
                   {profile.points}
                 </span>
                 <span className='hint'>
                   POINTS
                 </span>
-              </div>
+              </div> }
             </div>
 
             {!smallerDesign && <div className='tests-passed'>
@@ -55,7 +55,7 @@ const table = (props) => {
             </div>}
 
           </div> }
-          { profile.hasOwnProperty('status') && <div className='status'>
+          { profile.hasOwnProperty('status') && <div className='status' style={{ opacity: profile.hasOwnProperty('points') ? '1' : '0.3' }}>
             {profile.status}
           </div>
           }
@@ -80,12 +80,13 @@ const table = (props) => {
             overflow: hidden;
             color: #ffffff;
             flex-grow: 1;
-            background-image: linear-gradient(-180deg,#00385561 0%,#000b1161 94%);
+            background-image: linear-gradient(180deg,rgba(13, 30, 90, 0.5) 0%,rgba(0, 1, 17, 0.5) 94%);
+            box-shadow: inset 0 -1px 15px 0 rgba(255, 255, 255, 0.05), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
           }
 
           .rank-overlay {
-            background: #003855;
-            box-shadow: 1px 0px 9px 0 #000000, inset 0px 1px 0px 0 rgba(255,255,255,0.34), inset 5px -39px 54px -15px rgba(0, 0, 0, 0.92);
+            background: linear-gradient(180deg,rgba(13,30,90,0.5) 0%,rgba(0,1,17,0.5) 94%);
+            box-shadow: 2px 2px 9px 0 #000000, inset 0 1px 0 0 rgba(255,255,255,0.20);
             width: 100%;
             height: 100%;
             transform: skew(-15deg);
@@ -102,12 +103,26 @@ const table = (props) => {
             z-index: 3;
             color: #FFFFFF;
             font-family: Helvetica;
-            font-size: 24px;
+            font-size: 2em;
             font-weight: 700;
             text-align: center;
             display: flex;
             justify-content: center;
             align-items: center;
+          }
+
+          .emptyRow {
+            color: #FFFFFF;
+            font-size: 1.25em;
+            font-weight: 700;
+            opacity: 0.3;
+            flex-grow: 1;
+            text-align: center;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 20px;
           }
 
           .header {
@@ -116,7 +131,7 @@ const table = (props) => {
             min-height: 48px;
             color: #ffffff77;
             font-family: Helvetica;
-            font-size: 13px;
+            font-size: 1em;
             font-weight: 700;
             line-height: 48px;
             text-align: center;
@@ -126,7 +141,8 @@ const table = (props) => {
           }
 
           .rank {
-            width: 70px;
+            min-width: 70px;
+            height: 100%;
             position: relative;
             z-index: 1;
           }
@@ -135,6 +151,7 @@ const table = (props) => {
             width: 180px;
             position: relative;
             text-align: left;
+            font-size: 0.9375em;
           }
 
           .small .competitor {
@@ -151,7 +168,7 @@ const table = (props) => {
             width: 70px;
             transform: skew(-14deg);
             overflow: hidden;
-            left: -11px;
+            left: -3px;
             position: absolute;
           }
 
@@ -163,17 +180,17 @@ const table = (props) => {
           }
 
           .country-flag {
-            height: 10px;
-            width: 15px;
+            height: 26px;
+            width: 24px;
             position: absolute;
             z-index: 3;
-            left: 53px;
-            top: 34px;
+            left: 45px;
+            bottom: 10px;
           }
 
           .handle {
-            margin-left: 80px;
-            font-size: 16px;
+            margin-left: 90px;
+            font-size: 1.5625em;
             font-weight: 800;
             width: 198px;
             text-align: left;
@@ -188,6 +205,7 @@ const table = (props) => {
             display: flex;
             justify-content: center;
             align-items: center;
+            padding-right: 15px;
           }
 
           .largerCells .points {
@@ -203,7 +221,7 @@ const table = (props) => {
           }
 
           .hint {
-            font-size: 13px;
+            font-size: 0.9375em;
             font-weight: 700;
             opacity: 0.300000011920929;
             width: 54px;
@@ -211,7 +229,7 @@ const table = (props) => {
           }
 
           .value {
-            font-size: 20px;
+            font-size: 1.75em;
             font-weight: 700;
             text-align: left;
           }
@@ -233,12 +251,20 @@ const table = (props) => {
 
           .status {
             color: #FFFFFF;
-            font-size: 20px;
+            font-size: 1.25em;
             font-weight: 700;
             opacity: 0.300000011920929;
             width: 100%;
             text-align: center;
             line-height: 70px;
+          }
+
+          .small .status {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            text-transform: uppercase;
+            padding-right: 20px;
           }
 
           @media only screen and (min-width:1800px){
@@ -253,7 +279,7 @@ const table = (props) => {
             }
 
             .handle {
-              font-size: 18px;
+              font-size: 1.125em;
             }
           }
         `}
