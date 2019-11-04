@@ -70,7 +70,7 @@ app.prepare()
 
       const data = await request
         .get(process.env.LEADERBOARD_API_ENDPOINT)
-        .query({ challengeId, limit: 16 })
+        .query({ challengeId, perPage: 16 })
 
       res.send(data.body)
     })
