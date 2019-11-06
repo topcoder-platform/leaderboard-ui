@@ -5,7 +5,7 @@ UI for Topcoder Event Leaderboards
 ## Dependencies
 
 Nodejs (version 8+)
-Contentful API
+Contentful API 
 
 ## Configuration
 
