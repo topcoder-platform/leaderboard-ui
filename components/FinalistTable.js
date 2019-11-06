@@ -33,7 +33,7 @@ const table = (props) => {
 
             <div className='points'>
               { profile.hasOwnProperty('scoreLevel') && <img src={`/static/img/trend/${profile.scoreLevel}.png`} /> }
-              { profile.points.length > 0 && <div>
+              { profile.points > 0 && <div>
                 <span className='value'>
                   {profile.points}
                 </span>
