@@ -11,38 +11,38 @@ const table = (props) => {
     }
     return ''
   }
-  const algorithmLeaderboard = track === 'algorithm' ? true : false;
-  const f2fLeaderboard = track === 'first2finish' ? true : false;
+  const algorithmLeaderboard = track === 'algorithm'
+  const f2fLeaderboard = track === 'first2finish'
   return (
     <div className={'container' + smallClass + sizeClass + `${trackTableClass(track)}`}>
       <div className='header'>
         <div className='rank'>RANK</div>
         <div className='competitor'>competitor</div>
-        { largeColumns && algorithmLeaderboard && <div className="algorithmFieldCell">
+        { largeColumns && algorithmLeaderboard && <div className='algorithmFieldCell'>
           250
         </div>}
-        { largeColumns && algorithmLeaderboard && <div className="algorithmFieldCell">
+        { largeColumns && algorithmLeaderboard && <div className='algorithmFieldCell'>
           500
         </div>}
-        { largeColumns && algorithmLeaderboard && <div className="algorithmFieldCell">
+        { largeColumns && algorithmLeaderboard && <div className='algorithmFieldCell'>
           1000
         </div> }
-        { largeColumns && f2fLeaderboard && <div className="f2fPblmCell">
+        { largeColumns && f2fLeaderboard && <div className='f2fPblmCell'>
           Problem 1
         </div> }
-        { largeColumns && f2fLeaderboard && <div className="f2fTestCell">
+        { largeColumns && f2fLeaderboard && <div className='f2fTestCell'>
           TESTS PASSED/TOTAL
         </div> }
-        { largeColumns && f2fLeaderboard && <div className="f2fPblmCell">
+        { largeColumns && f2fLeaderboard && <div className='f2fPblmCell'>
           Problem 2
         </div> }
-        { largeColumns && f2fLeaderboard && <div className="f2fTestCell">
+        { largeColumns && f2fLeaderboard && <div className='f2fTestCell'>
           TESTS PASSED/TOTAL
         </div> }
-        { largeColumns && f2fLeaderboard && <div className="f2fPblmCell">
+        { largeColumns && f2fLeaderboard && <div className='f2fPblmCell'>
           Problem 3
         </div> }
-        { largeColumns && f2fLeaderboard && <div className="f2fTestCell">
+        { largeColumns && f2fLeaderboard && <div className='f2fTestCell'>
           TESTS PASSED/TOTAL
         </div> }
         <div className='points'>points</div>
@@ -91,46 +91,46 @@ const table = (props) => {
 
           </div> }
 
-          { largeColumns && algorithmLeaderboard && profile.hasOwnProperty('handle') && <div className="handleName">
+          { largeColumns && algorithmLeaderboard && profile.hasOwnProperty('handle') && <div className='handleName'>
             {profile.handle}
           </div> }
 
-          { largeColumns && algorithmLeaderboard && profile.hasOwnProperty('roundOne') && <div className={"algorithmFieldCell " + (profile.roundOne === 'fail' ? 'fail' : '') }>
+          { largeColumns && algorithmLeaderboard && profile.hasOwnProperty('roundOne') && <div className={'algorithmFieldCell ' + (profile.roundOne === 'fail' ? 'fail' : '')}>
             {profile.roundOne}
           </div> }
 
-          { largeColumns && algorithmLeaderboard && profile.hasOwnProperty('roundTwo') && <div className={"algorithmFieldCell " + (profile.roundTwo === 'fail' ? 'fail' : '') }>
+          { largeColumns && algorithmLeaderboard && profile.hasOwnProperty('roundTwo') && <div className={'algorithmFieldCell ' + (profile.roundTwo === 'fail' ? 'fail' : '')}>
             {profile.roundTwo}
           </div> }
 
-          { largeColumns && algorithmLeaderboard && profile.hasOwnProperty('roundThree') && <div className={"algorithmFieldCell " + (profile.roundThree === 'fail' ? 'fail' : '') }>
+          { largeColumns && algorithmLeaderboard && profile.hasOwnProperty('roundThree') && <div className={'algorithmFieldCell ' + (profile.roundThree === 'fail' ? 'fail' : '')}>
             {profile.roundThree}
           </div> }
 
-          { largeColumns && algorithmLeaderboard && profile.hasOwnProperty('points') && <div className="totalPoints algorithmFieldCell">
+          { largeColumns && algorithmLeaderboard && profile.hasOwnProperty('points') && <div className='totalPoints algorithmFieldCell'>
             {profile.points}
           </div> }
 
-          { largeColumns && f2fLeaderboard && profile.hasOwnProperty('handle') && <div className="handleName">
+          { largeColumns && f2fLeaderboard && profile.hasOwnProperty('handle') && <div className='handleName'>
             {profile.handle}
           </div> }
 
           { largeColumns && f2fLeaderboard && profile.hasOwnProperty('problem') && profile.problem.map((problem, i) => (
-            <div key={i} className="f2fScoreTests">
-              <div className="f2fFieldCell">{problem.score}</div>
-              <div className="f2fFieldCell">
+            <div key={i} className='f2fScoreTests'>
+              <div className='f2fFieldCell'>{problem.score}</div>
+              <div className='f2fFieldCell'>
                 {problem.testsPassed}{problem.testsPassed.length > 0 && problem.totalTestCases.length > 0 && <span>/</span>}{problem.totalTestCases}
               </div>
             </div>
           )) }
 
-          { largeColumns && f2fLeaderboard && profile.hasOwnProperty('points') && <div className="f2fPoints f2fFieldCell">
+          { largeColumns && f2fLeaderboard && profile.hasOwnProperty('points') && <div className='f2fPoints f2fFieldCell'>
             {profile.points}
           </div> }
 
           { profile.hasOwnProperty('status') && <div className='status' style={{ opacity: profile.hasOwnProperty('points') ? '1' : '0.3' }}>
             {profile.status}
-          </div> 
+          </div>
           }
         </div>
       ))
@@ -481,7 +481,7 @@ table.propTypes = {
 table.defaultProps = {
   smallerDesign: false,
   largeColumns: false,
-  track: ""
+  track: ''
 }
 
 export default table

@@ -96,7 +96,7 @@ class ProblemStatement extends React.Component {
             </div>
             <div className='description'>{this.props.problemDescription}</div>
           </main>
-          <div className="problemStatementSponsor">
+          <div className='problemStatementSponsor'>
             <Sponsors {...this.props} hideMainSponsor smallerSponsor showFlatDesign />
           </div>
           <Footer {...this.props} />

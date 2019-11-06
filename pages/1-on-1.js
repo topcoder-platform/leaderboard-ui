@@ -291,7 +291,7 @@ class OneOnOne extends React.Component {
             </div>
             {detailLayout(this.props)}
           </main>
-          <div className="oneOnOne-sponsor">
+          <div className='oneOnOne-sponsor'>
             <Sponsors {...this.props} smallerSponsor />
           </div>
           <Footer {...this.props} />

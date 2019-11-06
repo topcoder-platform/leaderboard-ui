@@ -11,7 +11,7 @@ const LeaderboardLayout = (props) => {
       <PageHead />
       <Header {...props} />
       <main className='main'>
-        <div className="leaderboardTable">
+        <div className='leaderboardTable'>
           <FinalistTable
             {...props}
             largeColumns
