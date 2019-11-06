@@ -14,6 +14,9 @@ class ProblemStatement extends React.Component {
     super(props)
 
     this.polling = null
+    this.state = {
+      leaderboard: []
+    }
     this.setupLeaderboard = this.setupLeaderboard.bind(this)
   }
 
@@ -101,7 +104,8 @@ class ProblemStatement extends React.Component {
         </div>
         {this.props.showScoreboard && <FinalistTable
           {...this.props}
-          smallerDesign
+          finalists={this.state.leaderboard}
+          //smallerDesign
         />
         }
         <style jsx global>{`
