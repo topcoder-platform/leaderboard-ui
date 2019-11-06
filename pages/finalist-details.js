@@ -331,7 +331,7 @@ const FinalistsDetails = (props) => {
             color: #FFFFFF;
             font-family: 'Montserrat', sans-serif;  
             font-size: 2.375em;
-            font-weight: 700;
+            font-weight: 400;
             line-height: 46px;
             text-align: center;
             margin-top: -5px;
@@ -385,6 +385,7 @@ const FinalistsDetails = (props) => {
           .profilePic {
             z-index: 1;
             margin-left: 52px;
+            margin-top: 8px;
           }
 
           .nameContainer {

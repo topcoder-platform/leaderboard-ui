@@ -137,14 +137,15 @@ const detailLayout = (props) => {
 
           .handle {
             position: absolute;
-            font-family: Montserrat;
+            font-family: 'Barlow Condensed', sans-serif;
             font-size: 2.1875em;
-            font-weight: 900;
+            font-weight: 500;
             line-height: 31px;
             left: 30px;
             text-align: center;
             width: 100%;
             bottom: -85px;
+            text-transform: uppercase;
           }
 
           .country {
@@ -290,7 +291,9 @@ class OneOnOne extends React.Component {
             </div>
             {detailLayout(this.props)}
           </main>
-          <Sponsors {...this.props} smallerSponsor />
+          <div className="oneOnOne-sponsor">
+            <Sponsors {...this.props} smallerSponsor />
+          </div>
           <Footer {...this.props} />
         </div>
         { this.props.showScoreboard && <FinalistTable
@@ -330,8 +333,25 @@ class OneOnOne extends React.Component {
               display: flex;
               flex-direction: column;
               flex-shrink: 1;
-              background-image: linear-gradient(270deg,rgba(0, 78, 119, 0.5) 0%,rgba(0, 18, 101, 0.5) 51.72%,rgba(0, 40, 61, 0.5) 100%);
+              background-image: linear-gradient(rgba(0,78,119,0.1) 0%,rgba(0,18,101,0.1) 51.72%,rgba(0,40,61,0.2) 100%);
               margin-bottom: 10px;
+              position: relative;
+            }
+
+            .main::before {
+              content: "";
+              width: 363.1px;
+              background: rgba(112, 112, 112, 0.12);
+              height: 2px;
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              margin: auto;
+            }
+
+            .oneOnOne-sponsor {
+              padding: 20px 0;
             }
 
             .hexa {
@@ -371,7 +391,7 @@ class OneOnOne extends React.Component {
               color: #FFFFFF;
               font-family: Montserrat;
               font-size: 2.375em;
-              font-weight: 700;
+              font-weight: 400;
               line-height: 46px;
               text-align: center;
               margin-top: -5px;
