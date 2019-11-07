@@ -52,7 +52,7 @@ const table = (props) => {
         <div key={i} className='row'>
           <div className='rank'>
             <div className='rank-overlay' />
-            <div className='rank-text' style={{ opacity: profile.hasOwnProperty('profilePic') ? '1' : '0.3' }}>
+            <div className='rank-text' style={{ opacity: profile.hasOwnProperty('handle') ? '1' : '0.3' }}>
               {i + 1}
             </div>
           </div>
@@ -210,6 +210,10 @@ const table = (props) => {
             z-index: -1;
           }
 
+          .largerCells .header {
+            background-color: rgba(0, 26, 63, 0.58);
+          }
+
           .rank {
             min-width: 70px;
             height: 100%;
@@ -344,7 +348,7 @@ const table = (props) => {
 
           .algorithmTable .competitor,
           .algorithmTable .handleName {
-            width: 60%;
+            width: 40%;
             padding-left: 30px;
           }
 
