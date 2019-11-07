@@ -130,8 +130,8 @@ const Finalists = (props) => {
           <div className='cardConainer'>
             {rowOne.map(card.bind(this, props, false))}
           </div>
-          <div className="separator">
-            <img src="/static/img/footerSeparator.png" />
+          <div className='separator'>
+            <img src='/static/img/footerSeparator.png' />
           </div>
           <div className='cardConainer'>
             {rowTwo.map(card.bind(this, props, true))}
