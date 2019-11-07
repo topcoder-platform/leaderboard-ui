@@ -81,6 +81,7 @@ class NewsMarquee extends Component {
               position: relative;
               overflow: hidden;
               display: flex;
+              height: 100%;
             }
 
             .marqueeShadow {
@@ -99,15 +100,15 @@ class NewsMarquee extends Component {
               left: 0;
               top: 0;
               background-image: linear-gradient(-90deg, rgba(14,24,32,0.00) 0%, #010A17 80%);
-            }          
+            }
 
             .marqueeText {
               display: inline-flex;
               align-items: center;
               white-space: nowrap;
-              color: #FFFFFF;
-              font-family: 'Montserrat';
-              font-size: 24px;
+              color: rgba(255, 255, 255, .6);
+              font-family: 'Roboto', sans-serif;
+              font-size: 1.4375em;
               font-weight: 400;
               line-height: 29px;
             }
@@ -118,11 +119,11 @@ class NewsMarquee extends Component {
             }
 
             .marqueeDividerImg {
-              margin-left: 10px;
-              margin-right: 10px;
-              height: 28px;
-              width: 27px;
-            }          
+              margin-left: 15px;
+              margin-right: 15px;
+              height: 26px;
+              width: 47px;
+            }
           `}
         </style>
       </div>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1448px" height="86px" viewBox="0 0 1448 86" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 57.1 (83088) - https://sketch.com -->
+    <title>Path 4</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-7.8%" y="-38.8%" width="110.2%" height="250.4%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="8" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.4 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <linearGradient x1="50%" y1="10.7578443%" x2="50%" y2="64.9796727%" id="linearGradient-2">
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.110971">
+        <g id="Top-section/final/long" transform="translate(-217.000000, -3.000000)" fill="url(#linearGradient-2)" fill-rule="nonzero">
+            <g id="Group-2" filter="url(#filter-1)">
+                <g id="Background">
+                    <g id="top_bg_middle" transform="translate(0.000000, 10.000000)">
+                        <path d="M231.210938,-10 L231.210938,63.9453125 C628.723892,34.1692708 1101.02281,23.8515625 1648.10769,32.9921875 C1648.10769,32.9921875 1656.40513,18.6614583 1673,-10 L231.210938,-10 Z" id="Path-4"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -5,7 +5,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import PageHead from '../components/PageHead'
 import Sponsors from '../components/Sponsors'
-import { checkForMainSponsor } from '../common/helper'
+import { checkForMainSponsor, blobGen } from '../common/helper'
 
 const card = (props, showBottomBg, finalist, i) => {
   if (finalist == null) {
@@ -13,10 +13,9 @@ const card = (props, showBottomBg, finalist, i) => {
   }
   const { primaryColor } = props
   const { handle, country, countryFlag, profilePic } = finalist
-  const hexaClassname = (showBottomBg) ? 'bottomBg' : ''
   return (
     <div key={i} className='card'>
-      <img className={'cardHexagonBackground ' + hexaClassname} src='/static/img/miniHexa.png' alt='hexa' />
+      <img src={`/static/img/profile-blob/blob${blobGen(1, 9)}.svg`} className='profileBlob' />
       <img className='cardProfilePic' src={profilePic} alt='profile' />
       <div className='cardContent'>
         <div className='cardTitle' style={{ color: primaryColor }}>
@@ -27,23 +26,24 @@ const card = (props, showBottomBg, finalist, i) => {
           {country}
         </div>
       </div>
-      <div className='maskLayer' />
       <style jsx>
         {`
           .card {
             display: flex;
             flex-direction: column;
             position: relative;
-            width: 164px;
+            width: 160px;
             margin: 0px 15px;
-            box-shadow: 0px 3px 10px 0px #0000008f;
           }
 
-          .cardHexagonBackground {
-            width: 70%;
+          .profileBlob {
+            width: 260px;
+            height: 250px;
             position: absolute;
-            left: 15%;
-            top: -15%;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            z-index: 1;
           }
 
           .bottomBg {
@@ -52,29 +52,34 @@ const card = (props, showBottomBg, finalist, i) => {
           }
 
           .cardProfilePic {
-            width: 100%;
-            height: auto;
-            z-index: 1;
+            width: 150px;
+            height: 150px;
+            z-index: 2;
+            border-radius: 100%;
+            position: absolute;
+            left: 50%;
+            top: 40px;
+            transform: translateX(-50%);
           }
 
           .cardContent {
-            height: 71.34px;
-            background-image: linear-gradient(228.85deg, #002A41 0%, #004E77 100%);
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 1;
             flex-grow: 1;
+            margin-top: 200px;
           }
 
-          .cardTitle {
-            font-family: Helvetica;
-            font-size: 18px;
-            font-weight: 700;
+          .cardTitle {            
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.25em;
+            font-weight: 500;
             line-height: 22px;
             text-align: center;
             color: rgb(37, 152, 213);
+            margin: 10px 0 5px;
           }
 
           .cardSubtitle {
@@ -82,27 +87,13 @@ const card = (props, showBottomBg, finalist, i) => {
             justify-content: center;
             align-items: center;
             color: #FFFFFF;
-            font-family: Helvetica;
-            font-size: 13px;
-            font-weight: 200;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.8125em;
+            font-weight: 400;
             line-height: 14px;
             text-align: left;
             text-transform: uppercase;
             margin-top: 3px;
-          }
-
-          .maskLayer {
-            position: absolute;
-            height: calc(100% - 80px);
-            width: calc(100% - 14px);
-            left: 0px;
-            top: 0px;
-            border-style: solid;
-            border-width: 7px 7px 0px 7px;
-            border-color: #025f907d;
-            border: 7px 0px 0px 0px solid #123123;
-            z-index: 1;
-            opacity: 0.4;
           }
 
           .cardFlag {
@@ -139,6 +130,9 @@ const Finalists = (props) => {
           <div className='cardConainer'>
             {rowOne.map(card.bind(this, props, false))}
           </div>
+          <div className='separator'>
+            <img src='/static/img/footerSeparator.png' />
+          </div>
           <div className='cardConainer'>
             {rowTwo.map(card.bind(this, props, true))}
           </div>
@@ -154,7 +148,7 @@ const Finalists = (props) => {
             display: flex;
             flex-direction: column;
             overflow: auto;
-            background: url('/static/img/backgroundWithBlur.png') no-repeat center center fixed;
+            background: url("/static/img/background.png") no-repeat center center fixed;
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
@@ -167,6 +161,7 @@ const Finalists = (props) => {
             display: flex;
             flex-direction: column;
             min-height: 800px;
+            position: relative;
           }
 
           .message {
@@ -179,6 +174,8 @@ const Finalists = (props) => {
             align-items: center;
             margin-top: 40px;
             text-transform: uppercase;
+            position: relative;
+            z-index: 4;
           }
 
           .message img {
@@ -188,9 +185,9 @@ const Finalists = (props) => {
           .message .subtitle {
             text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
             color: #FFFFFF;
-            font-family: Helvetica;
-            font-size: 24px;
-            font-weight: 400;
+            font-family: 'Montserrat', sans-serif; 
+            font-family: Montserrat;
+            font-size: 1.5em;
             line-height: 29px;
             opacity: 0.6;
             text-align: center;
@@ -199,29 +196,35 @@ const Finalists = (props) => {
           .message .title {
             text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
             color: #FFFFFF;
-            font-family: Helvetica;
-            font-size: 38px;
-            font-weight: 700;
+            font-family: Montserrat;
+            font-size: 2.375em;
+            font-weight: 400;
             line-height: 46px;
             text-align: center;
-            margin-top: -10px;
+            margin-top: -5px;
           }
 
           .rows {
             width: 100%;
+            position: relative;
+            z-index: 3;
+            margin-top: -20px;
           }
 
           .cardConainer {
             display: flex;
-            margin-top: 30px;
+            margin-top: 20px;
             width: 100%;
             justify-content: center;
+            position: relative;
           }
-
-          @media only screen and (min-width:1600px){
-            .message{
-              font-size: 94px;
-            }
+          .rows .separator {
+            position: relative;
+            top: 25px;
+            width: 100%;
+          }
+          .rows .separator img {
+            width: 100%;
           }
         `}
       </style>

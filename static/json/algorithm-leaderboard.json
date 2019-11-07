@@ -1,0 +1,78 @@
+{
+  "fields": {
+    "footer": {
+      "fields": {
+        "tickerMessages": [
+          "Welcome to TCO 2018",
+          "TCO 2018 will be held from November 13 - 16",
+          "Southfork Ranch at Dallas will be the ve nue",
+          "There will be a total of 6 tracks in which competitions will take place",
+          "12 part icipants will compete in each track"
+        ]
+      }
+    },
+    "header": {
+      "fields": {
+        "logo": { "fields": { "file": { "url": "/static/img/logo.svg" } } },
+        "eventDateTime": "2019-12-03T18:00+05:30",
+        "track": "algorithm",
+        "round": "round",
+        "primaryColor": "#1BA8FD"
+      }
+    }
+  },
+  "leaderboard": [
+    {
+      "handle": "QERTY787788",
+      "roundOne": "136.78",
+      "roundTwo": "379.90",
+      "roundThree": null,
+      "points": "566.43"
+    },
+    {
+      "handle": "PETR",
+      "roundOne": "207.2",
+      "roundTwo": "312.49",
+      "roundThree": null,
+      "points": "505"
+    },
+    {
+      "handle": "KSUN48",
+      "roundOne": "223",
+      "roundTwo": "Chal",
+      "roundThree": null,
+      "points": "223"
+    },
+    {
+      "handle": "_AID",
+      "roundOne": "128",
+      "roundTwo": "fail",
+      "roundThree": null,
+      "points": "128"
+    },
+    {
+      "handle": "KANKURO",
+      "roundOne": "120",
+      "roundTwo": "fail",
+      "roundThree": null,
+      "points": "120"
+    },
+    {
+      "handle": "KCM1700",
+      "roundOne": "186.58",
+      "roundTwo": null,
+      "roundThree": null,
+      "points": "186.58"
+    },
+    {
+      "handle": "KANKURO",
+      "roundOne": "179.44",
+      "roundTwo": null,
+      "roundThree": null,
+      "points": "179.44"
+    },
+    {
+      "status": "awaiting submission"
+    }
+  ]
+}

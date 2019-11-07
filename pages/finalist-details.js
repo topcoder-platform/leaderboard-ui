@@ -5,7 +5,7 @@ import Header from '../components/Header'
 import Footer from '../components/Footer'
 import PageHead from '../components/PageHead'
 import Sponsors from '../components/Sponsors'
-import { hexToName, checkForMainSponsor } from '../common/helper'
+import { hexToName, checkForMainSponsor, blobGen } from '../common/helper'
 
 const getStatView = (key, value) => {
   return (
@@ -23,9 +23,9 @@ const getStatView = (key, value) => {
           .value {
             text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
             color: #FFFFFF;
-            font-family: Montserrat;
-            font-size: 42px;
-            font-weight: 900;
+            font-family: 'Barlow Condensed',sans-serif;
+            font-size: 2.375em;
+            font-weight: 500;
             letter-spacing: 2.63px;
             line-height: 40px;
             text-align: left;
@@ -33,8 +33,8 @@ const getStatView = (key, value) => {
 
           .key {
             color: #FFFFFF;
-            font-family: Montserrat;
-            font-size: 20px;
+            font-family: Roboto;
+            font-size: 1.25em;
             font-weight: 400;
             letter-spacing: 1.25px;
             line-height: 40px;
@@ -112,16 +112,18 @@ const finalistsList = (props, finalists) => {
   return (
     <div className='container'>
       {(finalists.map((data, i) => (
-        <div key={i} className='card' style={{ opacity: (data.isActive ? '1' : '0.3') }}>
+        <div key={i} className='card' style={{ opacity: (data.isActive ? '1' : '0.3'), filter: (data.isActive ? 'grayscale(0%)' : 'grayscale(100%)') }}>
           <img className='profilePic' src={data.profilePic} />
-          <div className='borderOverlay' />
-          <img className={'cardHexagonBackground'} src='/static/img/miniHexa.png' alt='hexa' />
+          <img src={`/static/img/profile-blob/blob${blobGen(1, 9)}.svg`} className='profileBlob' />
           <div className='handle' style={{ color: primaryColor }}>
             <span>
               {data.handle}
             </span>
           </div>
-          <img className='countryFlag' src={data.countryFlag} />
+          <div className='countryDetails'>
+            <span className='countryName' />
+            <img className='countryFlag' src={data.countryFlag} />
+          </div>
         </div>
       )))}
       <style jsx>
@@ -133,12 +135,13 @@ const finalistsList = (props, finalists) => {
           }
 
           .card {
-            width: 100px;
-            height: 162px;
+            width: 90px;
+            height: 90px;
             margin: 3px;
             position: relative;
             z-index: 1;
             zoom: 0.7;
+            margin: 0 15px;
           }
           
           .cardHexagonBackground {
@@ -150,8 +153,22 @@ const finalistsList = (props, finalists) => {
           }
 
           .profilePic {
-            height: 120px;
-            width: 100%;
+            width: 90px;
+            height: 90px;
+            border-radius: 100%;
+          }
+
+          .profileBlob {
+            width: 148px;
+            height: 148px;
+            position: absolute;
+            left: -28px;
+            top: -23px;
+            z-index: -1;
+          }
+
+          .countryDetails {
+            display: flex;
           }
 
           .borderOverlay {
@@ -167,15 +184,13 @@ const finalistsList = (props, finalists) => {
           }
 
           .handle {
-            margin-top: -4px;
             width: 100%;
-            height: 42px;
+            font-family: Roboto;
+            font-size: 0.8125em;
+            font-weight: 500;
             text-align: center;
-            background-image: linear-gradient(228.85deg, #002A41 0%, #004E77 100%);
-            font-family: Montserrat;
-            font-size: 13px;
-            font-weight: 700;
-            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 5px;
           }
 
           span {
@@ -185,11 +200,10 @@ const finalistsList = (props, finalists) => {
           }
           
           .countryFlag {
+            display: flex;
+            margin: auto;
             height: 24px;
             width: 22px;
-            position: absolute;
-            bottom: -14px;
-            left: 41%;
           }
 
           @media only screen and (min-width:1400px){
@@ -201,14 +215,14 @@ const finalistsList = (props, finalists) => {
           @media only screen and (min-width:1600px){
             .card {
               zoom: 0.9;
-              margin: 5px;
+              margin: 10px;
             }
           }
 
           @media only screen and (min-width:1920px){
             .card {
               zoom: 1;
-              margin: 10px;
+              margin: 15px;
             }
           }
         `}
@@ -231,8 +245,8 @@ const FinalistsDetails = (props) => {
         </div>
         {finalistDetails && <div className='detailsContainer'>
           <div className='profilePicContainer'>
-            <img className='profilePicMask' src='/static/img/detailsProfileMask.png' />
-            <img className='profilePicBg' src={`/static/img/avatarBg/right/${hexToName(primaryColor)}.png`} alt='bg' />
+            <img className='profilePicMask' src={`/static/img/avatarBg/profile-mask-${hexToName(primaryColor)}.svg`} alt='bg' />
+            <span className='oval-shape' />
             <img className='profilePic' src={finalistDetails.profilePic} />
           </div>
           <div className='nameContainer'>
@@ -252,9 +266,13 @@ const FinalistsDetails = (props) => {
           <img className='divider' src='/static/img/verticalDivider.png' />
           {badgeLayout(finalistDetails.badges)}
         </div>}
-        {finalistsList(props, finalists)}
+        <div className='finalist-bottom-container'>
+          <div className='finalist-wrapper'>
+            {finalistsList(props, finalists)}
+          </div>
+          <Sponsors {...props} hideMainSponsor showFlatDesign />
+        </div>
       </main>
-      <Sponsors {...props} hideMainSponsor showFlatDesign />
       <Footer {...props} />
       <style jsx>
         {`
@@ -264,7 +282,8 @@ const FinalistsDetails = (props) => {
             display: flex;
             flex-direction: column;
             overflow: auto;
-            background: url('/static/img/backgroundWithBlur.png') no-repeat center center fixed;
+            overflow-x: hidden;
+            background: url("/static/img/background.png") no-repeat center center fixed;
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
@@ -278,7 +297,6 @@ const FinalistsDetails = (props) => {
             flex-direction: column;
             height: auto;
             flex-shrink: 0;
-            margin-bottom: 60px;
           }
 
           .message {
@@ -289,7 +307,7 @@ const FinalistsDetails = (props) => {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            margin-top: 25px;
+            margin-top: 40px;
             text-transform: uppercase;
           }
 
@@ -300,8 +318,8 @@ const FinalistsDetails = (props) => {
           .message .subtitle {
             text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
             color: #FFFFFF;
-            font-family: Helvetica;
-            font-size: 24px;
+            font-family: 'Montserrat', sans-serif;  
+            font-size: 1.5em;
             font-weight: 400;
             line-height: 29px;
             opacity: 0.6;
@@ -311,21 +329,24 @@ const FinalistsDetails = (props) => {
           .message .title {
             text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
             color: #FFFFFF;
-            font-family: Helvetica;
-            font-size: 38px;
-            font-weight: 700;
+            font-family: 'Montserrat', sans-serif;  
+            font-size: 2.375em;
+            font-weight: 400;
             line-height: 46px;
             text-align: center;
-            margin-top: -10px;
+            margin-top: -5px;
           }
 
           .detailsContainer {
             display: flex;
             justify-content: center;
+            margin-bottom: 30px;
+            flex-grow: 1;
           }
 
           .profilePicContainer {
             width: 230px;
+            height: 322px;
             position: relative;
             z-index: 1;
             margin-bottom: 20px;
@@ -347,9 +368,24 @@ const FinalistsDetails = (props) => {
             z-index: -2;
           }
 
+          .oval-shape {
+            display: block;
+            position: absolute;
+            width: 160px; 
+            height: 12px; 
+            background: rgba(5, 5, 5, .58); 
+            -moz-border-radius: 12px / 6px; 
+            -webkit-border-radius: 12px / 6px; 
+            border-radius: 12px / 6px;
+            filter: blur(8px);
+            bottom: -20px;
+            left: 60px;
+          }
+
           .profilePic {
             z-index: 1;
             margin-left: 52px;
+            margin-top: 8px;
           }
 
           .nameContainer {
@@ -362,28 +398,26 @@ const FinalistsDetails = (props) => {
           .handle {
             text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
             color: #5CC900;
-            font-family: Montserrat;
-            font-size: 42px;
-            font-weight: 800;
+            font-family: 'Barlow Condensed',sans-serif;
+            font-size: 2.625em;
+            font-weight: 700;
             text-align: left;
           }
 
           .fullname {
             color: #FFFFFF;
-            font-family: Montserrat;
-            font-size: 24px;
+            font-family: Roboto;
+            font-size: 1.5em;
             font-weight: 500;
-            /* line-height: 29px; */
             text-align: left;
             margin-top: 6px;
           }
 
           .countryDetails {
             color: #FFFFFF;
-            font-family: Montserrat;
-            font-size: 20px;
+            font-family: Roboto;
+            font-size: 1.25em;
             font-weight: 300;
-            /* line-height: 24px; */
             text-transform: uppercase;
             text-align: left;
             margin-top: 6px;
@@ -400,10 +434,29 @@ const FinalistsDetails = (props) => {
             margin: 0 30px;
           }
 
-          @media only screen and (min-width:1600px){
-            .message{
-              font-size: 94px;
-            }
+          .finalist-bottom-container {
+            display: flex;
+            flex-direction: column;
+            background-color: rgba(0, 0, 0, 0.15);
+            width: 100%;
+            flex-grow: 1;
+            position: relative;
+            height: 295px;
+          }
+
+          .finalist-bottom-container::before {
+            content: "";
+            height: 11px;
+            left: 0;
+            bottom: -11px;
+            background-color: rgba(0, 0, 0, 0.15);
+            position: absolute;
+            width: 100%;
+          }
+
+          .finalist-wrapper {
+            flex-grow: 1;
+            margin: 30px auto 0 auto;
           }
         `}
       </style>

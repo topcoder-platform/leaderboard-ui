@@ -13,11 +13,10 @@ class ProblemStatement extends React.Component {
   constructor (props) {
     super(props)
 
+    this.polling = null
     this.state = {
       leaderboard: []
     }
-
-    this.polling = null
     this.setupLeaderboard = this.setupLeaderboard.bind(this)
   }
 
@@ -25,6 +24,8 @@ class ProblemStatement extends React.Component {
     const { publicRuntimeConfig } = getConfig()
 
     const res = await fetch(`${publicRuntimeConfig.host}/contentful/${query.contentfulEntryId}`)
+
+    const leaderboardData = await import('../static/json/leaderboard.json')
 
     const data = await res.json()
 
@@ -48,6 +49,7 @@ class ProblemStatement extends React.Component {
       eventEndDateTime: header.eventDateTime,
       showScoreboard: header.showScoreboard,
       challengeId: header.challengeId,
+      groupId: header.groupId,
       tickerType: footer.tickerType.fields.file.url,
       tickerSeparator: footer.tickerSeparator.fields.file.url,
       tickerMessages: footer.tickerMessages,
@@ -55,7 +57,8 @@ class ProblemStatement extends React.Component {
       otherSponsors,
       members: finalists.finalists,
       problemTitle: data.fields.problemStatementTitle,
-      problemDescription: data.fields.problemStatementDescription
+      problemDescription: data.fields.problemStatementDescription,
+      finalists: leaderboardData.leaderboard
     }
   }
 
@@ -66,8 +69,9 @@ class ProblemStatement extends React.Component {
   setupLeaderboard () {
     const { publicRuntimeConfig } = getConfig()
 
-    prepareLeaderboard(this.props.challengeId, this.props.members)
+    prepareLeaderboard(this.props.challengeId, this.props.members, this.props.groupId)
       .then((leaderboard) => {
+        console.log(leaderboard)
         this.setState({ leaderboard })
         // Poll after configured second
         this.polling = setTimeout(this.setupLeaderboard, publicRuntimeConfig.pollTimeInterval)
@@ -87,22 +91,24 @@ class ProblemStatement extends React.Component {
       <div className='container'>
         <div className='viewHolder'>
           <PageHead />
-          <Header {...this.props} smallHeader />
+          <Header {...this.props} />
           <main className='main'>
             <img className='hexa' src='/static/img/largeHexa.png' />
             <div className='message'>
               <img src='/static/img/hexagon.png' alt='hex' />
+              <div className='sub-title'>Problem details</div>
               <div className='title'>{this.props.problemTitle}</div>
             </div>
             <div className='description'>{this.props.problemDescription}</div>
           </main>
-          <Sponsors {...this.props} hideMainSponsor smallerSponsor showFlatDesign />
+          <div className='problemStatementSponsor'>
+            <Sponsors {...this.props} hideMainSponsor smallerSponsor showFlatDesign />
+          </div>
           <Footer {...this.props} />
         </div>
         {this.props.showScoreboard && <FinalistTable
           {...this.props}
           finalists={this.state.leaderboard}
-          largeColumns
           // smallerDesign
         />
         }
@@ -116,7 +122,7 @@ class ProblemStatement extends React.Component {
           {`
             .container {
               display: flex;
-              background: url('/static/img/plainBackground.png') no-repeat center center fixed;
+              background: url('/static/img/background.png') no-repeat center center fixed;
               -webkit-background-size: cover;
               -moz-background-size: cover;
               -o-background-size: cover;
@@ -138,8 +144,25 @@ class ProblemStatement extends React.Component {
               display: flex;
               flex-direction: column;
               flex-shrink: 1;
-              background-image: linear-gradient(270deg, rgba(0, 78, 119, 0) 0%, #004165 51.72%, rgba(0, 40, 61, 0) 100%);
+              background-image: linear-gradient(rgba(0,78,119,0.1) 0%,rgba(0,18,101,0.1) 51.72%,rgba(0,40,61,0.2) 100%);
               margin-bottom: 10px;
+              position: relative;
+            }
+
+            .main::before {
+              content: "";
+              width: 363.1px;
+              background: rgba(112, 112, 112, 0.12);
+              height: 2px;
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              margin: auto;
+            }
+
+            .problemStatementSponsor {
+              padding: 20px 0;
             }
 
             .hexa {
@@ -161,24 +184,31 @@ class ProblemStatement extends React.Component {
             .message img {
               height: 125%;
               position: absolute;
-              top: -18px;
+              top: -9px;
             }
 
             .message .title {
               text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
               color: #FFFFFF;
-              font-family: Helvetica;
-              font-size: 38px;
-              font-weight: 700;
+              font-family: Montserrat;
+              font-size: 2.375em;
+              font-weight: 400;
               line-height: 46px;
               text-align: center;
-              margin-top: -10px;
+            }
+
+            .message .sub-title {
+              color: rgba(255, 255, 255, 0.6);
+              font-family: Montserrat;
+              font-size: 1.5em;
+              font-weight: 400;
+              text-align: center;
             }
 
             .description {
               color: #FFFFFF;
               font-family: Roboto;
-              font-size: 26px;
+              font-size: 1.625em;
               font-weight: 500;
               letter-spacing: -0.18px;
               line-height: 42px;
@@ -186,12 +216,6 @@ class ProblemStatement extends React.Component {
               text-align: left;
               white-space: pre-line;
               padding: 20px 40px;
-            }
-
-            @media only screen and (min-width:1600px){
-              .message{
-                font-size: 94px;
-              }
             }
           `}
         </style>

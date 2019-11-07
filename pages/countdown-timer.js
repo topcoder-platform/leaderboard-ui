@@ -99,7 +99,7 @@ class Countdown extends React.Component {
               display: flex;
               flex-direction: column;
               overflow: auto;
-              background: url("/static/img/backgroundWithArtwork.png") no-repeat center center fixed; 
+              background: url("/static/img/background.png") no-repeat center center fixed;
               -webkit-background-size: cover;
               -moz-background-size: cover;
               -o-background-size: cover;
@@ -125,23 +125,24 @@ class Countdown extends React.Component {
             }
 
             .countdownTitle {
+              text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
               color: #FFFFFF;
-              font-family: Montserrat;
-              font-size: 24px;
-              font-weight: 400;
-              line-height: 36px;
+              font-family: 'Montserrat', sans-serif;
+              font-size: 1.5em;
+              line-height: 2.25em;
               opacity: 0.6;
               text-align: center;
               margin-bottom: 80px;
             }
 
             .countdown {
+              text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
               position: absolute;
               color: #FFFFFF;
-              font-family: Montserrat;
-              font-size: 72px;
-              font-weight: 700;
-              line-height: 146px;
+              font-family: 'Montserrat', sans-serif;
+              font-size: 4.5em;
+              font-weight: 400;
+              line-height: 46px;
               width: 350px;
               margin-top: 20px;
               letter-spacing: 1.4px;
@@ -150,7 +151,7 @@ class Countdown extends React.Component {
 
             @media only screen and (min-width:1600px){
               .countdown{
-                font-size: 122px;
+                font-size: 7.625em;
                 margin-top: 10px;
                 margin-left: 35px;
                 width: 600px;
@@ -158,7 +159,7 @@ class Countdown extends React.Component {
 
               .countdownTitle {
                 margin-bottom: 130px;
-                font-size: 30px;
+                font-size: 1.875em;
               }
             }
           `}

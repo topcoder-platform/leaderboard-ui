@@ -5,27 +5,35 @@ const footer = ({ tickerMessages, tickerSeparator, tickerType }) => (
   <footer>
     <img className='footerDivider' src='/static/img/footerSeparator.png' alt='stars' />
     <div className='flashContainer'>
-      <img className='flashImg' src={tickerType} alt='flash news' />
+      <div className='flashImg'>
+        <img src={tickerType} alt='flash news' />
+      </div>
       <NewsMarquee tickerMessages={tickerMessages} tickerSeparator={tickerSeparator} />
     </div>
     <style jsx>
       {`
         footer {
-          min-height: 70px;
+          min-height: 84px;
           overflow: hidden;
+          display: flex;
+          flex-direction: column;
         }
 
         .flashContainer {
           display: flex;
           position: relative;
+          height: 100%;
+          align-items: center;
+          flex: 1;
         }
 
         .flashImg {
-          padding: 10px;
-          height: 30px;
-          padding-bottom: 20px;
+          padding-left: 30px;
           background: #010A17;
-        }        
+          height: 100%;
+          display: flex;
+          align-items: center;
+        }
       `}
     </style>
   </footer>
@@ -38,7 +46,7 @@ footer.propTypes = {
 }
 
 footer.defaultProps = {
-  tickerType: '/static/img/flashNews.png',
+  tickerType: '/static/img/flashNews.svg',
   tickerSeparator: '/static/img/miniLogo.png'
 }
 
