@@ -182,7 +182,8 @@ class Header extends React.Component {
 
             @media only screen and (min-width:1600px){
               .logo {
-                height: 84px;
+                width: 7.625em;
+                height: auto;
                 top: 20px;
               }
 
@@ -251,7 +252,7 @@ class Header extends React.Component {
 
             @media only screen and (min-width:1600px){
               .title {
-                font-size: 2.875em;
+                font-size: 4.063em;
                 line-height: 119px;
               }
 
