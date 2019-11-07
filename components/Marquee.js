@@ -121,8 +121,8 @@ class NewsMarquee extends Component {
             .marqueeDividerImg {
               margin-left: 15px;
               margin-right: 15px;
-              height: 28px;
-              width: 27px;
+              height: 26px;
+              width: 47px;
             }
           `}
         </style>
