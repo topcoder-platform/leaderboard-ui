@@ -195,7 +195,7 @@ const Finalists = (props) => {
             color: #FFFFFF;
             font-family: Montserrat;
             font-size: 2.375em;
-            font-weight: 700;
+            font-weight: 400;
             line-height: 46px;
             text-align: center;
             margin-top: -5px;

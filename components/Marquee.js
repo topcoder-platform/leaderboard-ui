@@ -106,9 +106,9 @@ class NewsMarquee extends Component {
               display: inline-flex;
               align-items: center;
               white-space: nowrap;
-              color: #FFFFFF;
-              font-family: 'Helvetica Neue';
-              font-size: 20px;
+              color: rgba(255, 255, 255, .6);
+              font-family: 'Roboto', sans-serif;
+              font-size: 1.4375em;
               font-weight: 400;
               line-height: 29px;
             }
@@ -119,8 +119,8 @@ class NewsMarquee extends Component {
             }
 
             .marqueeDividerImg {
-              margin-left: 10px;
-              margin-right: 10px;
+              margin-left: 15px;
+              margin-right: 15px;
               height: 28px;
               width: 27px;
             }

@@ -1,17 +1,52 @@
 import PropTypes from 'prop-types'
 
 const table = (props) => {
-  const { finalists, primaryColor, smallerDesign, largeColumns } = props
+  const { finalists, primaryColor, smallerDesign, largeColumns, track } = props
   const smallClass = smallerDesign ? ' small ' : ''
   const sizeClass = largeColumns ? ' largerCells ' : ''
-  console.log(largeColumns, sizeClass)
+  const trackTableClass = (track) => {
+    switch (track) {
+      case 'algorithm': return 'algorithmTable'
+      case 'first2finish': return 'f2fTable'
+    }
+    return ''
+  }
+  const algorithmLeaderboard = track === 'algorithm'
+  const f2fLeaderboard = track === 'first2finish'
   return (
-    <div className={'container' + smallClass + sizeClass}>
+    <div className={'container' + smallClass + sizeClass + `${trackTableClass(track)}`}>
       <div className='header'>
         <div className='rank'>RANK</div>
         <div className='competitor'>competitor</div>
+        { largeColumns && algorithmLeaderboard && <div className='algorithmFieldCell'>
+          250
+        </div>}
+        { largeColumns && algorithmLeaderboard && <div className='algorithmFieldCell'>
+          500
+        </div>}
+        { largeColumns && algorithmLeaderboard && <div className='algorithmFieldCell'>
+          1000
+        </div> }
+        { largeColumns && f2fLeaderboard && <div className='f2fPblmCell'>
+          Problem 1
+        </div> }
+        { largeColumns && f2fLeaderboard && <div className='f2fTestCell'>
+          TESTS PASSED/TOTAL
+        </div> }
+        { largeColumns && f2fLeaderboard && <div className='f2fPblmCell'>
+          Problem 2
+        </div> }
+        { largeColumns && f2fLeaderboard && <div className='f2fTestCell'>
+          TESTS PASSED/TOTAL
+        </div> }
+        { largeColumns && f2fLeaderboard && <div className='f2fPblmCell'>
+          Problem 3
+        </div> }
+        { largeColumns && f2fLeaderboard && <div className='f2fTestCell'>
+          TESTS PASSED/TOTAL
+        </div> }
         <div className='points'>points</div>
-        {!smallerDesign && <div className='tests-passed'>tests passed</div>}
+        {!smallerDesign && !algorithmLeaderboard && !f2fLeaderboard && <div className='tests-passed'>tests passed</div>}
       </div>
       { finalists.map((profile, i) => (
         <div key={i} className='row'>
@@ -22,7 +57,7 @@ const table = (props) => {
             </div>
           </div>
 
-          { profile.hasOwnProperty('points') && <div style={{ display: 'flex', flexGrow: '1', justifyContent: 'space-between' }}>
+          { profile.hasOwnProperty('points') && !algorithmLeaderboard && !f2fLeaderboard && <div style={{ display: 'flex', flexGrow: '1', justifyContent: 'space-between' }}>
             <div className='competitor'>
               <div className='avatar'>
                 <img src={profile.profilePic} />
@@ -43,7 +78,7 @@ const table = (props) => {
               </div> }
             </div>
 
-            {!smallerDesign && <div className='tests-passed'>
+            {!smallerDesign && !algorithmLeaderboard && !f2fLeaderboard && <div className='tests-passed'>
               <div>
                 <span className='value'>
                   {profile.testsPassed} / {profile.totalTestCases}
@@ -55,6 +90,44 @@ const table = (props) => {
             </div>}
 
           </div> }
+
+          { largeColumns && algorithmLeaderboard && profile.hasOwnProperty('handle') && <div className='handleName'>
+            {profile.handle}
+          </div> }
+
+          { largeColumns && algorithmLeaderboard && profile.hasOwnProperty('roundOne') && <div className={'algorithmFieldCell ' + (profile.roundOne === 'fail' ? 'fail' : '')}>
+            {profile.roundOne}
+          </div> }
+
+          { largeColumns && algorithmLeaderboard && profile.hasOwnProperty('roundTwo') && <div className={'algorithmFieldCell ' + (profile.roundTwo === 'fail' ? 'fail' : '')}>
+            {profile.roundTwo}
+          </div> }
+
+          { largeColumns && algorithmLeaderboard && profile.hasOwnProperty('roundThree') && <div className={'algorithmFieldCell ' + (profile.roundThree === 'fail' ? 'fail' : '')}>
+            {profile.roundThree}
+          </div> }
+
+          { largeColumns && algorithmLeaderboard && profile.hasOwnProperty('points') && <div className='totalPoints algorithmFieldCell'>
+            {profile.points}
+          </div> }
+
+          { largeColumns && f2fLeaderboard && profile.hasOwnProperty('handle') && <div className='handleName'>
+            {profile.handle}
+          </div> }
+
+          { largeColumns && f2fLeaderboard && profile.hasOwnProperty('problem') && profile.problem.map((problem, i) => (
+            <div key={i} className='f2fScoreTests'>
+              <div className='f2fFieldCell'>{problem.score}</div>
+              <div className='f2fFieldCell'>
+                {problem.testsPassed}{problem.testsPassed.length > 0 && problem.totalTestCases.length > 0 && <span>/</span>}{problem.totalTestCases}
+              </div>
+            </div>
+          )) }
+
+          { largeColumns && f2fLeaderboard && profile.hasOwnProperty('points') && <div className='f2fPoints f2fFieldCell'>
+            {profile.points}
+          </div> }
+
           { profile.hasOwnProperty('status') && <div className='status' style={{ opacity: profile.hasOwnProperty('points') ? '1' : '0.3' }}>
             {profile.status}
           </div>
@@ -71,6 +144,7 @@ const table = (props) => {
             z-index: 3;
             display: flex;
             flex-direction: column;
+            position: relative;
           }
 
           .row {
@@ -84,6 +158,11 @@ const table = (props) => {
             box-shadow: inset 0 -1px 15px 0 rgba(255, 255, 255, 0.05), inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
           }
 
+          .largerCells .row {
+            min-height: 70px;
+            height: 70px;
+          }
+
           .rank-overlay {
             background: linear-gradient(180deg,rgba(13,30,90,0.5) 0%,rgba(0,1,17,0.5) 94%);
             box-shadow: 2px 2px 9px 0 #000000, inset 0 1px 0 0 rgba(255,255,255,0.20);
@@ -94,6 +173,11 @@ const table = (props) => {
             left: -17px;
             width: 120%;
             z-index: -1;
+          }
+
+          .largerCells .rank-overlay {
+            left: -25px;
+            transform: skew(-21deg);
           }
 
           .rank-text {
@@ -109,20 +193,6 @@ const table = (props) => {
             display: flex;
             justify-content: center;
             align-items: center;
-          }
-
-          .emptyRow {
-            color: #FFFFFF;
-            font-size: 1.25em;
-            font-weight: 700;
-            opacity: 0.3;
-            flex-grow: 1;
-            text-align: center;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-            padding-right: 20px;
           }
 
           .header {
@@ -145,6 +215,10 @@ const table = (props) => {
             height: 100%;
             position: relative;
             z-index: 1;
+          }
+
+          .largerCells .rank {
+            min-width: 94px;
           }
 
           .competitor {
@@ -257,6 +331,7 @@ const table = (props) => {
             width: 100%;
             text-align: center;
             line-height: 70px;
+            text-transform: uppercase;
           }
 
           .small .status {
@@ -267,12 +342,119 @@ const table = (props) => {
             padding-right: 20px;
           }
 
+          .algorithmTable .competitor,
+          .algorithmTable .handleName {
+            width: 60%;
+            padding-left: 30px;
+          }
+
+          .algorithmTable .handleName,
+          .f2fTable .handleName {
+            color: #FFFFFF;
+            font-family: Roboto;
+            font-size: 1.5625em;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            opacity: 0.87;
+          }
+
+          .algorithmTable .header,
+          .f2fTable .header {
+            text-align: left;
+          }
+
+          .algorithmTable .algorithmFieldCell {
+            display: flex;
+            align-items: center;
+            width: 15%;
+          }
+
+          .algorithmTable .points {
+            display: flex;
+            align-items: center;
+            width: 15%;
+          }
+
+          .algorithmTable .row .algorithmFieldCell {
+            color: #5CC900;
+            font-family: Roboto;
+            font-size: 1.5625em;
+            font-weight: 700;
+            text-transform: uppercase;
+          }
+
+          .algorithmTable .row .algorithmFieldCell.fail {
+            color: #F21919;
+          }
+
+          .algorithmTable .points,
+          .f2fTable .points {
+            text-align: left;
+          }
+
+          .algorithmTable .rank,
+          .f2fTable .rank {
+            text-align: center;
+          }
+
+          .f2fTable .competitor,
+          .f2fTable .handleName {
+            width: 20%;
+            padding-left: 30px;
+          }
+
+          .f2fTable .f2fTestCell {
+            width: 15%;
+          }
+
+          .f2fTable .f2fPblmCell {
+            width: 8%;
+          }
+
+          .f2fTable .f2fPoints {
+            width: 10%;
+          }
+
+          .f2fTable .points {
+            width: 10%;
+          }
+
+          .f2fFieldCell {
+            display: flex;
+            align-items: center;
+            color: #5CC900;
+            font-family: Roboto;
+            font-size: 1.5625em;
+            font-weight: 700;
+            text-transform: uppercase;
+          }
+
+          .f2fFieldCell.f2fTestCell {
+            font-weight: 400;
+          }
+
+          .f2fScoreTests {
+            display: flex;
+            width: 23%;
+          }
+
+          .f2fScoreTests .f2fFieldCell:first-child {
+            width: 34%;
+          }
+
+          .f2fScoreTests .f2fFieldCell:nth-child(2) {
+            width: 66%;
+            font-weight: 400;
+          }
+
           @media only screen and (min-width:1800px){
             .competitor {
               width: 250px;
             }
           }
-
+          
           @media only screen and (min-width:1920px){
             .competitor {
               width: 320px;
@@ -292,12 +474,14 @@ table.propTypes = {
   finalists: PropTypes.arrayOf(PropTypes.object).isRequired,
   primaryColor: PropTypes.string.isRequired,
   smallerDesign: PropTypes.bool,
-  largeColumns: PropTypes.bool
+  largeColumns: PropTypes.bool,
+  track: PropTypes.string
 }
 
 table.defaultProps = {
   smallerDesign: false,
-  largeColumns: false
+  largeColumns: false,
+  track: ''
 }
 
 export default table

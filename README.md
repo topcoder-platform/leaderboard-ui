@@ -187,3 +187,11 @@ finalists: // JSON array of objects, where each object has the following structu
 winnersImages: // Images for the winners, arranged in the order in which they won
 prizes: // List of Short Text. Prizes for the winners, arranged in order
 ```
+
+### Algorithm Leaderboard Page
+
+http://localhost:3001/page/algorithm-leaderboard/entryId
+
+### F2F Leaderboard Page
+
+http://localhost:3001/page/f2f-leaderboard/entryId
