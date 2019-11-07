@@ -65,12 +65,22 @@ app.prepare()
       res.send(data)
     })
 
-    server.get('/api/leaderboard/:challengeId', async (req, res) => {
+    server.get('/api/leaderboard/challenge/:challengeId', async (req, res) => {
       const challengeId = req.params.challengeId
 
       const data = await request
         .get(process.env.LEADERBOARD_API_ENDPOINT)
         .query({ challengeId, perPage: 16 })
+
+      res.send(data.body)
+    })
+
+    server.get('/api/leaderboard/group/:groupId', async (req, res) => {
+      const groupId = req.params.groupId
+
+      const data = await request
+        .get(process.env.LEADERBOARD_API_ENDPOINT)
+        .query({ groupId, perPage: 16 })
 
       res.send(data.body)
     })

@@ -69,10 +69,9 @@ class ProblemStatement extends React.Component {
   setupLeaderboard () {
     const { publicRuntimeConfig } = getConfig()
 
-    const entityId = this.props.challengeId || this.props.groupId
-
-    prepareLeaderboard(entityId, this.props.members)
+    prepareLeaderboard(this.props.challengeId, this.props.members, this.props.groupId)
       .then((leaderboard) => {
+        console.log(leaderboard)
         this.setState({ leaderboard })
         // Poll after configured second
         this.polling = setTimeout(this.setupLeaderboard, publicRuntimeConfig.pollTimeInterval)

@@ -22,39 +22,68 @@ const hexToName = (hexColor) => {
   return 'blue'
 }
 
-async function prepareLeaderboard (challengeId, finalists) {
+async function prepareLeaderboard (challengeId, finalists, groupId) {
   const { publicRuntimeConfig } = getConfig()
 
   let res
   let leaderboard
 
-  res = await fetch(`${publicRuntimeConfig.host}/api/leaderboard/${challengeId}`)
-  leaderboard = await res.json()
+  if (groupId) {
+    res = await fetch(`${publicRuntimeConfig.host}/api/leaderboard/group/${groupId}`)
+    leaderboard = await res.json()
 
-  // Associate the member details with their score
-  // Don't lose the order in which the member appears in leaderboard variable - they are ranked in order already
-  leaderboard = leaderboard.map(l => {
-    let member = finalists.find(f => {
-      return f.handle === l.handle
+    // Associate the member details with their score
+    // Don't lose the order in which the member appears in leaderboard variable - they are ranked in order already
+    leaderboard = leaderboard.map(l => {
+      let member = finalists.find(f => {
+        return f.handle === l.memberHandle
+      })
+
+      if (member) {
+        member.points = l.finalAggregationScore
+
+        member.challenges = l.numberOfChallenges
+
+        member.testsPassed = l.totalTestsPassed || 0
+        member.totalTestCases = l.totalTests
+      } else {
+        member = {}
+
+        member.status = 'awaiting submission here'
+        member.handle = l.handle
+      }
+
+      return member
     })
+  } else {
+    res = await fetch(`${publicRuntimeConfig.host}/api/leaderboard/challenge/${challengeId}`)
+    leaderboard = await res.json()
 
-    if (member) {
-      member.points = l.aggregateScore || l.finalAggregationScore
-      member.scoreLevel = l.scoreLevel
+    // Associate the member details with their score
+    // Don't lose the order in which the member appears in leaderboard variable - they are ranked in order already
+    leaderboard = leaderboard.map(l => {
+      let member = finalists.find(f => {
+        return f.handle === l.handle
+      })
 
-      member.challenges = 1
+      if (member) {
+        member.points = l.aggregateScore
+        member.scoreLevel = l.scoreLevel
 
-      member.testsPassed = l.testsPassed || 0
-      member.totalTestCases = l.totalTestCases
-    } else {
-      member = {}
+        member.challenges = 1
 
-      member.status = 'awaiting submission here'
-      member.handle = l.handle
-    }
+        member.testsPassed = l.testsPassed || 0
+        member.totalTestCases = l.totalTestCases
+      } else {
+        member = {}
 
-    return member
-  })
+        member.status = 'awaiting submission here'
+        member.handle = l.handle
+      }
+
+      return member
+    })
+  }
 
   // Fill up the remaining member details, which will not be present in leaderboard, if they have not submitted
   for (let i = leaderboard.length; i < finalists.length; i++) {
