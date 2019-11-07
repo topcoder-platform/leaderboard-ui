@@ -130,6 +130,9 @@ const Finalists = (props) => {
           <div className='cardConainer'>
             {rowOne.map(card.bind(this, props, false))}
           </div>
+          <div className="separator">
+            <img src="/static/img/footerSeparator.png" />
+          </div>
           <div className='cardConainer'>
             {rowTwo.map(card.bind(this, props, true))}
           </div>
@@ -215,15 +218,13 @@ const Finalists = (props) => {
             justify-content: center;
             position: relative;
           }
-          .cardConainer:first-child::before {
-            content: '';
-            display: block;
+          .rows .separator {
+            position: relative;
+            top: 25px;
             width: 100%;
-            height: calc(100% + 160px);
-            top: -140px;
-            position: absolute;
-            background-image: linear-gradient(270deg, rgba(0, 78, 119, 0) 0%, #002765 51.72%, rgba(0, 40, 61, 0) 100%);
-            z-index: 0;
+          }
+          .rows .separator img {
+            width: 100%;
           }
         `}
       </style>
