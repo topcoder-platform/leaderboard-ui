@@ -39,7 +39,7 @@ async function prepareLeaderboard (challengeId, finalists) {
     })
 
     if (member) {
-      member.points = l.aggregateScore
+      member.points = l.aggregateScore || l.finalAggregationScore
       member.scoreLevel = l.scoreLevel
 
       member.challenges = 1
