@@ -220,6 +220,7 @@ const table = (props) => {
             height: 100%;
             position: relative;
             z-index: 1;
+            font-size: 0.9375em;
           }
 
           .largerCells .rank {
@@ -319,7 +320,7 @@ const table = (props) => {
           }
 
           .tests-passed {
-            width: 120px;
+            width: 125px;
           }
 
           .row .tests-passed {

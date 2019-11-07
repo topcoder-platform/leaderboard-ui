@@ -109,7 +109,7 @@ class ProblemStatement extends React.Component {
         {this.props.showScoreboard && <FinalistTable
           {...this.props}
           finalists={this.state.leaderboard}
-          smallerDesign
+          // smallerDesign
         />
         }
         <style jsx global>{`
