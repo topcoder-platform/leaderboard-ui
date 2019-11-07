@@ -40,6 +40,7 @@ async function prepareLeaderboard (challengeId, finalists) {
 
     if (member) {
       member.points = l.aggregateScore
+      member.scoreLevel = l.scoreLevel
 
       member.challenges = 1
 
