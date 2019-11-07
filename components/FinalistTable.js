@@ -67,7 +67,7 @@ const table = (props) => {
             </div>
 
             <div className='points'>
-              { profile.hasOwnProperty('scoreLevel') && <img src={`/static/img/trend/${profile.scoreLevel}.png`} /> }
+              { profile.scoreLevel && <img src={`/static/img/trend/${profile.scoreLevel}.png`} /> }
               { profile.points > 0 && <div>
                 <span className='value'>
                   {profile.points}
@@ -145,6 +145,7 @@ const table = (props) => {
             display: flex;
             flex-direction: column;
             position: relative;
+            flex-grow: 0.1;
           }
 
           .row {
@@ -258,8 +259,8 @@ const table = (props) => {
             width: 24px;
             position: absolute;
             z-index: 3;
-            left: 45px;
-            bottom: 10px;
+            left: 56px;
+            bottom: 7px;
           }
 
           .handle {

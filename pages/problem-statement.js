@@ -49,6 +49,7 @@ class ProblemStatement extends React.Component {
       eventEndDateTime: header.eventDateTime,
       showScoreboard: header.showScoreboard,
       challengeId: header.challengeId,
+      groupId: header.groupId,
       tickerType: footer.tickerType.fields.file.url,
       tickerSeparator: footer.tickerSeparator.fields.file.url,
       tickerMessages: footer.tickerMessages,
@@ -68,7 +69,9 @@ class ProblemStatement extends React.Component {
   setupLeaderboard () {
     const { publicRuntimeConfig } = getConfig()
 
-    prepareLeaderboard(this.props.challengeId, this.props.members)
+    const entityId = this.props.challengeId || this.props.groupId
+
+    prepareLeaderboard(entityId, this.props.members)
       .then((leaderboard) => {
         this.setState({ leaderboard })
         // Poll after configured second
@@ -107,7 +110,7 @@ class ProblemStatement extends React.Component {
         {this.props.showScoreboard && <FinalistTable
           {...this.props}
           finalists={this.state.leaderboard}
-          // smallerDesign
+          smallerDesign
         />
         }
         <style jsx global>{`
