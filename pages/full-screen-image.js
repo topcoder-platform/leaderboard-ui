@@ -38,7 +38,7 @@ class FullScreenImage extends React.Component {
       track: header.track,
       round: header.round,
       eventEndDateTime: header.eventDateTime,
-      showScoreboard: header.showScoreboard,
+      showScoreboard: false,
       challengeId: header.challengeId,
       tickerType: footer.tickerType.fields.file.url,
       tickerSeparator: footer.tickerSeparator.fields.file.url,
