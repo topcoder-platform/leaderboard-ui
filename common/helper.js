@@ -55,7 +55,7 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
         // where n is the number of contests per group
 
         // Truncate score to up to 2 decimal points
-        member.points = Math.round(l.finalAggregationScore * 100) / 100
+        member.points = Math.round(l.finalAggregationScore * 10000) / 10000
 
         member.challenges = l.numberOfChallenges
 
@@ -102,7 +102,7 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
       })
 
       if (member) {
-        member.points = Math.round(l.aggregateScore * 100) / 100
+        member.points = Math.round(l.aggregateScore * 10000) / 10000
         member.scoreLevel = l.scoreLevel
 
         member.challenges = 1
