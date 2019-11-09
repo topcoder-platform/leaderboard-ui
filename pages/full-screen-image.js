@@ -10,7 +10,6 @@ import FinalistTable from '../components/FinalistTable'
 import { checkForMainSponsor } from '../common/helper'
 
 class FullScreenImage extends React.Component {
-
   static async getInitialProps ({ query }) {
     const { publicRuntimeConfig } = getConfig()
 
