@@ -16,8 +16,6 @@ class FullScreenImage extends React.Component {
 
     const res = await fetch(`${publicRuntimeConfig.host}/contentful/${query.contentfulEntryId}`)
 
-    const leaderboardData = await import('../static/json/leaderboard.json')
-
     const data = await res.json()
 
     const header = data.fields.header.fields
@@ -47,7 +45,6 @@ class FullScreenImage extends React.Component {
       otherSponsors,
       problemTitle: data.fields.problemStatementTitle,
       problemDescription: data.fields.problemStatementDescription,
-      finalists: leaderboardData.leaderboard,
       imageSrc: screenImage.fields.file.url
     }
   }
