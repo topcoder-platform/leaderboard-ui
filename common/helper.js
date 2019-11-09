@@ -102,7 +102,7 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
       })
 
       if (member) {
-        member.points = l.aggregateScore
+        member.points = Math.round(l.aggregateScore * 100) / 100
         member.scoreLevel = l.scoreLevel
 
         member.challenges = 1
