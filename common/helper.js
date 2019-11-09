@@ -22,7 +22,16 @@ const hexToName = (hexColor) => {
   return 'blue'
 }
 
-async function prepareLeaderboard (challengeId, finalists, groupId) {
+/**
+ * Returns the leaderboard data
+ * Pass either challengeId or groupId. If both passed, groupId is used
+ * Pass groupChallengeIds too if passing groupId
+ * @param {String} challengeId The challenge Id
+ * @param {Array} finalists The list of known finalists
+ * @param {String} groupId The group Id
+ * @param {Array} groupChallengeIds The challenges in the group
+ */
+async function prepareLeaderboard (challengeId, finalists, groupId, groupChallengeIds) {
   const { publicRuntimeConfig } = getConfig()
 
   let res
@@ -32,21 +41,47 @@ async function prepareLeaderboard (challengeId, finalists, groupId) {
     res = await fetch(`${publicRuntimeConfig.host}/api/leaderboard/group/${groupId}`)
     leaderboard = await res.json()
 
-    // Associate the member details with their score
+    // Associate the member details (from contentful) with their score (from leaderboard api)
     // Don't lose the order in which the member appears in leaderboard variable - they are ranked in order already
     leaderboard = leaderboard.map(l => {
+      // First associate the member in contentful with the member in the leaderboard api
       let member = finalists.find(f => {
         return f.handle === l.memberHandle
       })
 
       if (member) {
-        member.points = l.finalAggregationScore
+        // Next determine the member score details
+        // Since it is a group, for each member we will have a maximum of n reviews and 1 final score
+        // where n is the number of contests per group
+
+        // Truncate score to up to 2 decimal points
+        member.points = Math.round(l.finalAggregationScore * 100) / 100
 
         member.challenges = l.numberOfChallenges
 
         member.testsPassed = l.totalTestsPassed || 0
         member.totalTestCases = l.totalTests
+
+        member.reviews = []
+
+        // Now, for each member, determine the individual reviews
+        // Use the provided list of challenge ids per group to organize
+        // since a member may not have a review for a challenge (if they have no submitted)
+        for (let i = 0; i < groupChallengeIds.length; i++) {
+          if (l.reviews[i]) {
+            // Member has a review for that challenge
+            member.reviews.push({
+              score: l.reviews[i].aggregateScore,
+              testsPassed: l.reviews[i].testsPassed,
+              totalTestCases: l.reviews[i].totalTestCases
+            })
+          } else {
+            // Member does not have a review for that challenge
+            member.reviews.push({})
+          }
+        }
       } else {
+        // Member exists in leaderboard api but not in contentful
         member = {}
 
         member.status = 'awaiting submission here'
@@ -86,8 +121,10 @@ async function prepareLeaderboard (challengeId, finalists, groupId) {
   }
 
   // Fill up the remaining member details, which will not be present in leaderboard, if they have not submitted
+  // In other words, member exists in contentful but not in leaderboard api
   for (let i = leaderboard.length; i < finalists.length; i++) {
     leaderboard.push({
+      handle: finalists[i].handle,
       status: 'awaiting submission'
     })
   }
