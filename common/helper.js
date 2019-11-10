@@ -124,11 +124,15 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
 
   // Fill up the remaining member details, which will not be present in leaderboard, if they have not submitted
   // In other words, member exists in contentful but not in leaderboard api
-  for (let i = leaderboard.length; i < finalists.length; i++) {
-    leaderboard.push({
-      handle: finalists[i].handle,
-      status: 'awaiting submission'
-    })
+  for (let i = 0; i < finalists.length; i++) {
+    const found = leaderboard.find(l => l.handle === finalists[i].handle)
+
+    if (!found) {
+      leaderboard.push({
+        handle: finalists[i].handle,
+        status: 'awaiting submission'
+      })
+    }
   }
 
   return leaderboard
