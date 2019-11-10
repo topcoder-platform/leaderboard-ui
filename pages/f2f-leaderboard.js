@@ -45,7 +45,7 @@ const LeaderboardLayout = (props) => {
           }
 
           .leaderboardTable {
-            margin: 57px 0 0 0;
+            margin: 0;
           }
         `}
       </style>

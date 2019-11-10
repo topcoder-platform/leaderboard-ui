@@ -159,8 +159,8 @@ const table = (props) => {
           }
 
           .largerCells .row {
-            min-height: 70px;
-            height: 70px;
+            min-height: 68px;
+            height: 68px;
           }
 
           .rank-overlay {

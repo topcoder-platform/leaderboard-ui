@@ -68,12 +68,14 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
         // Use the provided list of challenge ids per group to organize
         // since a member may not have a review for a challenge (if they have no submitted)
         for (let i = 0; i < groupChallengeIds.length; i++) {
-          if (l.reviews[i]) {
+          let review = l.reviews.find(r => r.challengeId === groupChallengeIds[i])
+
+          if (review) {
             // Member has a review for that challenge
             member.reviews.push({
-              score: l.reviews[i].aggregateScore,
-              testsPassed: l.reviews[i].testsPassed,
-              totalTestCases: l.reviews[i].totalTestCases
+              score: review.aggregateScore,
+              testsPassed: review.testsPassed,
+              totalTestCases: review.totalTestCases
             })
           } else {
             // Member does not have a review for that challenge
