@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 
 const table = (props) => {
-  const { finalists, primaryColor, smallerDesign, largeColumns, track, isF2f } = props
-  const smallClass = smallerDesign ? ' small ' : ''
+  const { finalists, primaryColor, smallerDesign, largeColumns, track, isF2f, isMini } = props
+  const smallClass = smallerDesign || isMini ? ' small ' : ''
   const sizeClass = largeColumns ? ' largerCells ' : ''
   const trackTableClass = (track) => {
     switch (track) {
@@ -16,7 +16,7 @@ const table = (props) => {
     <div className={'container' + smallClass + sizeClass + `${trackTableClass(track)}`}>
       <div className='header'>
         <div className='rank'>RANK</div>
-        <div className='competitor'>competitor</div>
+        {!isMini && <div className='competitor'>competitor</div>}
         { largeColumns && algorithmLeaderboard && <div className='algorithmFieldCell'>
           250
         </div>}
@@ -44,8 +44,15 @@ const table = (props) => {
         { largeColumns && f2fLeaderboard && <div className='f2fTestCell'>
           TESTS PASSED/TOTAL
         </div> }
-        <div className='points'>points</div>
-        {!smallerDesign && !algorithmLeaderboard && !f2fLeaderboard && <div className='tests-passed'>tests passed</div>}
+        {!isMini && <div className='points'>points</div>}
+        {
+          isMini &&
+          <div style={{ display: 'flex', flexGrow: '1', justifyContent: 'space-between' }}>
+            <div className='competitor'>competitor</div>
+            <div className='points'>points</div>
+            <div className='tests-passed'>tests passed</div>
+          </div>
+        }
       </div>
       { finalists.map((profile, i) => (
         <div key={i} className='row'>
@@ -77,7 +84,7 @@ const table = (props) => {
               </div> }
             </div>
 
-            {!smallerDesign && !algorithmLeaderboard && !f2fLeaderboard && <div className='tests-passed'>
+            <div className='tests-passed'>
               <div>
                 <span className='value'>
                   {profile.testsPassed} / {profile.totalTestCases}
@@ -86,7 +93,7 @@ const table = (props) => {
                   TESTS
                 </span>
               </div>
-            </div>}
+            </div>
 
           </div> }
 
@@ -230,11 +237,12 @@ const table = (props) => {
             width: 180px;
             position: relative;
             text-align: left;
-            font-size: 0.9375em;
           }
 
-          .small .competitor {
-            width: 250px;
+          .small .competitor,
+          .small .points,
+          .small .tests-passed {
+            font-size: 0.9375em;
           }
 
           .row .competitor {
@@ -458,6 +466,11 @@ const table = (props) => {
             margin-left: 28.5px;
           }
 
+          .small .competitor {
+            width: 250px;
+            padding-left: 0;
+          }
+
           @media only screen and (min-width:1800px){
             .competitor {
               width: 250px;
@@ -483,12 +496,14 @@ table.propTypes = {
   finalists: PropTypes.arrayOf(PropTypes.object).isRequired,
   primaryColor: PropTypes.string.isRequired,
   smallerDesign: PropTypes.bool,
+  isMini: PropTypes.bool,
   largeColumns: PropTypes.bool,
   track: PropTypes.string
 }
 
 table.defaultProps = {
   smallerDesign: false,
+  isMini: false,
   largeColumns: false,
   track: ''
 }
