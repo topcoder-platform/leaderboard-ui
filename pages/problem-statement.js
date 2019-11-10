@@ -25,8 +25,6 @@ class ProblemStatement extends React.Component {
 
     const res = await fetch(`${publicRuntimeConfig.host}/contentful/${query.contentfulEntryId}`)
 
-    const leaderboardData = await import('../static/json/leaderboard.json')
-
     const data = await res.json()
 
     const header = data.fields.header.fields
@@ -50,6 +48,7 @@ class ProblemStatement extends React.Component {
       showScoreboard: header.showScoreboard,
       challengeId: header.challengeId,
       groupId: header.groupId,
+      challengeIds: header.challengeIds,
       tickerType: footer.tickerType.fields.file.url,
       tickerSeparator: footer.tickerSeparator.fields.file.url,
       tickerMessages: footer.tickerMessages,
@@ -57,8 +56,7 @@ class ProblemStatement extends React.Component {
       otherSponsors,
       members: finalists.finalists,
       problemTitle: data.fields.problemStatementTitle,
-      problemDescription: data.fields.problemStatementDescription,
-      finalists: leaderboardData.leaderboard
+      problemDescription: data.fields.problemStatementDescription
     }
   }
 
@@ -69,9 +67,8 @@ class ProblemStatement extends React.Component {
   setupLeaderboard () {
     const { publicRuntimeConfig } = getConfig()
 
-    prepareLeaderboard(this.props.challengeId, this.props.members, this.props.groupId)
+    prepareLeaderboard(this.props.challengeId, this.props.members, this.props.groupId, this.props.challengeIds)
       .then((leaderboard) => {
-        console.log(leaderboard)
         this.setState({ leaderboard })
         // Poll after configured second
         this.polling = setTimeout(this.setupLeaderboard, publicRuntimeConfig.pollTimeInterval)

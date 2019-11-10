@@ -1,18 +1,17 @@
 import PropTypes from 'prop-types'
 
 const table = (props) => {
-  const { finalists, primaryColor, smallerDesign, largeColumns, track } = props
+  const { finalists, primaryColor, smallerDesign, largeColumns, track, isF2f } = props
   const smallClass = smallerDesign ? ' small ' : ''
   const sizeClass = largeColumns ? ' largerCells ' : ''
   const trackTableClass = (track) => {
     switch (track) {
       case 'algorithm': return 'algorithmTable'
-      case 'first2finish': return 'f2fTable'
+      default: return 'f2fTable'
     }
-    return ''
   }
   const algorithmLeaderboard = track === 'algorithm'
-  const f2fLeaderboard = track === 'first2finish'
+  const f2fLeaderboard = isF2f
   return (
     <div className={'container' + smallClass + sizeClass + `${trackTableClass(track)}`}>
       <div className='header'>
@@ -68,7 +67,7 @@ const table = (props) => {
 
             <div className='points'>
               { profile.scoreLevel && <img src={`/static/img/trend/${profile.scoreLevel}.png`} /> }
-              { profile.points > 0 && <div>
+              { profile.points > 0 && <div className={profile.scoreLevel ? '' : 'non-score-lvl-pt'}>
                 <span className='value'>
                   {profile.points}
                 </span>
@@ -115,11 +114,11 @@ const table = (props) => {
             {profile.handle}
           </div> }
 
-          { largeColumns && f2fLeaderboard && profile.hasOwnProperty('problem') && profile.problem.map((problem, i) => (
+          { largeColumns && f2fLeaderboard && profile.hasOwnProperty('reviews') && profile.reviews.map((review, i) => (
             <div key={i} className='f2fScoreTests'>
-              <div className='f2fFieldCell'>{problem.score}</div>
+              <div className='f2fFieldCell'>{review.score}</div>
               <div className='f2fFieldCell'>
-                {problem.testsPassed}{problem.testsPassed.length > 0 && problem.totalTestCases.length > 0 && <span>/</span>}{problem.totalTestCases}
+                {review.testsPassed}{review.testsPassed > -1 && <span>/</span>}{review.totalTestCases}
               </div>
             </div>
           )) }
@@ -453,6 +452,10 @@ const table = (props) => {
           .f2fScoreTests .f2fFieldCell:nth-child(2) {
             width: 66%;
             font-weight: 400;
+          }
+
+          .non-score-lvl-pt {
+            margin-left: 28.5px;
           }
 
           @media only screen and (min-width:1800px){

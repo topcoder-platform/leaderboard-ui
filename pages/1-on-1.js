@@ -224,8 +224,6 @@ class OneOnOne extends React.Component {
 
     const res = await fetch(`${publicRuntimeConfig.host}/contentful/${query.contentfulEntryId}`)
 
-    const leaderboardData = await import('../static/json/leaderboard.json')
-
     const data = await res.json()
 
     const header = data.fields.header.fields
@@ -255,8 +253,7 @@ class OneOnOne extends React.Component {
       otherSponsors,
       members: finalists.finalists,
       challengee: data.fields.challengee,
-      challenger: data.fields.challenger,
-      finalists: leaderboardData.leaderboard
+      challenger: data.fields.challenger
     }
   }
 
