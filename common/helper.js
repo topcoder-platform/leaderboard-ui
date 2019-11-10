@@ -68,12 +68,14 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
         // Use the provided list of challenge ids per group to organize
         // since a member may not have a review for a challenge (if they have no submitted)
         for (let i = 0; i < groupChallengeIds.length; i++) {
-          if (l.reviews[i]) {
+          let review = l.reviews.find(r => r.challengeId === groupChallengeIds[i])
+
+          if (review) {
             // Member has a review for that challenge
             member.reviews.push({
-              score: l.reviews[i].aggregateScore,
-              testsPassed: l.reviews[i].testsPassed,
-              totalTestCases: l.reviews[i].totalTestCases
+              score: review.aggregateScore,
+              testsPassed: review.testsPassed,
+              totalTestCases: review.totalTestCases
             })
           } else {
             // Member does not have a review for that challenge
@@ -122,11 +124,15 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
 
   // Fill up the remaining member details, which will not be present in leaderboard, if they have not submitted
   // In other words, member exists in contentful but not in leaderboard api
-  for (let i = leaderboard.length; i < finalists.length; i++) {
-    leaderboard.push({
-      handle: finalists[i].handle,
-      status: 'awaiting submission'
-    })
+  for (let i = 0; i < finalists.length; i++) {
+    const found = leaderboard.find(l => l.handle === finalists[i].handle)
+
+    if (!found) {
+      leaderboard.push({
+        handle: finalists[i].handle,
+        status: 'awaiting submission'
+      })
+    }
   }
 
   return leaderboard

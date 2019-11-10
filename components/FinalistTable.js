@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
+import React from 'react'
 
 const table = (props) => {
-  const { finalists, primaryColor, smallerDesign, largeColumns, track, isF2f } = props
-  const smallClass = smallerDesign ? ' small ' : ''
+  const { finalists, primaryColor, smallerDesign, largeColumns, track, isF2f, isMini } = props
+  const smallClass = smallerDesign || isMini ? ' small ' : ''
   const sizeClass = largeColumns ? ' largerCells ' : ''
   const trackTableClass = (track) => {
     switch (track) {
@@ -16,7 +17,7 @@ const table = (props) => {
     <div className={'container' + smallClass + sizeClass + `${trackTableClass(track)}`}>
       <div className='header'>
         <div className='rank'>RANK</div>
-        <div className='competitor'>competitor</div>
+        {!isMini && <div className='competitor'>competitor</div>}
         { largeColumns && algorithmLeaderboard && <div className='algorithmFieldCell'>
           250
         </div>}
@@ -44,11 +45,18 @@ const table = (props) => {
         { largeColumns && f2fLeaderboard && <div className='f2fTestCell'>
           TESTS PASSED/TOTAL
         </div> }
-        <div className='points'>points</div>
-        {!smallerDesign && !algorithmLeaderboard && !f2fLeaderboard && <div className='tests-passed'>tests passed</div>}
+        {!isMini && <div className='points'>points</div>}
+        {
+          isMini &&
+          <div style={{ display: 'flex', flexGrow: '1', justifyContent: 'space-between' }}>
+            <div className='competitor'>competitor</div>
+            <div className='points'>points</div>
+            <div className='tests-passed'>tests passed</div>
+          </div>
+        }
       </div>
       { finalists.map((profile, i) => (
-        <div key={i} className='row'>
+        <div key={profile.handle} className='row'>
           <div className='rank'>
             <div className='rank-overlay' />
             <div className='rank-text' style={{ opacity: profile.hasOwnProperty('handle') ? '1' : '0.3' }}>
@@ -66,7 +74,7 @@ const table = (props) => {
             </div>
 
             <div className='points'>
-              { profile.scoreLevel && <img src={`/static/img/trend/${profile.scoreLevel}.png`} /> }
+              { profile.scoreLevel && <img className={`animate fade${profile.scoreLevel} infinite`} src={`/static/img/trend/${profile.scoreLevel}.png`} /> }
               { profile.points > 0 && <div className={profile.scoreLevel ? '' : 'non-score-lvl-pt'}>
                 <span className='value'>
                   {profile.points}
@@ -77,7 +85,7 @@ const table = (props) => {
               </div> }
             </div>
 
-            {!smallerDesign && !algorithmLeaderboard && !f2fLeaderboard && <div className='tests-passed'>
+            <div className='tests-passed'>
               <div>
                 <span className='value'>
                   {profile.testsPassed} / {profile.totalTestCases}
@@ -86,7 +94,7 @@ const table = (props) => {
                   TESTS
                 </span>
               </div>
-            </div>}
+            </div>
 
           </div> }
 
@@ -110,26 +118,39 @@ const table = (props) => {
             {profile.points}
           </div> }
 
-          { largeColumns && f2fLeaderboard && profile.hasOwnProperty('handle') && <div className='handleName'>
-            {profile.handle}
-          </div> }
+          {
+            profile.reveal === true && <React.Fragment>
+              { largeColumns && f2fLeaderboard && profile.hasOwnProperty('handle') && <div className='handleName animate fadeIn'>
+                {profile.handle}
+              </div> }
+              { largeColumns && f2fLeaderboard && profile.hasOwnProperty('reviews') && profile.reviews.map((review, i) => (
+                <div key={i} className='f2fScoreTests animate fadeIn'>
+                  <div className='f2fFieldCell'>{review.score}</div>
+                  <div className='f2fFieldCell'>
+                    {review.testsPassed}{review.testsPassed > -1 && <span>/</span>}{review.totalTestCases}
+                  </div>
+                </div>
+              )) }
 
-          { largeColumns && f2fLeaderboard && profile.hasOwnProperty('reviews') && profile.reviews.map((review, i) => (
-            <div key={i} className='f2fScoreTests'>
-              <div className='f2fFieldCell'>{review.score}</div>
-              <div className='f2fFieldCell'>
-                {review.testsPassed}{review.testsPassed > -1 && <span>/</span>}{review.totalTestCases}
+              { largeColumns && f2fLeaderboard && profile.hasOwnProperty('points') && <div className='f2fPoints f2fFieldCell animate fadeIn'>
+                {profile.points}
+              </div> }
+
+              { profile.hasOwnProperty('status') && <div className='status' style={{ opacity: profile.hasOwnProperty('points') ? '1' : '0.3' }}>
+                {profile.status}
               </div>
-            </div>
-          )) }
-
-          { largeColumns && f2fLeaderboard && profile.hasOwnProperty('points') && <div className='f2fPoints f2fFieldCell'>
-            {profile.points}
-          </div> }
-
-          { profile.hasOwnProperty('status') && <div className='status' style={{ opacity: profile.hasOwnProperty('points') ? '1' : '0.3' }}>
-            {profile.status}
-          </div>
+              }
+            </React.Fragment>
+          }
+          {
+            !profile.reveal && f2fLeaderboard &&
+            <React.Fragment>
+              { largeColumns && f2fLeaderboard && profile.hasOwnProperty('handle') && <div className='handleName animate fadeIn'>&nbsp;
+              </div> }
+              <div className='status'>
+                Awaiting submission
+              </div>
+            </React.Fragment>
           }
         </div>
       ))
@@ -159,8 +180,8 @@ const table = (props) => {
           }
 
           .largerCells .row {
-            min-height: 70px;
-            height: 70px;
+            min-height: 68px;
+            height: 68px;
           }
 
           .rank-overlay {
@@ -230,11 +251,12 @@ const table = (props) => {
             width: 180px;
             position: relative;
             text-align: left;
-            font-size: 0.9375em;
           }
 
-          .small .competitor {
-            width: 250px;
+          .small .competitor,
+          .small .points,
+          .small .tests-passed {
+            font-size: 0.9375em;
           }
 
           .row .competitor {
@@ -458,6 +480,66 @@ const table = (props) => {
             margin-left: 28.5px;
           }
 
+          .small .competitor {
+            width: 250px;
+            padding-left: 0;
+          }
+
+          @keyframes fadeUp {
+            from {
+              opacity: 0;
+              transform: translate3d(0, 100%, 0);
+            }
+
+            to {
+              opacity: 1;
+              transform: translate3d(0, -50%, 0);
+            }
+          }
+
+          @keyframes fadeDown {
+            from {
+              opacity: 0;
+              transform: translate3d(0, -100%, 0);
+            }
+
+            to {
+              opacity: 1;
+              transform: translate3d(0, 50%, 0);
+            }
+          }
+
+          @keyframes fadeIn {
+            from {
+              opacity: 0;
+            }
+
+            to {
+              opacity: 1;
+            }
+          }
+
+          .animate {
+            animation-duration: 3s;
+            animation-fill-mode: both;
+          }
+
+          .infinite {
+            animation-iteration-count: infinite;
+          }
+
+          .fadeup {
+            animation-name: fadeUp;
+          }
+
+          .fadedown {
+            animation-name: fadeDown;
+          }
+
+          .fadeIn {
+            animation-name: fadeIn;
+          }
+
           @media only screen and (min-width:1800px){
             .competitor {
               width: 250px;
@@ -483,12 +565,14 @@ table.propTypes = {
   finalists: PropTypes.arrayOf(PropTypes.object).isRequired,
   primaryColor: PropTypes.string.isRequired,
   smallerDesign: PropTypes.bool,
+  isMini: PropTypes.bool,
   largeColumns: PropTypes.bool,
   track: PropTypes.string
 }
 
 table.defaultProps = {
   smallerDesign: false,
+  isMini: false,
   largeColumns: false,
   track: ''
 }

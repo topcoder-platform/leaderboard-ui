@@ -45,7 +45,7 @@ const LeaderboardLayout = (props) => {
           }
 
           .leaderboardTable {
-            margin: 57px 0 0 0;
+            margin: 0;
           }
         `}
       </style>
@@ -62,6 +62,7 @@ class F2FLeaderboard extends React.Component {
       leaderboard: []
     }
     this.setupLeaderboard = this.setupLeaderboard.bind(this)
+    this.animateLeaderboard = this.animateLeaderboard.bind(this)
   }
 
   static async getInitialProps ({ query }) {
@@ -97,18 +98,38 @@ class F2FLeaderboard extends React.Component {
   }
 
   setupLeaderboard () {
-    const { publicRuntimeConfig } = getConfig()
-
     prepareLeaderboard(null, this.props.members, this.props.groupId, this.props.challengeIds)
       .then((leaderboard) => {
         this.setState({ leaderboard })
-        // Poll after configured second
-        this.polling = setTimeout(this.setupLeaderboard, publicRuntimeConfig.pollTimeInterval)
+
+        this.animateLeaderboard()
       })
       .catch((err) => {
         console.log('Failed to fetch leaderboard. Error details follow')
         console.log(err)
       })
+  }
+
+  animateLeaderboard () {
+    let revealed = false
+    let leaderboard = this.state.leaderboard
+
+    const { publicRuntimeConfig } = getConfig()
+
+    for (let i = leaderboard.length - 1; i > -1; i--) {
+      if (!leaderboard[i].reveal) {
+        leaderboard[i].reveal = true
+        revealed = true
+        break
+      }
+    }
+
+    if (!revealed) {
+      clearTimeout(this.polling)
+    } else {
+      this.setState({ leaderboard })
+      this.polling = setTimeout(this.animateLeaderboard, publicRuntimeConfig.leaderboardRevealDelay)
+    }
   }
 
   componentWillUnmount () {

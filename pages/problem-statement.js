@@ -107,6 +107,7 @@ class ProblemStatement extends React.Component {
           {...this.props}
           finalists={this.state.leaderboard}
           // smallerDesign
+          isMini
         />
         }
         <style jsx global>{`
