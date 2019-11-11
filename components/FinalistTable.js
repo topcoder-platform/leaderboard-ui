@@ -185,7 +185,6 @@ const table = (props) => {
             display: flex;
             flex-direction: column;
             position: relative;
-            flex-grow: 0.1;
           }
 
           .row {
@@ -387,6 +386,7 @@ const table = (props) => {
             justify-content: flex-end;
             text-transform: uppercase;
             padding-right: 20px;
+            min-width: 350px;
           }
 
           .algorithmTable .competitor,

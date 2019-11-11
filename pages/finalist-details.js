@@ -121,8 +121,8 @@ const finalistsList = (props, finalists) => {
             </span>
           </div>
           <div className='countryDetails'>
-            <span className='countryName' />
             <img className='countryFlag' src={data.countryFlag} />
+            <span className='countryName'>{data.country}</span>
           </div>
         </div>
       )))}
@@ -201,9 +201,17 @@ const finalistsList = (props, finalists) => {
           
           .countryFlag {
             display: flex;
-            margin: auto;
-            height: 24px;
-            width: 22px;
+            margin-right: 5px;
+            width: 25px;
+            height: auto;
+          }
+
+          .countryName {
+            color: #ffffff;
+            font-family: Roboto;
+            font-size: 0.625em;
+            font-weight: 400;
+            line-height: 0.75em;
           }
 
           @media only screen and (min-width:1400px){
@@ -385,7 +393,7 @@ const FinalistsDetails = (props) => {
           .profilePic {
             z-index: 1;
             margin-left: 52px;
-            margin-top: 8px;
+            margin-top: 65px;
           }
 
           .nameContainer {

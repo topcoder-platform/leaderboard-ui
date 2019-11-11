@@ -88,7 +88,7 @@ class ProblemStatement extends React.Component {
       <div className='container'>
         <div className='viewHolder'>
           <PageHead />
-          <Header {...this.props} />
+          <Header {...this.props} smallHeader />
           <main className='main'>
             <img className='hexa' src='/static/img/largeHexa.png' />
             <div className='message'>

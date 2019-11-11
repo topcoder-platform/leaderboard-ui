@@ -97,8 +97,8 @@ const card = (props, showBottomBg, finalist, i) => {
           }
 
           .cardFlag {
-            width: 13px;
-            height: autp;
+            width: 20px;
+            height: auto;
             margin-right: 3px;
             margin-bottom: 1px;
           }
