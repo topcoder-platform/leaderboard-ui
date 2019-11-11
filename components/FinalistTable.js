@@ -64,7 +64,7 @@ const table = (props) => {
             </div>
           </div>
 
-          { profile.hasOwnProperty('points') && !algorithmLeaderboard && !f2fLeaderboard && <div style={{ display: 'flex', flexGrow: '1', justifyContent: 'space-between' }}>
+          { !algorithmLeaderboard && !f2fLeaderboard && <div style={{ display: 'flex', flexGrow: '1', justifyContent: 'space-between' }}>
             <div className='competitor'>
               <div className='avatar'>
                 <img src={profile.profilePic} />
@@ -85,16 +85,24 @@ const table = (props) => {
               </div> }
             </div>
 
-            <div className='tests-passed'>
-              <div>
-                <span className='value'>
-                  {profile.testsPassed} / {profile.totalTestCases}
-                </span>
-                <span className='hint'>
-                  TESTS
-                </span>
+            {
+              profile.testsPassed && <div className='tests-passed'>
+                <div>
+                  <span className='value'>
+                    {`${profile.testsPassed} / ${profile.totalTestCases}`}
+                  </span>
+                  <span className='hint'>
+                    TESTS
+                  </span>
+                </div>
               </div>
-            </div>
+            }
+
+            {
+              !profile.hasOwnProperty('points') && <div className='status'>
+                {profile.status}
+              </div>
+            }
 
           </div> }
 
@@ -124,11 +132,23 @@ const table = (props) => {
                 {profile.handle}
               </div> }
               { largeColumns && f2fLeaderboard && profile.hasOwnProperty('reviews') && profile.reviews.map((review, i) => (
-                <div key={i} className='f2fScoreTests animate fadeIn'>
-                  <div className='f2fFieldCell'>{review.score}</div>
-                  <div className='f2fFieldCell'>
-                    {review.testsPassed}{review.testsPassed > -1 && <span>/</span>}{review.totalTestCases}
-                  </div>
+                <div key={review.challengeId} className='f2fScoreTests animate fadeIn'>
+                  {
+                    !review.status && <React.Fragment>
+                      <div className='f2fFieldCell'>{review.score}</div>
+                      <div className='f2fFieldCell'>
+                        {review.testsPassed}{review.testsPassed > -1 && <span>/</span>}{review.totalTestCases}
+                      </div>
+                    </React.Fragment>
+                  }
+                  {
+                    review.status && <React.Fragment>
+                      <div className='f2fFieldCell' />
+                      <div className='f2fFieldCell'>
+                        {review.status}
+                      </div>
+                    </React.Fragment>
+                  }
                 </div>
               )) }
 
@@ -165,7 +185,6 @@ const table = (props) => {
             display: flex;
             flex-direction: column;
             position: relative;
-            flex-grow: 0.1;
           }
 
           .row {
@@ -367,6 +386,7 @@ const table = (props) => {
             justify-content: flex-end;
             text-transform: uppercase;
             padding-right: 20px;
+            min-width: 350px;
           }
 
           .algorithmTable .competitor,

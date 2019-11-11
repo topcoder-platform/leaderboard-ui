@@ -72,11 +72,18 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
 
           if (review) {
             // Member has a review for that challenge
-            member.reviews.push({
-              score: review.aggregateScore,
-              testsPassed: review.testsPassed,
-              totalTestCases: review.totalTestCases
-            })
+            if (review.status !== 'queued') {
+              member.reviews.push({
+                score: review.aggregateScore,
+                testsPassed: review.testsPassed,
+                totalTestCases: review.totalTestCases
+              })
+            } else {
+              // If a review is in queue, do not show any points or tests. Show the status
+              member.reviews.push({ status: 'review queued' })
+              // If a review is in queue, then the aggregate points will not be known
+              member.points = '...'
+            }
           } else {
             // Member does not have a review for that challenge
             member.reviews.push({})
@@ -104,13 +111,24 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
       })
 
       if (member) {
-        member.points = Math.round(l.aggregateScore * 10000) / 10000
         member.scoreLevel = l.scoreLevel
 
-        member.challenges = 1
+        if (member.scoreLevel !== 'queued') {
+          member.points = Math.round(l.aggregateScore * 10000) / 10000
 
-        member.testsPassed = l.testsPassed || 0
-        member.totalTestCases = l.totalTestCases
+          member.challenges = 1
+
+          member.testsPassed = l.testsPassed || 0
+          member.totalTestCases = l.totalTestCases
+        } else {
+          // We need to delete any irrelevant attributes otherwise react
+          // will show the old values even when new review status is queued
+          delete member.scoreLevel
+          delete member.points
+          delete member.testsPassed
+          delete member.totalTestCases
+          member.status = 'review queued'
+        }
       } else {
         member = {}
 

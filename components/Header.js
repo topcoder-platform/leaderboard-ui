@@ -184,7 +184,7 @@ class Header extends React.Component {
               .logo {
                 width: 7.625em;
                 height: auto;
-                top: 20px;
+                top: 13px;
               }
 
               .logo.small {
@@ -234,7 +234,7 @@ class Header extends React.Component {
 
             .title.small {
               font-family: 'Barlow Condensed', sans-serif;
-              font-weight: 300;
+              font-weight: 400;
               z-index: 1;
               text-align: left;
               padding-left: 270px;
@@ -247,7 +247,11 @@ class Header extends React.Component {
 
             .round.small {
               font-size: 1.125em;
-              font-weight: 400;
+              font-weight: 300;
+            }
+
+            .small .gradient {
+              margin-left: -35%;
             }
 
             @media only screen and (min-width:1600px){
@@ -257,11 +261,11 @@ class Header extends React.Component {
               }
 
               .title.small {
-                font-size: 2.875em;
+                font-size: 3.875em;
               }
 
               .round.small {
-                font-size: 2em;
+                font-size: 0.75em;
               }
             }
           `}

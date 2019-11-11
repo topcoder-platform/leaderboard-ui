@@ -106,18 +106,18 @@ const detailLayout = (props) => {
             z-index: 1;
             margin-left: 40px;
             width: 100%;
-            margin-bottom: 8px;
+            margin-top: 0;
           }
 
           .details {
-            margin-left: 120px;
+            margin-left: 80px;
             margin-right: 50px;
             text-align: right;
           }
 
           .details.challenger {
             margin-left: 50px;
-            margin-right: 120px;
+            margin-right: 80px;
             text-align: left;
           }
 
@@ -188,7 +188,7 @@ const detailLayout = (props) => {
 
           .challenger .profilePic {
             margin-left: 20px;
-            margin-top: -15px;
+            margin-top: 0;
           }
 
           @media only screen and (min-width:1620px){
@@ -281,7 +281,7 @@ class OneOnOne extends React.Component {
       <div className='container'>
         <div className='viewHolder'>
           <PageHead />
-          <Header {...this.props} />
+          <Header {...this.props} smallHeader />
           <main className='main'>
             <img className='hexa' src='/static/img/largeHexa.png' />
             <div className='message'>
@@ -300,6 +300,7 @@ class OneOnOne extends React.Component {
           {...this.props}
           finalists={this.state.leaderboard}
           // smallerDesign
+          isMini
         />
         }
         <style jsx global>{`
