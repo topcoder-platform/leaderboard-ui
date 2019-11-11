@@ -8,30 +8,25 @@ import PageHead from '../components/PageHead'
 import Sponsors from '../components/Sponsors'
 import { checkForMainSponsor } from '../common/helper'
 
-const Home = (props) => (
+const Message = (props) => (
   <div className='container'>
     <PageHead />
     <Header {...props} />
     <main className='main'>
-      <img className='hexa' src='/static/img/largeHexa.png' />
-      <img className='full-hexa' src='/static/img/hexagon.png' alt='hex' />
-      <div
-        className='message'
-        dangerouslySetInnerHTML={{ __html: props.message }}
-      />
+      <div className='messageContainer' >
+        <div
+          className='message'
+          dangerouslySetInnerHTML={{ __html: props.message }}
+        />
+      </div>
     </main>
     <Sponsors {...props} hideMainSponsor />
     <Footer {...props} />
-    <style jsx global>{`
-      #__next {
-        display: flex;
-        min-height: 100%;
-      }
-    `}</style>
     <style jsx>
       {`
         .container {
           width: 100%;
+          height: 100vh;
           display: flex;
           flex-direction: column;
           overflow: auto;
@@ -50,40 +45,36 @@ const Home = (props) => (
           flex-direction: column;
           justify-content: center;
           align-items: center;
+        }
+
+        .messageContainer {
+          text-shadow: 0 7px 15px rgba(0, 0, 0, 0.4000000059604645);
+          flex-grow: 1;
+          width: 100%;
           position: relative;
-          background-image: linear-gradient(270deg, rgba(0, 78, 119, 0) 0%, #004165 51.72%, rgba(0, 40, 61, 0) 100%);
-        }
-
-        .hexa {
-          position: absolute;
-          top: -150px;
-          width: 700px;
-        }
-
-        .full-hexa {
-          position: absolute;
-          height: 100%;
-          max-height: 200px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
 
         .message {
-          margin: 50px 20px;
+          text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
+          position: absolute;
           color: #FFFFFF;
-          font-family: Montserrat;
-          text-shadow: 0px 7px 15px rgba(0, 0, 0, 0.4000000059604645);
-        }
-
-        @media only screen and (min-width:1600px){
-          .message{
-            margin-top: 135px;
-          }
+          font-family: 'Montserrat', sans-serif;
+          font-size: 4.5em;
+          font-weight: 400;
+          line-height: 46px;
+          margin-top: 20px;
+          letter-spacing: 1.4px;
+          margin-left: 25px;
         }
       `}
     </style>
   </div>
 )
 
-Home.getInitialProps = async function ({ query }) {
+Message.getInitialProps = async function ({ query }) {
   const { publicRuntimeConfig } = getConfig()
 
   const res = await fetch(`${publicRuntimeConfig.host}/contentful/${query.contentfulEntryId}`)
@@ -119,4 +110,4 @@ Home.getInitialProps = async function ({ query }) {
   }
 }
 
-export default Home
+export default Message
