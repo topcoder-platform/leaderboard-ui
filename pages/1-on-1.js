@@ -233,7 +233,7 @@ class OneOnOne extends React.Component {
     const footer = data.fields.footer.fields
 
     const finalists = data.fields.finalists.fields
-
+    
     const otherSponsors = sponsor.secondarySponsors.map(s => s.fields.file.url)
 
     const mainSponsor = await checkForMainSponsor(sponsor.primarySponsor)

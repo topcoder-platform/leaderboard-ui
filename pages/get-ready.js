@@ -182,9 +182,7 @@ const GetReady = (props) => {
         <PageHead />
         <Header {...props} smallHeader />
         <main className='main'>
-          <img className='hexa' src='/static/img/largeHexa.png' />
           <div className='message'>
-            <img src='/static/img/hexagon.png' alt='hex' />
             <div className='subtitle'>players</div>
             <div className='title'>GET READY!</div>
           </div>
@@ -195,6 +193,7 @@ const GetReady = (props) => {
       </div>
       <FinalistTable
         {...props}
+        isMini
       />
       <style jsx global>{`
         #__next {
@@ -230,13 +229,9 @@ const GetReady = (props) => {
             flex-shrink: 1;
           }
 
-          .hexa {
-            position: absolute;
-            width: 550px;
-          }
-
           .message {
             height: 100px;
+            width: 400px;
             display: flex;
             position: relative;
             flex-direction: column;
@@ -244,6 +239,8 @@ const GetReady = (props) => {
             align-items: center;
             margin-top: 40px;
             text-transform: uppercase;
+            position: relative;
+            z-index: 4;
           }
 
           .message img {
@@ -253,9 +250,9 @@ const GetReady = (props) => {
           .message .subtitle {
             text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
             color: #FFFFFF;
-            font-family: Helvetica;
-            font-size: 24px;
-            font-weight: 400;
+            font-family: 'Montserrat', sans-serif; 
+            font-family: Montserrat;
+            font-size: 1.5em;
             line-height: 29px;
             opacity: 0.6;
             text-align: center;
@@ -264,18 +261,12 @@ const GetReady = (props) => {
           .message .title {
             text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4000000059604645);
             color: #FFFFFF;
-            font-family: Helvetica;
-            font-size: 38px;
-            font-weight: 700;
+            font-family: Montserrat;
+            font-size: 2.375em;
+            font-weight: 400;
             line-height: 46px;
             text-align: center;
-            margin-top: -10px;
-          }
-
-          @media only screen and (min-width:1600px){
-            .message{
-              font-size: 94px;
-            }
+            margin-top: -5px;
           }
         `}
       </style>
