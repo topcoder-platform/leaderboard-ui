@@ -51,7 +51,7 @@ const table = (props) => {
           <div style={{ display: 'flex', flexGrow: '1', justifyContent: 'space-between' }}>
             <div className='competitor'>competitor</div>
             <div className='points'>points</div>
-            <div style={isQa ? 'display:none' : 'display:block'} className='tests-passed'>{ isDev ? '% Complete' : 'tests passed'}</div>
+            {!isQa && <div className='tests-passed'>{ isDev ? '% Complete' : 'tests passed'}</div>}
           </div>
         }
       </div>
