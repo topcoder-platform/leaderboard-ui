@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const table = (props) => {
-  const { finalists, primaryColor, smallerDesign, largeColumns, track, fullWidth, isMini, isDev } = props
+  const { finalists, primaryColor, smallerDesign, largeColumns, track, fullWidth, isMini, isDev, isQa } = props
   const smallClass = smallerDesign || isMini ? ' small ' : ''
   const sizeClass = largeColumns ? ' largerCells ' : ''
   const trackTableClass = (track) => {
@@ -51,7 +51,7 @@ const table = (props) => {
           <div style={{ display: 'flex', flexGrow: '1', justifyContent: 'space-between' }}>
             <div className='competitor'>competitor</div>
             <div className='points'>points</div>
-            <div className='tests-passed'>{ isDev ? '% Complete' : 'tests passed'}</div>
+            {!isQa && <div className='tests-passed'>{ isDev ? '% Complete' : 'tests passed'}</div>}
           </div>
         }
       </div>
@@ -86,7 +86,7 @@ const table = (props) => {
             </div>
 
             {
-              profile.testsPassed && <div className='tests-passed'>
+              !isQa && profile.testsPassed && <div className='tests-passed'>
                 <div>
                   {
                     !isDev &&
