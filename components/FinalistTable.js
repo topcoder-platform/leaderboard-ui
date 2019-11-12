@@ -517,7 +517,6 @@ const table = (props) => {
 
           .f2fScoreTests .f2fFieldCell:nth-child(2) {
             width: 66%;
-            font-weight: 400;
           }
 
           .non-score-lvl-pt {
