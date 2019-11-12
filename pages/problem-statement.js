@@ -59,7 +59,8 @@ class ProblemStatement extends React.Component {
       problemTitle: data.fields.problemStatementTitle,
       problemDescription: data.fields.problemStatementDescription,
       isDev: data.fields.isDevTrack,
-      isF2f: data.fields.isF2fTrack
+      isF2f: data.fields.isF2fTrack,
+      isQa: data.fields.isQaTrack
     }
   }
 
