@@ -58,7 +58,8 @@ class ProblemStatement extends React.Component {
       members: finalists.finalists,
       problemTitle: data.fields.problemStatementTitle,
       problemDescription: data.fields.problemStatementDescription,
-      isDev: data.fields.isDevTrack
+      isDev: data.fields.isDevTrack,
+      isF2f: data.fields.isF2fTrack
     }
   }
 
@@ -69,7 +70,7 @@ class ProblemStatement extends React.Component {
   setupLeaderboard () {
     const { publicRuntimeConfig } = getConfig()
 
-    prepareLeaderboard(this.props.challengeId, this.props.members, this.props.groupId, this.props.challengeIds)
+    prepareLeaderboard(this.props.challengeId, this.props.members, this.props.groupId, this.props.challengeIds, this.props.isF2f)
       .then((leaderboard) => {
         this.setState({ leaderboard })
         // Poll after configured second
