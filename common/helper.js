@@ -95,6 +95,9 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
 
         member.status = 'awaiting submission here'
         member.handle = l.handle
+        member.country = l.country
+        member.countryFlag = l.countryFlag
+        member.profilePic = l.profilePic
       }
 
       return member
@@ -134,6 +137,9 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
 
         member.status = 'awaiting submission here'
         member.handle = l.handle
+        member.country = l.country
+        member.countryFlag = l.countryFlag
+        member.profilePic = l.profilePic
       }
 
       return member
@@ -148,7 +154,10 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
     if (!found) {
       leaderboard.push({
         handle: finalists[i].handle,
-        status: 'awaiting submission'
+        status: 'awaiting submission',
+        country: finalists[i].country,
+        countryFlag: finalists[i].countryFlag,
+        profilePic: finalists[i].profilePic
       })
     }
   }
