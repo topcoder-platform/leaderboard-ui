@@ -45,6 +45,7 @@ class Header extends React.Component {
     const { timerText } = this.state
     const { smallHeader } = this.props
     const smallClass = smallHeader ? ' small' : ''
+    const { eventStartDateTime, eventEndDateTime } = this.props
     return (
       <div className={'timerContainer' + smallClass}>
         <div className='timerBg' />
@@ -52,13 +53,13 @@ class Header extends React.Component {
           (
             <div className='timer'>
 
-              {smallHeader && <div className='hint'>
+              {eventEndDateTime && <div className='hint'>
                 Ends in
               </div>}
               <div className='clock'>
                 {timerText}
               </div>
-              {!smallHeader && <div className='hint'>
+              {eventStartDateTime && <div className='hint'>
                 Time to start
               </div>}
             </div>
