@@ -104,7 +104,7 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
 
         if (isF2f) {
           // multiplier points get applied for f2f track
-          member.points = Math.round(aggregateScore / groupChallengeIds.length * 10000) / 10000
+          member.points = Math.round(aggregateScore * 10000) / 10000
         }
       } else {
         // Member exists in leaderboard api but not in contentful
