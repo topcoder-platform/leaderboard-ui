@@ -90,7 +90,9 @@ class F2FLeaderboard extends React.Component {
       tickerType: footer.tickerType.fields.file.url,
       tickerSeparator: footer.tickerSeparator.fields.file.url,
       tickerMessages: footer.tickerMessages,
-      members: finalists.finalists
+      members: finalists.finalists,
+      animateReveal: query.animate === 'true',
+      isDev: data.fields.isDevTrack
     }
   }
 
@@ -101,9 +103,13 @@ class F2FLeaderboard extends React.Component {
   setupLeaderboard () {
     prepareLeaderboard(null, this.props.members, this.props.groupId, this.props.challengeIds)
       .then((leaderboard) => {
-        this.setState({ leaderboard })
-
-        this.animateLeaderboard()
+        if (this.props.animateReveal) {
+          this.setState({ leaderboard })
+          this.animateLeaderboard()
+        } else {
+          leaderboard.forEach(l => { l.reveal = true })
+          this.setState({ leaderboard })
+        }
       })
       .catch((err) => {
         console.log('Failed to fetch leaderboard. Error details follow')

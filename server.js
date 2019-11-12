@@ -41,9 +41,11 @@ app.prepare()
     server.get('/page/:pageName/:entryId', async (req, res) => {
       const contentfulEntryId = req.params.entryId
 
+      const animate = req.query.animate
+
       const actualPage = `/${req.params.pageName}`
 
-      const queryParams = { contentfulEntryId }
+      const queryParams = { contentfulEntryId, animate }
 
       app.render(req, res, actualPage, queryParams)
     })

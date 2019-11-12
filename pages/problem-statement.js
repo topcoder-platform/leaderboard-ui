@@ -57,7 +57,8 @@ class ProblemStatement extends React.Component {
       otherSponsors,
       members: finalists.finalists,
       problemTitle: data.fields.problemStatementTitle,
-      problemDescription: data.fields.problemStatementDescription
+      problemDescription: data.fields.problemStatementDescription,
+      isDev: data.fields.isDevTrack
     }
   }
 
