@@ -86,8 +86,8 @@ const table = (props) => {
             </div>
 
             {
-              profile.testsPassed && <div className='tests-passed'>
-                <div style={isQa ? 'display:none' : 'display:block'}>
+              !isQa && profile.testsPassed && <div className='tests-passed'>
+                <div>
                   {
                     !isDev &&
                     <React.Fragment>
