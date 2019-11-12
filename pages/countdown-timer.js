@@ -146,14 +146,13 @@ class Countdown extends React.Component {
               width: 350px;
               margin-top: 20px;
               letter-spacing: 1.4px;
-              margin-left: 25px;
+              text-align: center;
             }
 
             @media only screen and (min-width:1600px){
               .countdown{
                 font-size: 7.625em;
                 margin-top: 10px;
-                margin-left: 35px;
                 width: 600px;
               }
 

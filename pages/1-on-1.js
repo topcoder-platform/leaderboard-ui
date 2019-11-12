@@ -233,7 +233,7 @@ class OneOnOne extends React.Component {
     const footer = data.fields.footer.fields
 
     const finalists = data.fields.finalists.fields
-    
+
     const otherSponsors = sponsor.secondarySponsors.map(s => s.fields.file.url)
 
     const mainSponsor = await checkForMainSponsor(sponsor.primarySponsor)
@@ -243,7 +243,8 @@ class OneOnOne extends React.Component {
       primaryColor: header.primaryColor,
       track: header.track,
       round: header.round,
-      eventEndDateTime: header.eventDateTime,
+      eventStartDateTime: header.eventDateTime,
+      eventEndDateTime: header.eventEndDateTime,
       showScoreboard: header.showScoreboard,
       challengeId: header.challengeId,
       tickerType: footer.tickerType.fields.file.url,

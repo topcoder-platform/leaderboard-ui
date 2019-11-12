@@ -75,7 +75,7 @@ const table = (props) => {
 
             <div className='points'>
               { profile.scoreLevel && <img className={`animate fade${profile.scoreLevel} infinite`} src={`/static/img/trend/${profile.scoreLevel}.png`} /> }
-              { profile.points > 0 && <div className={profile.scoreLevel ? '' : 'non-score-lvl-pt'}>
+              { profile.points >= 0 && <div className={profile.scoreLevel ? '' : 'non-score-lvl-pt'}>
                 <span className='value'>
                   {profile.points}
                 </span>
@@ -300,8 +300,8 @@ const table = (props) => {
           }
 
           .country-flag {
-            height: 26px;
             width: 24px;
+            height: auto;
             position: absolute;
             z-index: 3;
             left: 56px;
