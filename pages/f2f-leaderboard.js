@@ -18,7 +18,7 @@ const LeaderboardLayout = (props) => {
           <FinalistTable
             {...props}
             largeColumns
-            isF2f
+            fullWidth
           />
         </div>
       </main>
@@ -92,7 +92,8 @@ class F2FLeaderboard extends React.Component {
       tickerMessages: footer.tickerMessages,
       members: finalists.finalists,
       animateReveal: query.animate === 'true',
-      isDev: data.fields.isDevTrack
+      isDev: data.fields.isDevTrack,
+      isF2f: data.fields.isF2fTrack
     }
   }
 
@@ -101,7 +102,7 @@ class F2FLeaderboard extends React.Component {
   }
 
   setupLeaderboard () {
-    prepareLeaderboard(null, this.props.members, this.props.groupId, this.props.challengeIds)
+    prepareLeaderboard(null, this.props.members, this.props.groupId, this.props.challengeIds, this.props.isF2f)
       .then((leaderboard) => {
         if (this.props.animateReveal) {
           this.setState({ leaderboard })

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const table = (props) => {
-  const { finalists, primaryColor, smallerDesign, largeColumns, track, isF2f, isMini, isDev } = props
+  const { finalists, primaryColor, smallerDesign, largeColumns, track, fullWidth, isMini, isDev } = props
   const smallClass = smallerDesign || isMini ? ' small ' : ''
   const sizeClass = largeColumns ? ' largerCells ' : ''
   const trackTableClass = (track) => {
@@ -12,7 +12,7 @@ const table = (props) => {
     }
   }
   const algorithmLeaderboard = track === 'algorithm'
-  const f2fLeaderboard = isF2f
+  const f2fLeaderboard = fullWidth
   return (
     <div className={'container' + smallClass + sizeClass + `${trackTableClass(track)}`}>
       <div className='header'>
