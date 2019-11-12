@@ -696,6 +696,7 @@ Winners.getInitialProps = async function ({ query }) {
     track: header.track,
     round: header.round,
     eventStartDateTime: header.eventDateTime,
+    eventEndDateTime: header.eventEndDateTime,
     tickerType: footer.tickerType.fields.file.url,
     tickerSeparator: footer.tickerSeparator.fields.file.url,
     tickerMessages: footer.tickerMessages,

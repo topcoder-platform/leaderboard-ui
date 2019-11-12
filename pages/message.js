@@ -101,6 +101,7 @@ Message.getInitialProps = async function ({ query }) {
     track: header.track,
     round: header.round,
     eventStartDateTime: header.eventDateTime,
+    eventEndDateTime: header.eventEndDateTime,
     message: html,
     tickerType: footer.tickerType.fields.file.url,
     tickerSeparator: footer.tickerSeparator.fields.file.url,
