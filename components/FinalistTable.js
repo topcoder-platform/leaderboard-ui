@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const table = (props) => {
-  const { finalists, primaryColor, smallerDesign, largeColumns, track, isF2f, isMini } = props
+  const { finalists, primaryColor, smallerDesign, largeColumns, track, isF2f, isMini, isDev } = props
   const smallClass = smallerDesign || isMini ? ' small ' : ''
   const sizeClass = largeColumns ? ' largerCells ' : ''
   const trackTableClass = (track) => {
@@ -51,7 +51,7 @@ const table = (props) => {
           <div style={{ display: 'flex', flexGrow: '1', justifyContent: 'space-between' }}>
             <div className='competitor'>competitor</div>
             <div className='points'>points</div>
-            <div className='tests-passed'>tests passed</div>
+            <div className='tests-passed'>{ isDev ? '% Complete' : 'tests passed'}</div>
           </div>
         }
       </div>
@@ -88,12 +88,28 @@ const table = (props) => {
             {
               profile.testsPassed && <div className='tests-passed'>
                 <div>
-                  <span className='value'>
-                    {`${profile.testsPassed} / ${profile.totalTestCases}`}
-                  </span>
-                  <span className='hint'>
-                    TESTS
-                  </span>
+                  {
+                    !isDev &&
+                    <React.Fragment>
+                      <span className='value'>
+                        {`${profile.testsPassed} / ${profile.totalTestCases}`}
+                      </span>
+                      <span className='hint'>
+                        TESTS
+                      </span>
+                    </React.Fragment>
+                  }
+                  {
+                    isDev &&
+                    <React.Fragment>
+                      <span className='value'>
+                        {`${parseFloat(profile.testsPassed / profile.totalTestCases * 100).toFixed(2)}%`}
+                      </span>
+                      <span className='hint'>
+                        COMPLETED
+                      </span>
+                    </React.Fragment>
+                  }
                 </div>
               </div>
             }
@@ -136,9 +152,18 @@ const table = (props) => {
                   {
                     !review.status && <React.Fragment>
                       <div className='f2fFieldCell'>{review.score}</div>
-                      <div className='f2fFieldCell'>
-                        {review.testsPassed}{review.testsPassed > -1 && <span>/</span>}{review.totalTestCases}
-                      </div>
+                      {
+                        !isDev &&
+                        <div className='f2fFieldCell'>
+                          {review.testsPassed}{review.testsPassed > -1 && <span>/</span>}{review.totalTestCases}
+                        </div>
+                      }
+                      {
+                        isDev &&
+                        <div className='f2fFieldCell'>
+                          {review.testsPassed > -1 && `${parseFloat(review.testsPassed / profile.totalTestCases * 100).toFixed(2)}%`}
+                        </div>
+                      }
                     </React.Fragment>
                   }
                   {
@@ -365,7 +390,6 @@ const table = (props) => {
 
           .row .tests-passed {
             display: flex;
-            justify-content: center;
             align-items: center;
           }
 

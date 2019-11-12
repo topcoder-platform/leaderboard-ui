@@ -91,7 +91,8 @@ class F2FLeaderboard extends React.Component {
       tickerSeparator: footer.tickerSeparator.fields.file.url,
       tickerMessages: footer.tickerMessages,
       members: finalists.finalists,
-      animateReveal: query.animate === 'true'
+      animateReveal: query.animate === 'true',
+      isDev: data.fields.isDevTrack
     }
   }
 
