@@ -94,12 +94,13 @@ class LiveStream extends React.Component {
               allowFullScreen
             />
           </main>
-          <Sponsors {...this.props} hideMainSponsor smallerSponsor showFlatDesign />
+          <Sponsors {...this.props} smallerSponsor />
           <Footer {...this.props} />
         </div>
         { this.props.showScoreboard && <FinalistTable
           {...this.props}
           finalists={this.state.leaderboard}
+          isMini
           // smallerDesign
         />}
         <style jsx global>{`

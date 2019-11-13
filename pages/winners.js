@@ -5,6 +5,7 @@ import fetch from 'isomorphic-unfetch'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import PageHead from '../components/PageHead'
+import Sponsors from '../components/Sponsors'
 import { checkForMainSponsor } from '../common/helper'
 
 const rowSize = {
@@ -182,27 +183,6 @@ const cardLayout = (profile, primaryColor, position, length) => {
   )
 }
 
-const otherSponsorsLayout = (sponsors) => {
-  return (
-    <div className='container'>
-      {sponsors.map((sponsor, i) => (<img key={`${sponsor}${i}`} className='otherSponsor' src={sponsor} />))}
-      <style jsx>
-        {`
-          .container {
-            height: 52px;
-            display: flex;
-            align-items: center;
-          }
-          .otherSponsor {
-            margin: 0px 30px;
-            height: 28px;
-          }
-        `}
-      </style>
-    </div>
-  )
-}
-
 const finalistsLayout = (profiles, props) => {
   const { primaryColor, finalists, prizes } = props
   const rows = rowSize[profiles.length]
@@ -267,7 +247,7 @@ const prizesLayout = (props, showWinners) => {
       >
         <img src='/static/img/silverTrophy.png' />
         <div className='money'>
-          ${prizes[1]}
+          ${parseFloat(prizes[1]).toLocaleString()}
         </div>
         {showWinners && <div>
           <img className='smallBg smallBg2Place' src={`/static/img/blob/blob-2-place.png`} />
@@ -290,7 +270,7 @@ const prizesLayout = (props, showWinners) => {
       }}>
         <img src='/static/img/goldTrophy.png' />
         <div className='money money1Place'>
-          ${prizes[0]}
+          ${parseFloat(prizes[0]).toLocaleString()}
         </div>
         {showWinners && <div>
           <img className='largeBg' src={`/static/img/blob/blob-1-place.png`} />
@@ -312,7 +292,7 @@ const prizesLayout = (props, showWinners) => {
       }}>
         <img src='/static/img/bronzeTrophy.png' />
         <div className='money'>
-          ${prizes[2]}
+          ${parseFloat(prizes[2]).toLocaleString()}
         </div>
         {showWinners && <div>
           <img className='smallBg smallBg3Place' src={`/static/img/blob/blob-3-place.png`} />
@@ -511,7 +491,7 @@ const prizesLayout = (props, showWinners) => {
 }
 
 const WinnersLayout = (props) => {
-  const { finalists, showWinners, otherSponsors, mainSponsor, prizes } = props
+  const { finalists, showWinners, prizes } = props
   const profiles = (showWinners) ? finalists.slice(prizes.length) : finalists
   return (
     <div className='container'>
@@ -521,22 +501,14 @@ const WinnersLayout = (props) => {
         <div className='prizeContainer'>
           <div className='message'>
             <img src='/static/img/hexagon.png' alt='hex' />
-            <div className='subtitle'>ANNOuncing</div>
+            <div className='subtitle'>ANNOUNCING</div>
             <div className='title'>WINNERS</div>
           </div>
           {prizesLayout(props, showWinners)}
         </div>
         {finalistsLayout(profiles, props)}
       </main>
-      <div className='sponsorContainer'>
-        <img className='sponsorContainerSeparator' src='/static/img/footerSeparator.png' alt='separator' />
-        <div className='sponsorhalf'>
-          {otherSponsorsLayout(otherSponsors)}
-        </div>
-        <div className='sponsorhalf'>
-          <img className='sponsorImg' src={mainSponsor} />
-        </div>
-      </div>
+      <Sponsors {...props} showFlatDesign />
       <Footer {...props} />
       <style jsx>
         {`

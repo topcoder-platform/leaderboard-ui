@@ -85,10 +85,7 @@ class SponsorPage extends React.Component {
           <PageHead />
           <Header {...this.props} smallHeader />
           <main className='main'>
-            <img className='hexa' src='/static/img/largeHexa.png' />
             <div className='message'>
-              <img src='/static/img/hexagon.png' alt='hex' />
-              {/* <div className='subtitle'>players</div> */}
               <div className='title'>SPONSORED BY</div>
             </div>
             <img className='sponsorImg' src={this.props.mainSponsor} />
@@ -113,7 +110,7 @@ class SponsorPage extends React.Component {
           {`
             .container {
               display: flex;
-              background: url("/static/img/background.png") no-repeat center center fixed;
+              background: url('/static/img/background.png') no-repeat center center fixed;
               -webkit-background-size: cover;
               -moz-background-size: cover;
               -o-background-size: cover;
@@ -135,8 +132,21 @@ class SponsorPage extends React.Component {
               display: flex;
               flex-direction: column;
               flex-shrink: 1;
-              background-image: linear-gradient(270deg, rgba(0, 78, 119, 0) 0%, #004165 51.72%, rgba(0, 40, 61, 0) 100%);
+              background-image: linear-gradient(rgba(0,78,119,0.1) 0%,rgba(0,18,101,0.1) 51.72%,rgba(0,40,61,0.2) 100%);
               margin-bottom: 10px;
+              position: relative;
+            }
+
+            .main::before {
+              content: "";
+              width: 363.1px;
+              background: rgba(112, 112, 112, 0.12);
+              height: 2px;
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              margin: auto;
             }
 
             .hexa {

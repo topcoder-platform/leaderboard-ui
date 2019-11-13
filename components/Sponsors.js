@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types'
 
 const sponsors = (props) => {
-  const { showFlatDesign, hideMainSponsor, showDivider, mainSponsor, otherSponsors, smallerSponsor } = props
+  const { showFlatDesign, showDivider, otherSponsors, smallerSponsor } = props
+  const sponsorGroup1 = otherSponsors.slice(0, 7)
+  const sponsorGroup2 = otherSponsors.slice(8, otherSponsors.length)
   let containerClass = (showFlatDesign) ? 'flatContainer' : (smallerSponsor) ? 'small' : ''
   return (<div className={`container ${containerClass}`}>
     {showDivider && <img className='divider' src='/static/img/divider.png' alt='divider' />}
@@ -10,10 +12,14 @@ const sponsors = (props) => {
         SPONSORED BY
       </div>
     }
-    { !hideMainSponsor && <img className='sponsor' src={mainSponsor} />}
     <div className='otherSponsorsContainer'>
       {
-        otherSponsors.map((sponsor, i) => (<img key={`${sponsor}${i}`} className='otherSponsor' src={sponsor} alt='sponsor' />))
+        sponsorGroup1.map((sponsor, i) => (<img key={`${sponsor}${i}`} className='otherSponsor' src={sponsor} alt='sponsor' />))
+      }
+    </div>
+    <div className='otherSponsorsContainer'>
+      {
+        sponsorGroup2.map((sponsor, i) => (<img key={`${sponsor}${i}`} className='otherSponsor' src={sponsor} alt='sponsor' />))
       }
     </div>
     <style jsx>
@@ -27,7 +33,7 @@ const sponsors = (props) => {
         }
 
         .container.small {
-          margin-bottom: 0px;
+          margin-bottom: 10px;
         }
 
         .flatContainer {
@@ -86,10 +92,13 @@ const sponsors = (props) => {
         .otherSponsor {
           margin: 0px 30px;
           height: 24px;
+          width: auto;
+          opacity: 0.6;
         }
 
         .small .otherSponsor {
           margin: 0px 20px;
+          width: auto;
         }
 
         .flatContainer .otherSponsorsContainer .otherSponsor {
@@ -137,16 +146,14 @@ sponsors.propTypes = {
   showDivider: PropTypes.bool,
   mainSponsor: PropTypes.string,
   otherSponsors: PropTypes.arrayOf(PropTypes.string),
-  smallerSponsor: PropTypes.bool,
-  hideMainSponsor: PropTypes.bool
+  smallerSponsor: PropTypes.bool
 }
 
 sponsors.defaultProps = {
   showDivider: false,
   showFlatDesign: false,
   mainSponsor: undefined,
-  smallerSponsor: false,
-  hideMainSponsor: false
+  smallerSponsor: false
 }
 
 export default sponsors
