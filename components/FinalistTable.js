@@ -86,7 +86,7 @@ const table = (props) => {
             </div>
 
             {
-              !isQa && profile.testsPassed && <div className='tests-passed'>
+              !isQa && profile.totalTestCases > 0 && <div className='tests-passed'>
                 <div>
                   {
                     !isDev &&
