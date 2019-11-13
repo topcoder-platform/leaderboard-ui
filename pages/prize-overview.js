@@ -15,19 +15,19 @@ const prizesLayout = (prizes) => {
       <div className='small'>
         <img src='/static/img/silverTrophy.png' />
         <div className='money'>
-          ${prizes[1]}
+          ${parseFloat(prizes[1]).toLocaleString()}
         </div>
       </div>
       <div className='large' style={{ marginTop: ((prizes.length === 2) ? '60px' : '0px') }}>
         <img src='/static/img/goldTrophy.png' />
         <div className='money'>
-          ${prizes[0]}
+          ${parseFloat(prizes[0]).toLocaleString()}
         </div>
       </div>
       { (prizes.length === 3) && <div className='small'>
         <img src='/static/img/bronzeTrophy.png' />
         <div className='money'>
-          ${prizes[2]}
+          ${parseFloat(prizes[2]).toLocaleString()}
         </div>
       </div>}
       <style jsx>
