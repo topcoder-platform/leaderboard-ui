@@ -169,6 +169,7 @@ class PrizeOverview extends React.Component {
         { this.props.showScoreboard && <FinalistTable
           {...this.props}
           finalists={this.state.leaderboard}
+          isMini
         />}
         <style jsx global>{`
           #__next {
