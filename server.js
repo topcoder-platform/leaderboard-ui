@@ -41,7 +41,7 @@ app.prepare()
       secret: 'somerandonstuffs',
       resave: false,
       saveUninitialized: false,
-      cookie: { maxAge: 6000 }
+      cookie: { maxAge: 30 * 24 * 60 }
     }))
 
     server.use(healthCheck.middleware([() => true]))
