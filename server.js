@@ -41,7 +41,9 @@ app.prepare()
       secret: 'somerandonstuffs',
       resave: false,
       saveUninitialized: false,
-      cookie: { maxAge: 30 * 24 * 60 }
+      cookie: {
+        maxAge: 30 * 24 * 60 * 60 * 1000
+      }
     }))
 
     server.use(healthCheck.middleware([() => true]))
@@ -75,9 +77,6 @@ app.prepare()
     server.post('/login', async (req, res) => {
       let username = req.body.username
       let password = req.body.password
-      console.log('totest adminUser', adminUser)
-      console.log('totest username', username)
-      console.log('totest password', password)
       if (
         username !== adminUser.username ||
         password !== adminUser.password ||
