@@ -6,8 +6,8 @@ const contentful = require('contentful')
 const request = require('superagent')
 const cors = require('cors')
 const healthCheck = require('topcoder-healthcheck-dropin')
-var cookieParser = require('cookie-parser')
-var session = require('express-session')
+const cookieParser = require('cookie-parser')
+const session = require('express-session')
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
@@ -36,7 +36,13 @@ app.prepare()
     server.use(bodyParser.json())
     server.use(bodyParser.urlencoded({ extended: false }))
     server.use(cookieParser())
-    server.use(session({ secret: 'secret-code', cookie: { maxAge: 6000 } }))
+    server.use(session({
+      key: 'user_sid',
+      secret: 'somerandonstuffs',
+      resave: false,
+      saveUninitialized: false,
+      cookie: { maxAge: 6000 }
+    }))
 
     server.use(healthCheck.middleware([() => true]))
 
@@ -67,8 +73,8 @@ app.prepare()
     })
 
     server.post('/login', async (req, res) => {
-      var username = req.body.username
-      var password = req.body.password
+      let username = req.body.username
+      let password = req.body.password
       console.log('totest adminUser', adminUser)
       console.log('totest username', username)
       console.log('totest password', password)
