@@ -144,9 +144,15 @@ const table = (props) => {
 
           {
             profile.reveal === true && <React.Fragment>
-              { largeColumns && f2fLeaderboard && profile.hasOwnProperty('handle') && <div className='handleName animate fadeIn'>
-                {profile.handle}
-              </div> }
+              { largeColumns && f2fLeaderboard && profile.hasOwnProperty('handle') &&
+              <div className='competitor'>
+                <div className='avatar'>
+                  <img src={profile.profilePic} />
+                </div>
+                <img className='country-flag' src={profile.countryFlag} />
+                <div className='handle' style={{ color: primaryColor }}>{profile.handle}</div>
+              </div>
+              }
               { largeColumns && f2fLeaderboard && profile.hasOwnProperty('reviews') && profile.reviews.map((review, i) => (
                 <div key={review.challengeId} className='f2fScoreTests animate fadeIn'>
                   {
