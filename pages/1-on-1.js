@@ -9,10 +9,12 @@ import Sponsors from '../components/Sponsors'
 import FinalistTable from '../components/FinalistTable'
 import { hexToName, prepareLeaderboard, checkForMainSponsor } from '../common/helper'
 
-const DETAILS = ['rating', 'rank', 'percentile', 'competitions', 'volatility']
+// const DETAILS = ['rating', 'rank', 'percentile', 'competitions', 'volatility']
+const omit = ['handle', 'country', 'profilePic', 'countryFlag']
 
 const detailLayout = (props) => {
   const { challengee, challenger, primaryColor } = props
+  const DETAILS = Object.keys(challenger).filter(f => !omit.includes(f))
   return (
     <div className='container'>
       <div className='profilePicContainer'>
