@@ -98,8 +98,21 @@ class FullScreenImage extends React.Component {
               display: flex;
               flex-direction: column;
               flex-shrink: 1;
-              background-image: linear-gradient(270deg,rgba(0, 43, 119, 0.5) 0%,rgba(0, 18, 101, 0.5) 100%,rgba(0, 13, 61, 0.5) 0%);
+              background-image: linear-gradient(rgba(0,78,119,0.1) 0%,rgba(0,18,101,0.1) 51.72%,rgba(0,40,61,0.2) 100%);
               margin-bottom: 10px;
+              position: relative;
+            }
+
+            .main::before {
+              content: "";
+              width: 363.1px;
+              background: rgba(112, 112, 112, 0.12);
+              height: 2px;
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              margin: auto;
             }
 
             .content-image {

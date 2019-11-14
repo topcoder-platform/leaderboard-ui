@@ -4,7 +4,6 @@ import fetch from 'isomorphic-unfetch'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import PageHead from '../components/PageHead'
-import Sponsors from '../components/Sponsors'
 import FinalistTable from '../components/FinalistTable'
 import { checkForMainSponsor } from '../common/helper'
 
@@ -188,7 +187,7 @@ const GetReady = (props) => {
           </div>
           {finalistsLayout(props)}
         </main>
-        <Sponsors {...props} hideMainSponsor smallerSponsor showFlatDesign />
+        {/* <Sponsors {...props} smallerSponsor /> */}
         <Footer {...props} />
       </div>
       <FinalistTable
