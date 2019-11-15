@@ -7,14 +7,16 @@ class Header extends React.Component {
     super(props)
 
     this.state = {
-      timerText: null
+      timerText: null,
+      usedStartDate: false,
+      usedEndDate: false
     }
 
     setInterval(this.tick.bind(this), 1000)
   }
 
   tick () {
-    const { timerText } = this.state
+    let { timerText, usedStartDate, usedEndDate } = this.state
     let { eventStartDateTime, eventEndDateTime } = this.props
 
     if (!eventStartDateTime && !eventEndDateTime) {
@@ -24,25 +26,40 @@ class Header extends React.Component {
       return
     }
 
-    let endTime = eventEndDateTime || eventStartDateTime
+    let endTime = eventStartDateTime
     endTime = Math.floor(new Date(endTime).getTime() / 1000)
 
-    const now = Math.floor(Date.now() / 1000)
-    const diff = endTime - now
+    let now = Math.floor(Date.now() / 1000)
+    let diff = endTime - now
 
     if (diff < 0) {
-      this.setState({ timerText: null })
-    } else {
-      const hour = leadingZero(Math.floor(diff / 3600))
-      const minutes = leadingZero(Math.floor((diff - hour * 3600) / 60))
-      const seconds = leadingZero(diff % 60)
+      usedStartDate = false
+      endTime = eventEndDateTime
+      endTime = Math.floor(new Date(endTime).getTime() / 1000)
 
-      this.setState({ timerText: `${hour}:${minutes}:${seconds}` })
+      now = Math.floor(Date.now() / 1000)
+      diff = endTime - now
+
+      if (diff < 0) {
+        this.setState({ timerText: null })
+        return
+      } else {
+        usedEndDate = true
+      }
+    } else {
+      usedStartDate = true
+      usedEndDate = false
     }
+
+    const hour = leadingZero(Math.floor(diff / 3600))
+    const minutes = leadingZero(Math.floor((diff - hour * 3600) / 60))
+    const seconds = leadingZero(diff % 60)
+
+    this.setState({ timerText: `${hour}:${minutes}:${seconds}`, usedStartDate, usedEndDate })
   }
 
   timer () {
-    const { timerText } = this.state
+    const { timerText, usedStartDate, usedEndDate } = this.state
     const { smallHeader } = this.props
     const smallClass = smallHeader ? ' small' : ''
     return (
@@ -52,13 +69,13 @@ class Header extends React.Component {
           (
             <div className='timer'>
 
-              {smallHeader && <div className='hint'>
+              {usedEndDate && <div className='hint'>
                 Ends in
               </div>}
               <div className='clock'>
                 {timerText}
               </div>
-              {!smallHeader && <div className='hint'>
+              {usedStartDate && <div className='hint'>
                 Time to start
               </div>}
             </div>

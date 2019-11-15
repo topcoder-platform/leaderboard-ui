@@ -20,6 +20,8 @@ CONTENTFUL_MESSAGE_ENTRY_ID // Entry id for the content relevant for the message
 CONTENTFUL_COUNTDOWN_ENTRY_ID // Entry id for the content relevant for the countdown timer page
 HOST // URL address where the app is hosted, without any trailing slash "/". Example: http://localhost:3000
 NODE_ENV // self explanatory
+ADMIN_USERNAME // username of admin
+ADMIN_PASSWORD // password of admin
 ```
 
 ## Deployment

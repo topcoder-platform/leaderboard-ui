@@ -45,7 +45,8 @@ class RoundEnded extends React.Component {
       primaryColor: header.primaryColor,
       track: header.track,
       round: header.round,
-      eventEndDateTime: header.eventDateTime,
+      eventStartDateTime: header.eventDateTime,
+      eventEndDateTime: header.eventEndDateTime,
       showScoreboard: header.showScoreboard,
       challengeId: header.challengeId,
       tickerType: footer.tickerType.fields.file.url,
@@ -83,19 +84,18 @@ class RoundEnded extends React.Component {
           <PageHead />
           <Header {...this.props} smallHeader />
           <main className='main'>
-            <img className='hexa' src='/static/img/largeHexa.png' />
             <div className='message'>
-              <img src='/static/img/hexagon.png' alt='hex' />
               <div className='subtitle'>{this.props.track + ' ' + this.props.round}</div>
               <div className='title'>ENDED</div>
             </div>
           </main>
-          <Sponsors {...this.props} hideMainSponsor smallerSponsor showFlatDesign />
+          <Sponsors {...this.props} smallerSponsor />
           <Footer {...this.props} />
         </div>
         { this.props.showScoreboard && <FinalistTable
           {...this.props}
           finalists={this.state.leaderboard}
+          isMini
         />}
         <style jsx global>{`
           #__next {
@@ -107,7 +107,7 @@ class RoundEnded extends React.Component {
           {`
             .container {
               display: flex;
-              background: url("/static/img/background.png") no-repeat center center fixed;
+              background: url('/static/img/background.png') no-repeat center center fixed;
               -webkit-background-size: cover;
               -moz-background-size: cover;
               -o-background-size: cover;
@@ -129,8 +129,21 @@ class RoundEnded extends React.Component {
               display: flex;
               flex-direction: column;
               flex-shrink: 1;
-              background-image: linear-gradient(270deg, rgba(0, 78, 119, 0) 0%, #004165 51.72%, rgba(0, 40, 61, 0) 100%);
+              background-image: linear-gradient(rgba(0,78,119,0.1) 0%,rgba(0,18,101,0.1) 51.72%,rgba(0,40,61,0.2) 100%);
               margin-bottom: 10px;
+              position: relative;
+            }
+
+            .main::before {
+              content: "";
+              width: 363.1px;
+              background: rgba(112, 112, 112, 0.12);
+              height: 2px;
+              position: absolute;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              margin: auto;
             }
 
             .hexa {

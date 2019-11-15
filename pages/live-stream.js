@@ -45,7 +45,8 @@ class LiveStream extends React.Component {
       primaryColor: header.primaryColor,
       track: header.track,
       round: header.round,
-      eventEndDateTime: header.eventDateTime,
+      eventStartDateTime: header.eventDateTime,
+      eventEndDateTime: header.eventEndDateTime,
       showScoreboard: header.showScoreboard,
       challengeId: header.challengeId,
       tickerType: footer.tickerType.fields.file.url,
@@ -93,12 +94,13 @@ class LiveStream extends React.Component {
               allowFullScreen
             />
           </main>
-          <Sponsors {...this.props} hideMainSponsor smallerSponsor showFlatDesign />
+          <Sponsors {...this.props} smallerSponsor />
           <Footer {...this.props} />
         </div>
         { this.props.showScoreboard && <FinalistTable
           {...this.props}
           finalists={this.state.leaderboard}
+          isMini
           // smallerDesign
         />}
         <style jsx global>{`

@@ -30,9 +30,11 @@ const hexToName = (hexColor) => {
  * @param {Array} finalists The list of known finalists
  * @param {String} groupId The group Id
  * @param {Array} groupChallengeIds The challenges in the group
+ * @param {Boolean} isF2f Is the leaderboard for F2F track? If yes, multiplier is applied
  */
-async function prepareLeaderboard (challengeId, finalists, groupId, groupChallengeIds) {
+async function prepareLeaderboard (challengeId, finalists, groupId, groupChallengeIds, isF2f) {
   const { publicRuntimeConfig } = getConfig()
+  const multiplier = [2, 3, 5]
 
   let res
   let leaderboard
@@ -50,6 +52,7 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
       })
 
       if (member) {
+        let aggregateScore = 0
         // Next determine the member score details
         // Since it is a group, for each member we will have a maximum of n reviews and 1 final score
         // where n is the number of contests per group
@@ -73,11 +76,20 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
           if (review) {
             // Member has a review for that challenge
             if (review.status !== 'queued') {
+              let score
+
+              if (isF2f) {
+                score = Math.round(review.aggregateScore * multiplier[i] * 10000) / 10000
+              } else {
+                score = Math.round(review.aggregateScore * 10000) / 10000
+              }
               member.reviews.push({
-                score: review.aggregateScore,
+                score,
                 testsPassed: review.testsPassed,
                 totalTestCases: review.totalTestCases
               })
+
+              aggregateScore = aggregateScore + (review.aggregateScore * multiplier[i])
             } else {
               // If a review is in queue, do not show any points or tests. Show the status
               member.reviews.push({ status: 'review queued' })
@@ -88,6 +100,11 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
             // Member does not have a review for that challenge
             member.reviews.push({})
           }
+        }
+
+        if (isF2f) {
+          // multiplier points get applied for f2f track
+          member.points = Math.round(aggregateScore * 10000) / 10000
         }
       } else {
         // Member exists in leaderboard api but not in contentful

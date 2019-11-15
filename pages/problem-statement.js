@@ -44,7 +44,8 @@ class ProblemStatement extends React.Component {
       primaryColor: header.primaryColor,
       track: header.track,
       round: header.round,
-      eventEndDateTime: header.eventDateTime,
+      eventStartDateTime: header.eventDateTime,
+      eventEndDateTime: header.eventEndDateTime,
       showScoreboard: header.showScoreboard,
       challengeId: header.challengeId,
       groupId: header.groupId,
@@ -56,7 +57,10 @@ class ProblemStatement extends React.Component {
       otherSponsors,
       members: finalists.finalists,
       problemTitle: data.fields.problemStatementTitle,
-      problemDescription: data.fields.problemStatementDescription
+      problemDescription: data.fields.problemStatementDescription,
+      isDev: data.fields.isDevTrack,
+      isF2f: data.fields.isF2fTrack,
+      isQa: data.fields.isQaTrack
     }
   }
 
@@ -67,7 +71,7 @@ class ProblemStatement extends React.Component {
   setupLeaderboard () {
     const { publicRuntimeConfig } = getConfig()
 
-    prepareLeaderboard(this.props.challengeId, this.props.members, this.props.groupId, this.props.challengeIds)
+    prepareLeaderboard(this.props.challengeId, this.props.members, this.props.groupId, this.props.challengeIds, this.props.isF2f)
       .then((leaderboard) => {
         this.setState({ leaderboard })
         // Poll after configured second
@@ -99,7 +103,7 @@ class ProblemStatement extends React.Component {
             <div className='description'>{this.props.problemDescription}</div>
           </main>
           <div className='problemStatementSponsor'>
-            <Sponsors {...this.props} hideMainSponsor smallerSponsor showFlatDesign />
+            <Sponsors {...this.props} smallerSponsor />
           </div>
           <Footer {...this.props} />
         </div>

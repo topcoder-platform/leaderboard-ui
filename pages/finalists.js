@@ -138,7 +138,7 @@ const Finalists = (props) => {
           </div>
         </div>
       </main>
-      <Sponsors {...props} hideMainSponsor showFlatDesign />
+      <Sponsors {...props} smallerSponsor />
       <Footer {...props} />
       <style jsx>
         {`
@@ -160,7 +160,7 @@ const Finalists = (props) => {
             align-items: center;
             display: flex;
             flex-direction: column;
-            min-height: 800px;
+            min-height: 760px;
             position: relative;
           }
 
@@ -172,7 +172,7 @@ const Finalists = (props) => {
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            margin-top: 40px;
+            margin-top: 20px;
             text-transform: uppercase;
             position: relative;
             z-index: 4;

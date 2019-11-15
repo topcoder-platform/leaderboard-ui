@@ -15,19 +15,19 @@ const prizesLayout = (prizes) => {
       <div className='small'>
         <img src='/static/img/silverTrophy.png' />
         <div className='money'>
-          ${prizes[1]}
+          ${parseFloat(prizes[1]).toLocaleString()}
         </div>
       </div>
       <div className='large' style={{ marginTop: ((prizes.length === 2) ? '60px' : '0px') }}>
         <img src='/static/img/goldTrophy.png' />
         <div className='money'>
-          ${prizes[0]}
+          ${parseFloat(prizes[0]).toLocaleString()}
         </div>
       </div>
       { (prizes.length === 3) && <div className='small'>
         <img src='/static/img/bronzeTrophy.png' />
         <div className='money'>
-          ${prizes[2]}
+          ${parseFloat(prizes[2]).toLocaleString()}
         </div>
       </div>}
       <style jsx>
@@ -115,7 +115,8 @@ class PrizeOverview extends React.Component {
       primaryColor: header.primaryColor,
       track: header.track,
       round: header.round,
-      eventEndDateTime: header.eventDateTime,
+      eventStartDateTime: header.eventDateTime,
+      eventEndDateTime: header.eventEndDateTime,
       challengeId: header.challengeId,
       showScoreboard: header.showScoreboard,
       tickerType: footer.tickerType.fields.file.url,
@@ -154,20 +155,19 @@ class PrizeOverview extends React.Component {
           <PageHead />
           <Header {...this.props} smallHeader />
           <main className='main'>
-            <img className='hexa' src='/static/img/largeHexa.png' />
             <div className='message'>
-              <img src='/static/img/hexagon.png' alt='hex' />
               <div className='subtitle'>TCO Champions</div>
               <div className='title'>Prize overview</div>
             </div>
             {prizesLayout(this.props.prizes)}
           </main>
-          <Sponsors {...this.props} hideMainSponsor smallerSponsor showFlatDesign />
+          <Sponsors {...this.props} smallerSponsor />
           <Footer {...this.props} />
         </div>
         { this.props.showScoreboard && <FinalistTable
           {...this.props}
           finalists={this.state.leaderboard}
+          isMini
         />}
         <style jsx global>{`
           #__next {
@@ -179,7 +179,7 @@ class PrizeOverview extends React.Component {
           {`
             .container {
               display: flex;
-              background: url("/static/img/background.png") no-repeat center center fixed;
+              background: url('/static/img/background.png') no-repeat center center fixed;
               -webkit-background-size: cover;
               -moz-background-size: cover;
               -o-background-size: cover;
@@ -201,13 +201,21 @@ class PrizeOverview extends React.Component {
               display: flex;
               flex-direction: column;
               flex-shrink: 1;
-              background-image: linear-gradient(270deg, rgba(0, 78, 119, 0) 0%, #004165 51.72%, rgba(0, 40, 61, 0) 100%);
+              background-image: linear-gradient(rgba(0,78,119,0.1) 0%,rgba(0,18,101,0.1) 51.72%,rgba(0,40,61,0.2) 100%);
               margin-bottom: 10px;
+              position: relative;
             }
 
-            .hexa {
+            .main::before {
+              content: "";
+              width: 363.1px;
+              background: rgba(112, 112, 112, 0.12);
+              height: 2px;
               position: absolute;
-              width: 550px;
+              bottom: 0;
+              left: 0;
+              right: 0;
+              margin: auto;
             }
 
             .message {

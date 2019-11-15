@@ -18,7 +18,19 @@ function getTracksMarkup (tracks) {
 
 const Index = (props) => (
   <div>
-    <h1>Tracks</h1>
+    <div className='header'>
+      <h1>Tracks</h1>
+      <a href='/logout'>Logout</a>
+      <style jsx>
+        {`
+          .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+          }
+        `}
+      </style>
+    </div>
     <ul>
       {
         getTracksMarkup(props.tracks)

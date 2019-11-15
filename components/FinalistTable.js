@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const table = (props) => {
-  const { finalists, primaryColor, smallerDesign, largeColumns, track, isF2f, isMini } = props
+  const { finalists, primaryColor, smallerDesign, largeColumns, track, fullWidth, isMini, isDev, isQa } = props
   const smallClass = smallerDesign || isMini ? ' small ' : ''
   const sizeClass = largeColumns ? ' largerCells ' : ''
   const trackTableClass = (track) => {
@@ -12,7 +12,7 @@ const table = (props) => {
     }
   }
   const algorithmLeaderboard = track === 'algorithm'
-  const f2fLeaderboard = isF2f
+  const f2fLeaderboard = fullWidth
   return (
     <div className={'container' + smallClass + sizeClass + `${trackTableClass(track)}`}>
       <div className='header'>
@@ -51,7 +51,7 @@ const table = (props) => {
           <div style={{ display: 'flex', flexGrow: '1', justifyContent: 'space-between' }}>
             <div className='competitor'>competitor</div>
             <div className='points'>points</div>
-            <div className='tests-passed'>tests passed</div>
+            {!isQa && <div className='tests-passed'>{ isDev ? '% Complete' : 'tests passed'}</div>}
           </div>
         }
       </div>
@@ -75,7 +75,7 @@ const table = (props) => {
 
             <div className='points'>
               { profile.scoreLevel && <img className={`animate fade${profile.scoreLevel} infinite`} src={`/static/img/trend/${profile.scoreLevel}.png`} /> }
-              { profile.points != null && <div className={profile.scoreLevel ? '' : 'non-score-lvl-pt'}>
+              { profile.points >= 0 && <div className={profile.scoreLevel ? '' : 'non-score-lvl-pt'}>
                 <span className='value'>
                   {profile.points}
                 </span>
@@ -86,14 +86,30 @@ const table = (props) => {
             </div>
 
             {
-              profile.testsPassed && <div className='tests-passed'>
+              !isQa && profile.totalTestCases > 0 && <div className='tests-passed'>
                 <div>
-                  <span className='value'>
-                    {`${profile.testsPassed} / ${profile.totalTestCases}`}
-                  </span>
-                  <span className='hint'>
-                    TESTS
-                  </span>
+                  {
+                    !isDev &&
+                    <React.Fragment>
+                      <span className='value'>
+                        {`${profile.testsPassed} / ${profile.totalTestCases}`}
+                      </span>
+                      <span className='hint'>
+                        TESTS
+                      </span>
+                    </React.Fragment>
+                  }
+                  {
+                    isDev &&
+                    <React.Fragment>
+                      <span className='value'>
+                        {`${parseFloat(profile.testsPassed / profile.totalTestCases * 100).toFixed(2)}%`}
+                      </span>
+                      <span className='hint'>
+                        COMPLETED
+                      </span>
+                    </React.Fragment>
+                  }
                 </div>
               </div>
             }
@@ -128,17 +144,32 @@ const table = (props) => {
 
           {
             profile.reveal === true && <React.Fragment>
-              { largeColumns && f2fLeaderboard && profile.hasOwnProperty('handle') && <div className='handleName animate fadeIn'>
-                {profile.handle}
-              </div> }
+              { largeColumns && f2fLeaderboard && profile.hasOwnProperty('handle') &&
+              <div className='competitor'>
+                <div className='avatar'>
+                  <img src={profile.profilePic} />
+                </div>
+                <img className='country-flag' src={profile.countryFlag} />
+                <div className='handle' style={{ color: primaryColor }}>{profile.handle}</div>
+              </div>
+              }
               { largeColumns && f2fLeaderboard && profile.hasOwnProperty('reviews') && profile.reviews.map((review, i) => (
                 <div key={review.challengeId} className='f2fScoreTests animate fadeIn'>
                   {
                     !review.status && <React.Fragment>
                       <div className='f2fFieldCell'>{review.score}</div>
-                      <div className='f2fFieldCell'>
-                        {review.testsPassed}{review.testsPassed > -1 && <span>/</span>}{review.totalTestCases}
-                      </div>
+                      {
+                        !isDev &&
+                        <div className='f2fFieldCell'>
+                          {review.testsPassed}{review.testsPassed > -1 && <span>/</span>}{review.totalTestCases}
+                        </div>
+                      }
+                      {
+                        isDev &&
+                        <div className='f2fFieldCell'>
+                          {review.testsPassed > -1 && `${parseFloat(review.testsPassed / profile.totalTestCases * 100).toFixed(2)}%`}
+                        </div>
+                      }
                     </React.Fragment>
                   }
                   {
@@ -300,8 +331,8 @@ const table = (props) => {
           }
 
           .country-flag {
-            height: 26px;
             width: 24px;
+            height: auto;
             position: absolute;
             z-index: 3;
             left: 56px;
@@ -365,7 +396,6 @@ const table = (props) => {
 
           .row .tests-passed {
             display: flex;
-            justify-content: center;
             align-items: center;
           }
 
@@ -493,7 +523,6 @@ const table = (props) => {
 
           .f2fScoreTests .f2fFieldCell:nth-child(2) {
             width: 66%;
-            font-weight: 400;
           }
 
           .non-score-lvl-pt {

@@ -18,7 +18,7 @@ const LeaderboardLayout = (props) => {
           <FinalistTable
             {...props}
             largeColumns
-            isF2f
+            fullWidth
           />
         </div>
       </main>
@@ -83,13 +83,17 @@ class F2FLeaderboard extends React.Component {
       primaryColor: header.primaryColor,
       track: header.track,
       round: header.round,
-      eventEndDateTime: header.eventDateTime,
+      eventStartDateTime: header.eventDateTime,
+      eventEndDateTime: header.eventEndDateTime,
       challengeIds: data.fields.challengeIds,
       groupId: data.fields.groupId,
       tickerType: footer.tickerType.fields.file.url,
       tickerSeparator: footer.tickerSeparator.fields.file.url,
       tickerMessages: footer.tickerMessages,
-      members: finalists.finalists
+      members: finalists.finalists,
+      animateReveal: query.animate === 'true',
+      isDev: data.fields.isDevTrack,
+      isF2f: data.fields.isF2fTrack
     }
   }
 
@@ -98,11 +102,15 @@ class F2FLeaderboard extends React.Component {
   }
 
   setupLeaderboard () {
-    prepareLeaderboard(null, this.props.members, this.props.groupId, this.props.challengeIds)
+    prepareLeaderboard(null, this.props.members, this.props.groupId, this.props.challengeIds, this.props.isF2f)
       .then((leaderboard) => {
-        this.setState({ leaderboard })
-
-        this.animateLeaderboard()
+        if (this.props.animateReveal) {
+          this.setState({ leaderboard })
+          this.animateLeaderboard()
+        } else {
+          leaderboard.forEach(l => { l.reveal = true })
+          this.setState({ leaderboard })
+        }
       })
       .catch((err) => {
         console.log('Failed to fetch leaderboard. Error details follow')
