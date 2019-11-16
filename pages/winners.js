@@ -9,6 +9,7 @@ import Sponsors from '../components/Sponsors'
 import { checkForMainSponsor } from '../common/helper'
 
 const rowSize = {
+  4: [1, 2, 1],
   5: [2, 1, 2],
   7: [2, 3, 2],
   8: [3, 2, 3],
@@ -210,7 +211,7 @@ const finalistsLayout = (profiles, props) => {
             flex-direction: column;
             margin-bottom: 20px;
             flex: 1;
-            align-items: flex-end;
+            align-items: center;
             padding: 0 66px;
           }
           .rowsContainer {
@@ -618,13 +619,18 @@ const WinnersLayout = (props) => {
 class Winners extends React.Component {
   constructor (props) {
     super(props)
+    this.timeOutId = null
     this.state = {
       showWinners: false
     }
   }
 
   componentDidMount () {
-    setTimeout(this.toggleWinners.bind(this), 10000)
+    this.timeOutId = setTimeout(this.toggleWinners.bind(this), 10000)
+  }
+
+  componentWillUnmount () {
+    clearTimeout(this.timeOutId)
   }
 
   toggleWinners () {
