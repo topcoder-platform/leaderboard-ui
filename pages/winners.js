@@ -11,7 +11,6 @@ import { checkForMainSponsor } from '../common/helper'
 const rowSize = {
   4: [1, 2, 1],
   5: [2, 1, 2],
-  4: [2, 2, 0],
   7: [2, 3, 2],
   8: [3, 2, 3],
   9: [2, 3, 4],
