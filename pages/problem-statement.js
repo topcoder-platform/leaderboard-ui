@@ -9,15 +9,29 @@ import Sponsors from '../components/Sponsors'
 import FinalistTable from '../components/FinalistTable'
 import { prepareLeaderboard, checkForMainSponsor } from '../common/helper'
 
+function getMemberFinalScore (member) {
+  const finalScores = JSON.parse(JSON.stringify(member.finalDetails || {}))
+
+  const newMember = Object.assign({
+    animationClass: 'animate flipInX'
+  }, member, finalScores)
+
+  newMember.points = Math.round(newMember.aggregateScore * 10000) / 10000
+
+  return newMember
+}
+
 class ProblemStatement extends React.Component {
   constructor (props) {
     super(props)
 
     this.polling = null
+    this.finalLeaderboard = null
     this.state = {
       leaderboard: []
     }
     this.setupLeaderboard = this.setupLeaderboard.bind(this)
+    this.displayFinalScores = this.displayFinalScores.bind(this)
   }
 
   static async getInitialProps ({ query }) {
@@ -73,14 +87,82 @@ class ProblemStatement extends React.Component {
 
     prepareLeaderboard(this.props.challengeId, this.props.members, this.props.groupId, this.props.challengeIds, this.props.isF2f)
       .then((leaderboard) => {
-        this.setState({ leaderboard })
-        // Poll after configured second
-        this.polling = setTimeout(this.setupLeaderboard, publicRuntimeConfig.pollTimeInterval)
+        const finalResultsAvailable = leaderboard.every(l => {
+          let hasScore = false
+
+          if (l.finalDetails) {
+            if (l.finalDetails.aggregateScore > -1) {
+              hasScore = true
+            }
+          }
+
+          return hasScore
+        })
+
+        if (!finalResultsAvailable) {
+          this.setState({ leaderboard })
+          // Poll after configured second
+          this.polling = setTimeout(this.setupLeaderboard, publicRuntimeConfig.pollTimeInterval)
+        } else {
+          this.finalLeaderboard = JSON.parse(JSON.stringify(leaderboard))
+
+          leaderboard = leaderboard.map(l => {
+            const member = {
+              handle: l.handle,
+              profilePic: l.profilePic,
+              countryFlag: l.countryFlag,
+              status: 'Processing final scores...',
+              statusAnimationClass: 'animate flash infinite'
+            }
+            return member
+          })
+
+          this.setState({ leaderboard })
+
+          this.polling = setTimeout(this.displayFinalScores, publicRuntimeConfig.processDevRevealDelay)
+        }
       })
       .catch((err) => {
         console.log('Failed to fetch leaderboard. Error details follow')
         console.log(err)
       })
+  }
+
+  displayFinalScores () {
+    const { publicRuntimeConfig } = getConfig()
+    let leaderboard = []
+    let noMoreToReveal = true
+
+    for (let i = this.finalLeaderboard.length - 1; i >= 0; i--) {
+      if (this.finalLeaderboard[i].revealed === true) {
+        leaderboard.push(getMemberFinalScore(this.finalLeaderboard[i]))
+        continue
+      } else {
+        this.finalLeaderboard[i].revealed = true
+        leaderboard.push(getMemberFinalScore(this.finalLeaderboard[i]))
+        break
+      }
+    }
+
+    const leaderboardLength = leaderboard.length
+
+    for (let i = 0; i < this.finalLeaderboard.length - leaderboardLength; i++) {
+      noMoreToReveal = false
+      leaderboard.push({
+        handle: i,
+        status: 'Processing final scores...',
+        statusAnimationClass: 'animate flash infinite',
+        animationClass: 'hidden'
+      })
+    }
+
+    leaderboard.reverse()
+
+    this.setState({ leaderboard })
+
+    if (!noMoreToReveal) {
+      this.polling = setTimeout(this.displayFinalScores, publicRuntimeConfig.leaderboardRevealDelay)
+    }
   }
 
   componentWillUnmount () {
