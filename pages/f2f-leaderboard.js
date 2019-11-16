@@ -109,6 +109,7 @@ class F2FLeaderboard extends React.Component {
       isDev: data.fields.isDevTrack,
       isF2f: data.fields.isF2fTrack,
       isQa: data.fields.isQaTrack,
+      isMM: data.fields.isMmTrack,
       showFinalScore: data.fields.showFinalScore
     }
   }

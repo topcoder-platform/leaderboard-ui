@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const table = (props) => {
-  const { finalists, primaryColor, smallerDesign, largeColumns, track, fullWidth, isMini, isDev, isQa } = props
+  const { finalists, primaryColor, smallerDesign, largeColumns, track, fullWidth, isMini, isDev, isQa, isMM } = props
   const smallClass = smallerDesign || isMini ? ' small ' : ''
   const sizeClass = largeColumns ? ' largerCells ' : ''
   const trackTableClass = (track) => {
@@ -13,7 +13,7 @@ const table = (props) => {
   }
   const algorithmLeaderboard = track === 'algorithm'
   const f2fLeaderboard = fullWidth
-  const isDevOrQa = isDev || isQa
+  const isDevOrQa = isDev || isQa || isMM
   return (
     <div className={'container' + smallClass + sizeClass + `${trackTableClass(track)}`}>
       <div className='header'>
@@ -464,6 +464,10 @@ const table = (props) => {
             width: 125px;
           }
 
+          .f2fTable .tests-passed {
+            width: 250px;
+          }
+
           .row .tests-passed {
             display: flex;
             align-items: center;
@@ -592,6 +596,10 @@ const table = (props) => {
 
           .non-score-lvl-pt {
             margin-left: 28.5px;
+          }
+
+          .animate .non-score-lvl-pt {
+            margin-left: 0;
           }
 
           .small .competitor {
