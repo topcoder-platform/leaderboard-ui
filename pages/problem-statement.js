@@ -99,11 +99,7 @@ class ProblemStatement extends React.Component {
           return hasScore
         })
 
-        if (!finalResultsAvailable) {
-          this.setState({ leaderboard })
-          // Poll after configured second
-          this.polling = setTimeout(this.setupLeaderboard, publicRuntimeConfig.pollTimeInterval)
-        } else {
+        if (finalResultsAvailable && publicRuntimeConfig.revealFinalScore) {
           this.finalLeaderboard = JSON.parse(JSON.stringify(leaderboard))
 
           leaderboard = leaderboard.map(l => {
@@ -120,7 +116,34 @@ class ProblemStatement extends React.Component {
           this.setState({ leaderboard })
 
           this.polling = setTimeout(this.displayFinalScores, publicRuntimeConfig.processDevRevealDelay)
+        } else {
+          this.setState({ leaderboard })
+          // Poll after configured second
+          this.polling = setTimeout(this.setupLeaderboard, publicRuntimeConfig.pollTimeInterval)
         }
+
+        // if (!finalResultsAvailable) {
+        //   this.setState({ leaderboard })
+        //   // Poll after configured second
+        //   this.polling = setTimeout(this.setupLeaderboard, publicRuntimeConfig.pollTimeInterval)
+        // } else {
+        //   this.finalLeaderboard = JSON.parse(JSON.stringify(leaderboard))
+
+        //   leaderboard = leaderboard.map(l => {
+        //     const member = {
+        //       handle: l.handle,
+        //       profilePic: l.profilePic,
+        //       countryFlag: l.countryFlag,
+        //       status: 'Processing final scores...',
+        //       statusAnimationClass: 'animate flash infinite'
+        //     }
+        //     return member
+        //   })
+
+        //   this.setState({ leaderboard })
+
+        //   this.polling = setTimeout(this.displayFinalScores, publicRuntimeConfig.processDevRevealDelay)
+        // }
       })
       .catch((err) => {
         console.log('Failed to fetch leaderboard. Error details follow')
