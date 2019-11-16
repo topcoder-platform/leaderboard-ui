@@ -10,6 +10,7 @@ import { checkForMainSponsor } from '../common/helper'
 
 const rowSize = {
   5: [2, 1, 2],
+  4: [2, 2, 0],
   7: [2, 3, 2],
   8: [3, 2, 3],
   9: [2, 3, 4],
@@ -186,6 +187,10 @@ const cardLayout = (profile, primaryColor, position, length) => {
 const finalistsLayout = (profiles, props) => {
   const { primaryColor, finalists, prizes } = props
   const rows = rowSize[profiles.length]
+
+  console.log(profiles)
+  console.log(rows.length)
+
   const row1 = profiles.slice(0, rows[0])
   const row2 = profiles.slice(rows[0], rows[0] + rows[1])
   const row3 = profiles.slice(rows[0] + rows[1])
