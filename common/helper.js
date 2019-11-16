@@ -132,6 +132,7 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
 
       if (member) {
         member.scoreLevel = l.scoreLevel
+        member.finalDetails = l.finalDetails
 
         if (member.scoreLevel !== 'queued') {
           member.points = Math.round(l.aggregateScore * 10000) / 10000

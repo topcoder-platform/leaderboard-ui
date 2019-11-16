@@ -65,7 +65,7 @@ const table = (props) => {
           </div>
 
           { !algorithmLeaderboard && !f2fLeaderboard && <div style={{ display: 'flex', flexGrow: '1', justifyContent: 'space-between' }}>
-            <div className='competitor'>
+            <div className={`competitor ${profile.animationClass}`}>
               <div className='avatar'>
                 <img src={profile.profilePic} />
               </div>
@@ -73,7 +73,7 @@ const table = (props) => {
               <div className='handle' style={{ color: primaryColor }}>{profile.handle}</div>
             </div>
 
-            <div className='points'>
+            <div className={`points ${profile.animationClass}`}>
               { profile.scoreLevel && <img className={`animate fade${profile.scoreLevel} infinite`} src={`/static/img/trend/${profile.scoreLevel}.png`} /> }
               { profile.points >= -1 && <div className={profile.scoreLevel ? '' : 'non-score-lvl-pt'}>
                 <span className='value'>
@@ -86,7 +86,7 @@ const table = (props) => {
             </div>
 
             {
-              !isQa && profile.totalTestCases > 0 && <div className='tests-passed'>
+              !isQa && profile.totalTestCases > 0 && <div className={`tests-passed ${profile.animationClass}`}>
                 <div>
                   {
                     !isDev &&
@@ -115,7 +115,7 @@ const table = (props) => {
             }
 
             {
-              !profile.hasOwnProperty('points') && <div className='status'>
+              !profile.hasOwnProperty('points') && <div className={`status ${profile.statusAnimationClass}`}>
                 {profile.status}
               </div>
             }
@@ -216,6 +216,7 @@ const table = (props) => {
             display: flex;
             flex-direction: column;
             position: relative;
+            min-width: 705px;
           }
 
           .row {
@@ -534,6 +535,29 @@ const table = (props) => {
             padding-left: 0;
           }
 
+          // The MIT License (MIT)
+
+          // Copyright (c) 2019 Daniel Eden
+
+          // Permission is hereby granted, free of charge, to any person obtaining a copy
+          // of this software and associated documentation files (the "Software"), to deal
+          // in the Software without restriction, including without limitation the rights
+          // to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+          // copies of the Software, and to permit persons to whom the Software is
+          // furnished to do so, subject to the following conditions:
+
+          // The above copyright notice and this permission notice shall be included in all
+          // copies or substantial portions of the Software.
+
+          // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+          // IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+          // FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+          // AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+          // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+          // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+          // SOFTWARE.
+
+          // <---- animate.css BEGIN --->
           @keyframes fadeUp {
             from {
               opacity: 0;
@@ -568,6 +592,45 @@ const table = (props) => {
             }
           }
 
+          @keyframes flipInX {
+            from {
+              transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+              animation-timing-function: ease-in;
+              opacity: 0;
+            }
+
+            40% {
+              transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+              animation-timing-function: ease-in;
+            }
+
+            60% {
+              transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+              opacity: 1;
+            }
+
+            80% {
+              transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+            }
+
+            to {
+              transform: perspective(400px);
+            }
+          }
+
+          @keyframes flash {
+            from,
+            50%,
+            to {
+              opacity: 1;
+            }
+
+            25%,
+            75% {
+              opacity: 0;
+            }
+          }
+
           .animate {
             animation-duration: 3s;
             animation-fill-mode: both;
@@ -589,12 +652,27 @@ const table = (props) => {
             animation-name: fadeIn;
           }
 
+          .flipInX {
+            backface-visibility: visible !important;
+            animation-name: flipInX;
+          }
+
+          .flash {
+            animation-name: flash;
+          }
+
+          .hidden {
+            visibility: hidden;
+          }
+
+          // <---- animate.css END --->
+
           @media only screen and (min-width:1800px){
             .competitor {
               width: 250px;
             }
           }
-          
+
           @media only screen and (min-width:1920px){
             .competitor {
               width: 320px;
