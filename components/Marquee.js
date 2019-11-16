@@ -6,6 +6,8 @@ class NewsMarquee extends Component {
   constructor () {
     super()
 
+    this.animationId = null
+
     this.state = {
       elemWidth: 0,
       translateX: 0,
@@ -34,6 +36,10 @@ class NewsMarquee extends Component {
     }, this.slide.bind(this))
   }
 
+  componentWillUnmount () {
+    window.cancelAnimationFrame(this.animationId)
+  }
+
   slide () {
     const {
       elem, slide, elemWidth, bodyWidth
@@ -53,7 +59,7 @@ class NewsMarquee extends Component {
     }
 
     this.setState({ translateX }, () => {
-      requestAnimationFrame(this.slide.bind(this))
+      this.animationId = requestAnimationFrame(this.slide.bind(this))
     })
   }
 

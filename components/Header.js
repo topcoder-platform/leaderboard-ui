@@ -12,7 +12,11 @@ class Header extends React.Component {
       usedEndDate: false
     }
 
-    setInterval(this.tick.bind(this), 1000)
+    this.timerInterval = setInterval(this.tick.bind(this), 1000)
+  }
+
+  componentWillUnmount () {
+    clearInterval(this.timerInterval)
   }
 
   tick () {
