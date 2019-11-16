@@ -180,6 +180,8 @@ class ProblemStatement extends React.Component {
       })
     }
 
+    console.log(leaderboard)
+
     leaderboard.reverse()
 
     this.setState({ leaderboard })
