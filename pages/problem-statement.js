@@ -115,36 +115,12 @@ class ProblemStatement extends React.Component {
           })
 
           this.setState({ leaderboard })
-
           this.polling = setTimeout(this.displayFinalScores, publicRuntimeConfig.processDevRevealDelay)
         } else {
           this.setState({ leaderboard })
           // Poll after configured second
           this.polling = setTimeout(this.setupLeaderboard, publicRuntimeConfig.pollTimeInterval)
         }
-
-        // if (!finalResultsAvailable) {
-        //   this.setState({ leaderboard })
-        //   // Poll after configured second
-        //   this.polling = setTimeout(this.setupLeaderboard, publicRuntimeConfig.pollTimeInterval)
-        // } else {
-        //   this.finalLeaderboard = JSON.parse(JSON.stringify(leaderboard))
-
-        //   leaderboard = leaderboard.map(l => {
-        //     const member = {
-        //       handle: l.handle,
-        //       profilePic: l.profilePic,
-        //       countryFlag: l.countryFlag,
-        //       status: 'Processing final scores...',
-        //       statusAnimationClass: 'animate flash infinite'
-        //     }
-        //     return member
-        //   })
-
-        //   this.setState({ leaderboard })
-
-        //   this.polling = setTimeout(this.displayFinalScores, publicRuntimeConfig.processDevRevealDelay)
-        // }
       })
       .catch((err) => {
         console.log('Failed to fetch leaderboard. Error details follow')
@@ -168,6 +144,7 @@ class ProblemStatement extends React.Component {
       }
     }
 
+    this.finalLeaderboard.sort((a, b) => (b.finalDetails.aggregateScore - a.finalDetails.aggregateScore))
     const leaderboardLength = leaderboard.length
 
     for (let i = 0; i < this.finalLeaderboard.length - leaderboardLength; i++) {
@@ -180,10 +157,7 @@ class ProblemStatement extends React.Component {
       })
     }
 
-    console.log(leaderboard)
-
     leaderboard.reverse()
-
     this.setState({ leaderboard })
 
     if (!noMoreToReveal) {
