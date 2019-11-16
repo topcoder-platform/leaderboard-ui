@@ -267,8 +267,8 @@ const table = (props) => {
             <React.Fragment>
               { largeColumns && f2fLeaderboard && profile.hasOwnProperty('handle') && <div className='handleName animate fadeIn'>&nbsp;
               </div> }
-              <div className='status'>
-                Awaiting submission
+              <div className='status animate flash infinite' >
+                Processing final scores...
               </div>
             </React.Fragment>
           }

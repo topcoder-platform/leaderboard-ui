@@ -125,11 +125,25 @@ class F2FLeaderboard extends React.Component {
       .then((leaderboard) => {
         if (this.props.isF2f) {
           leaderboard.sort((a, b) => (b.points - a.points))
+
+          console.log(leaderboard)
           
           if (this.props.showFinalScore) {
+            // // First, take a break and build the excitement
+            // leaderboard = leaderboard.map((l, i) => {
+            //   const member = {
+            //     handle: i,
+            //     status: 'Processing final scores...',
+            //     statusAnimationClass: 'animate flash infinite',
+            //     animationClass: 'hidden'
+            //   }
+            //   return member
+            // })
+
             leaderboard.forEach(l => { l.reveal = false })
             this.setState({ leaderboard })
-            this.animateLeaderboard()
+            this.polling = setTimeout(this.animateLeaderboard, publicRuntimeConfig.processDevRevealDelay)
+            // this.animateLeaderboard()
           } else {
             leaderboard.forEach(l => { l.reveal = true })
             this.setState({ leaderboard })
@@ -176,6 +190,8 @@ class F2FLeaderboard extends React.Component {
             })
 
             this.setState({ leaderboard })
+
+            console.log(publicRuntimeConfig)
 
             // Show time !!
             this.polling = setTimeout(this.displayFinalScores, publicRuntimeConfig.processDevRevealDelay)
