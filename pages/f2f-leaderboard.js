@@ -124,6 +124,8 @@ class F2FLeaderboard extends React.Component {
     prepareLeaderboard(this.props.challengeId, this.props.members, this.props.groupId, this.props.challengeIds, this.props.isF2f)
       .then((leaderboard) => {
         if (this.props.isF2f) {
+          leaderboard.sort((a, b) => (b.points - a.points))
+          
           if (this.props.showFinalScore) {
             leaderboard.forEach(l => { l.reveal = false })
             this.setState({ leaderboard })
@@ -139,6 +141,7 @@ class F2FLeaderboard extends React.Component {
           // - have only 2 columns, 1 for points and 1 for tests
           // - have 2 types of scores, provisional and final
 
+          console.log(leaderboard)
           // Check if all members have their final scores ready for animation
           const finalResultsAvailable = leaderboard.every(l => {
             let hasScore = false
