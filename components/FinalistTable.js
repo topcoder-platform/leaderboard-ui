@@ -13,6 +13,7 @@ const table = (props) => {
   }
   const algorithmLeaderboard = track === 'algorithm'
   const f2fLeaderboard = fullWidth
+  const isDevOrQa = isDev || isQa
   return (
     <div className={'container' + smallClass + sizeClass + `${trackTableClass(track)}`}>
       <div className='header'>
@@ -27,29 +28,36 @@ const table = (props) => {
         { largeColumns && algorithmLeaderboard && <div className='algorithmFieldCell'>
           1000
         </div> }
-        { largeColumns && f2fLeaderboard && <div className='f2fPblmCell'>
+        { largeColumns && f2fLeaderboard && !isDevOrQa && <div className='f2fPblmCell'>
           Problem 1
         </div> }
-        { largeColumns && f2fLeaderboard && <div className='f2fTestCell'>
+        { largeColumns && f2fLeaderboard && !isDevOrQa && <div className='f2fTestCell'>
           TESTS PASSED/TOTAL
         </div> }
-        { largeColumns && f2fLeaderboard && <div className='f2fPblmCell'>
+        { largeColumns && f2fLeaderboard && !isDevOrQa && <div className='f2fPblmCell'>
           Problem 2
         </div> }
-        { largeColumns && f2fLeaderboard && <div className='f2fTestCell'>
+        { largeColumns && f2fLeaderboard && !isDevOrQa && <div className='f2fTestCell'>
           TESTS PASSED/TOTAL
         </div> }
-        { largeColumns && f2fLeaderboard && <div className='f2fPblmCell'>
+        { largeColumns && f2fLeaderboard && !isDevOrQa && <div className='f2fPblmCell'>
           Problem 3
         </div> }
-        { largeColumns && f2fLeaderboard && <div className='f2fTestCell'>
+        { largeColumns && f2fLeaderboard && !isDevOrQa && <div className='f2fTestCell'>
           TESTS PASSED/TOTAL
         </div> }
-        {!isMini && <div className='points'>points</div>}
+        {!isMini && !isDevOrQa && <div className='points'>points</div>}
         {
           isMini &&
           <div style={{ display: 'flex', flexGrow: '1', justifyContent: 'space-between' }}>
             <div className='competitor'>competitor</div>
+            <div className='points'>points</div>
+            {!isQa && <div className='tests-passed'>{ isDev ? '% Complete' : 'tests passed'}</div>}
+          </div>
+        }
+        {
+          f2fLeaderboard && isDevOrQa &&
+          <div style={{ display: 'flex', flexGrow: '1', justifyContent: 'space-around' }}>
             <div className='points'>points</div>
             {!isQa && <div className='tests-passed'>{ isDev ? '% Complete' : 'tests passed'}</div>}
           </div>
@@ -126,6 +134,67 @@ const table = (props) => {
             {profile.handle}
           </div> }
 
+          {/* Full width leaderboard, but for dev and qa */}
+          { f2fLeaderboard && isDevOrQa && <React.Fragment>
+            <div className={`competitor ${profile.animationClass}`}>
+              <div className='avatar'>
+                <img src={profile.profilePic} />
+              </div>
+              <img className='country-flag' src={profile.countryFlag} />
+              <div className='handle' style={{ color: primaryColor }}>{profile.handle}</div>
+            </div>
+
+            <div style={{ display: 'flex', flexGrow: 1, justifyContent: 'space-around' }}>
+              <div className={`points ${profile.animationClass}`}>
+                { profile.scoreLevel && <img className={`animate fade${profile.scoreLevel} infinite`} src={`/static/img/trend/${profile.scoreLevel}.png`} /> }
+                { profile.points >= 0 && <div className={profile.scoreLevel ? '' : 'non-score-lvl-pt'}>
+                  <span className='value'>
+                    {profile.points}
+                  </span>
+                  <span className='hint'>
+                    POINTS
+                  </span>
+                </div> }
+              </div>
+
+              {
+                !isQa && profile.totalTestCases > 0 && <div className={`tests-passed ${profile.animationClass}`}>
+                  <div>
+                    {
+                      !isDev &&
+                      <React.Fragment>
+                        <span className='value'>
+                          {`${profile.testsPassed} / ${profile.totalTestCases}`}
+                        </span>
+                        <span className='hint'>
+                          TESTS
+                        </span>
+                      </React.Fragment>
+                    }
+                    {
+                      isDev &&
+                      <React.Fragment>
+                        <span className='value'>
+                          {`${parseFloat(profile.testsPassed / profile.totalTestCases * 100).toFixed(2)}%`}
+                        </span>
+                        <span className='hint'>
+                          COMPLETED
+                        </span>
+                      </React.Fragment>
+                    }
+                  </div>
+                </div>
+              }
+
+              {
+                !profile.hasOwnProperty('points') && <div className={`status ${profile.statusAnimationClass}`}>
+                  {profile.status}
+                </div>
+              }
+            </div>
+          </React.Fragment>
+          }
+
           { largeColumns && algorithmLeaderboard && profile.hasOwnProperty('roundOne') && <div className={'algorithmFieldCell ' + (profile.roundOne === 'fail' ? 'fail' : '')}>
             {profile.roundOne}
           </div> }
@@ -145,7 +214,7 @@ const table = (props) => {
           {
             profile.reveal === true && <React.Fragment>
               { largeColumns && f2fLeaderboard && profile.hasOwnProperty('handle') &&
-              <div className='competitor'>
+              <div className={`competitor ${profile.animationClass}`}>
                 <div className='avatar'>
                   <img src={profile.profilePic} />
                 </div>
@@ -154,7 +223,7 @@ const table = (props) => {
               </div>
               }
               { largeColumns && f2fLeaderboard && profile.hasOwnProperty('reviews') && profile.reviews.map((review, i) => (
-                <div key={review.challengeId} className='f2fScoreTests animate fadeIn'>
+                <div key={`${profile.handle}-${review.challengeId}`} className={`f2fScoreTests ${profile.animationClass}`}>
                   {
                     !review.status && <React.Fragment>
                       <div className='f2fFieldCell'>{review.score}</div>
@@ -183,7 +252,7 @@ const table = (props) => {
                 </div>
               )) }
 
-              { largeColumns && f2fLeaderboard && profile.hasOwnProperty('points') && <div className='f2fPoints f2fFieldCell animate fadeIn'>
+              { largeColumns && f2fLeaderboard && profile.hasOwnProperty('points') && <div className='f2fPoints f2fFieldCell animate flipInX'>
                 {profile.points}
               </div> }
 
@@ -194,7 +263,7 @@ const table = (props) => {
             </React.Fragment>
           }
           {
-            !profile.reveal && f2fLeaderboard &&
+            !profile.reveal && f2fLeaderboard && !isDevOrQa &&
             <React.Fragment>
               { largeColumns && f2fLeaderboard && profile.hasOwnProperty('handle') && <div className='handleName animate fadeIn'>&nbsp;
               </div> }
@@ -465,11 +534,6 @@ const table = (props) => {
 
           .algorithmTable .row .algorithmFieldCell.fail {
             color: #F21919;
-          }
-
-          .algorithmTable .points,
-          .f2fTable .points {
-            text-align: left;
           }
 
           .algorithmTable .rank,

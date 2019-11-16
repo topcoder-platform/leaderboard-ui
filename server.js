@@ -117,11 +117,9 @@ app.prepare()
 
       const contentfulEntryId = req.params.entryId
 
-      const animate = req.query.animate
-
       const actualPage = `/${req.params.pageName}`
 
-      const queryParams = { contentfulEntryId, animate }
+      const queryParams = { contentfulEntryId }
 
       app.render(req, res, actualPage, queryParams)
     })

@@ -84,6 +84,7 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
                 score = Math.round(review.aggregateScore * 10000) / 10000
               }
               member.reviews.push({
+                challengeId: review.challengeId,
                 score,
                 testsPassed: review.testsPassed,
                 totalTestCases: review.totalTestCases
@@ -92,13 +93,13 @@ async function prepareLeaderboard (challengeId, finalists, groupId, groupChallen
               aggregateScore = aggregateScore + (review.aggregateScore * multiplier[i])
             } else {
               // If a review is in queue, do not show any points or tests. Show the status
-              member.reviews.push({ status: 'review queued' })
+              member.reviews.push({ challengeId: review.challengeId, status: 'review queued' })
               // If a review is in queue, then the aggregate points will not be known
               member.points = '...'
             }
           } else {
             // Member does not have a review for that challenge
-            member.reviews.push({})
+            member.reviews.push({ challengeId: groupChallengeIds[i] })
           }
         }
 
