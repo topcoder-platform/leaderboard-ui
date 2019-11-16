@@ -74,7 +74,8 @@ class ProblemStatement extends React.Component {
       problemDescription: data.fields.problemStatementDescription,
       isDev: data.fields.isDevTrack,
       isF2f: data.fields.isF2fTrack,
-      isQa: data.fields.isQaTrack
+      isQa: data.fields.isQaTrack,
+      showFinalScore: data.fields.showFinalScore
     }
   }
 
@@ -85,7 +86,7 @@ class ProblemStatement extends React.Component {
   setupLeaderboard () {
     const { publicRuntimeConfig } = getConfig()
 
-    prepareLeaderboard(this.props.challengeId, this.props.members, this.props.groupId, this.props.challengeIds, this.props.isF2f)
+    prepareLeaderboard(this.props.challengeId, this.props.members, this.props.groupId, this.props.challengeIds, this.props.isF2f, this.props.showFinalScore)
       .then((leaderboard) => {
         const finalResultsAvailable = leaderboard.every(l => {
           let hasScore = false
@@ -99,7 +100,7 @@ class ProblemStatement extends React.Component {
           return hasScore
         })
 
-        if (finalResultsAvailable && publicRuntimeConfig.revealFinalScore) {
+        if (finalResultsAvailable && this.props.showFinalScore) {
           this.finalLeaderboard = JSON.parse(JSON.stringify(leaderboard))
 
           leaderboard = leaderboard.map(l => {
