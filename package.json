@@ -21,7 +21,7 @@
     "express-session": "^1.17.0",
     "isomorphic-unfetch": "^3.0.0",
     "lodash": "^4.17.15",
-    "next": "^7.0.2",
+    "next": "^9.3.2",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
