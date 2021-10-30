@@ -23,8 +23,8 @@
     "lodash": "^4.17.15",
     "next": "^7.0.2",
     "prop-types": "^15.6.2",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
+    "react": "^16.14.0",
+    "react-dom": "^16.14.0",
     "showdown": "^1.9.0",
     "superagent": "^3.8.3",
     "topcoder-healthcheck-dropin": "^1.0.3"
