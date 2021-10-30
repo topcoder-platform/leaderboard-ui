@@ -13,7 +13,7 @@
   "private": true,
   "dependencies": {
     "body-parser": "^1.19.0",
-    "contentful": "^7.0.5",
+    "contentful": "^7.15.2",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
