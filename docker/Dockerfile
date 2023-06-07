@@ -15,4 +15,4 @@ RUN npm run build
 #RUN rm -rf .next
 #RUN npm run test
 
-CMD npm start
+CMD node server.js
