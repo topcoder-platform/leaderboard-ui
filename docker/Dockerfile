@@ -8,11 +8,9 @@ COPY . /leaderboard-ui
 WORKDIR /leaderboard-ui
 
 # Install the dependencies from package.json
-ENV NODE_OPTIONS=--openssl-legacy-provider
 RUN npm install
 RUN npm run lint
 RUN npm run build
-#RUN rm -rf .next
 #RUN npm run test
 
-CMD node server.js
+CMD npm start
