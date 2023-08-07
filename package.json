@@ -25,7 +25,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
-    "showdown": "^1.9.0",
+    "showdown": "^1.9.1",
     "superagent": "^3.8.3",
     "topcoder-healthcheck-dropin": "^1.0.3"
   },
