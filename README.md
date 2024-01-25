@@ -1,3 +1,5 @@
+DEPRECATED 1/25/2024 https://topcoder.atlassian.net/browse/CORE-257
+
 # Leaderboards User Interface
 
 UI for Topcoder Event Leaderboards
